@@ -8,7 +8,7 @@
                "external_id":"f83464e4-0de8-11e7-991c-3863bb43a7d0",
                "station_id":"3",
                "capacity":15,
-               "lon":-89.10061883926392,
+               "lon": 89.10061883926392,
                "region_id":"10",
                "eightd_has_key_dispenser":true,
                "electric_bike_surcharge_waiver":false,
