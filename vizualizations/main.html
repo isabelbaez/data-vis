@@ -19,21 +19,68 @@
         }
     </style>
     <script>
-    function b1() {
-        var iframe=document.getElementById("iFrame");
-        iframe.src = "1-GT.html";
+    
+    // salvBttn = document.getElementById("GT");
+    // element.addEventListener("click", b1);
+
+
+    function b1(id) {
+        const iframes =document.getElementsByClassName("iFrame");
+        // console.log('here');
+        // iframe.src = "1-GT.html";
+        // console.log(iframe);
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame1") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
     }
     function b2() {
-        var iframe=document.getElementById("iFrame");
-        iframe.src = "1-HND.html";
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-HND.html";
+        // console.log(iframe);
+        const iframes =document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame2") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
     }
     function b3() {
-        var iframe=document.getElementById("iFrame");
-        iframe.src = "1-SLV.html";
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-SLV.html";
+        // console.log(iframe);
+
+        const iframes =document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame3") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
     }
     function b4() {
-        var iframe=document.getElementById("iFrame");
-        iframe.src = "1-all-three.html";
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-all-three.html";
+        // console.log(iframe);
+
+        const iframes =document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame4") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
     }
      </script>
 </head>
@@ -54,7 +101,10 @@
         <input type="radio" id="SLV" name="SLV" value="SLV" onchange="displaySelectedCountryIframe()">
         <label for="SLV">SLV</label>
     </div> -->
-    <iframe id="iFrame" src="1-all-three.html"></iframe>
+    <iframe class="iFrame" id="iFrame1" src="1-GT.html" style="display:none"></iframe>
+    <iframe class="iFrame" id="iFrame2" src="1-HND.html" style="display:none">></iframe>
+    <iframe class="iFrame" id="iFrame3" src="1-SLV.html" style="display:none"> ></iframe>
+    <iframe class="iFrame" id="iFrame4" src="1-all-three.html"></iframe>
     <!-- <iframe id="GT" src="1-GT.html"></iframe>
     <iframe id="HND" src="1-HND.html"></iframe>
     <iframe id="SLV" src="1-SLV.html"></iframe> -->

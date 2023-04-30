@@ -345,7 +345,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			main = element("main");
-    			add_location(main, file, 61, 0, 1363);
+    			add_location(main, file, 192, 0, 5237);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -375,6 +375,35 @@ var app = (function () {
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
+
+    	function create_station_markers(station_data) {
+    		station_markers = marker_container.selectAll("circle").data(station_data).enter().append("circle").attr("r", 20).style("fill", "#808080").attr("stroke", "#808080").attr("stroke-width", 1).attr("fill-opacity", 0.4).attr("name", function (d) {
+    			return d["name"];
+    		});
+
+    		position_station_markers();
+    	}
+
+    	function create_curve(station_data) {
+    		var curve_path = "M20,70 T80,100 T160,80 T200,90";
+
+    		curve = marker_container.selectAll("path").data(station_data).enter().append("path").attr("d", curve_path).attr("fill", "none").attr("stroke", "red").attr("stroke-width", 2).attr("marker-start", "url(#triangle)").attr("marker-mid", "url(#triangle)").attr("marker-end", "url(#triangle)").attr("name", function (d) {
+    			return d["name"];
+    		});
+    	} //position_station_markers();
+
+    	function position_station_markers() {
+    		station_markers.attr("cx", function (d) {
+    			return project(d).x;
+    		}).attr("cy", function (d) {
+    			return project(d).y;
+    		});
+    	}
+
+    	function project(d) {
+    		return map.project(new mapboxgl.LngLat(+d.lon, +d.lat));
+    	}
+
     	mapboxgl.accessToken = "pk.eyJ1IjoiaXNhYmVsYmFleiIsImEiOiJjbGdjajA0OW4wMDd5M2VwamJlenI1eHl1In0.5iu1gJj4fI7cATQyKv2-Eg";
 
     	const map = new mapboxgl.Map({
@@ -386,31 +415,84 @@ var app = (function () {
     			maxZoom: 6
     		});
 
-    	function create_arrows(arrow_data) {
-    		arrow_data = marker_container.selectAll("circle").data(arrow_data).enter().append("circle").attr("r", 5).style("fill", "#808080").attr("stroke", "#808080").attr("stroke-width", 1).attr("fill-opacity", 0.4).attr("name", function (d) {
-    			return d["name"];
-    		});
+    	// const map = new mapboxgl.Map({
+    	// 	container: "map",
+    	// 	style: "mapbox://styles/mapbox/light-v11", 
+    	// 	center: [-71.0942, 42.3601], 
+    	// 	zoom: 13, // starting zoom level
+    	// 	minZoom: 12,
+    	// 	maxZoom: 15,
+    	// });
+    	map.on("viewreset", position_station_markers);
 
-    		position_arrow_markers();
-    	}
-
-    	function position_arrow_markers() {
-    		arrow_markers.attr("cx", function (d) {
-    			return project(d).x;
-    		}).attr("cy", function (d) {
-    			return project(d).y;
-    		});
-    	}
-
-    	function project(d) {
-    		return map.project(new mapboxgl.LngLat(+d.lon, +d.lat));
-    	}
-
-    	let arrowsFile = "../src/data.json";
-    	let arrow_data = [];
+    	map.on("move", position_station_markers);
+    	map.on("moveend", position_station_markers);
+    	map.on("viewreset", position_line);
+    	map.on("move", position_line);
+    	map.on("moveend", position_line);
+    	let stationsFile = "https://raw.githubusercontent.com/isabelbaez/data-vis/main/src/data.json";
+    	let station_data = [];
     	let station_markers;
-    	fetch(arrowsFile).then(response => response.json()).then(d => arrow_data = d.data.arrows);
+    	let curve;
+
+    	function lines() {
+    		var curve_path = "M20,70 T80,100 T160,80 T200,90";
+    		marker_container.append("path").attr("d", curve_path).attr("fill", "none").attr("stroke", "blue").attr("stroke-width", 2).attr("marker-start", "url(#triangle)").attr("marker-mid", "url(#triangle)").attr("marker-end", "url(#triangle)");
+    	}
+
     	const marker_container = d3.select(map.getCanvasContainer()).append("svg").attr("width", "100%").attr("height", "100%").style("position", "absolute").style("z-index", 2);
+    	fetch(stationsFile).then(response => response.json()).then(d => station_data = d.data.stations).then(d => create_station_markers(d)).then(d => lines());
+
+    	var migration_path = [
+    		[-89.2090, 13.6929],
+    		[-90.5349, 14.6349],
+    		[-92.6443, 16.7370],
+    		[-96.7203, 17.0732],
+    		[-99.1332, 19.4326],
+    		//   [-100.3161, 25.6866], // Monterrey, Mexico
+    		[-104.6663, 24.0277],
+    		[-106.4847, 31.7392],
+    		[-106.4425, 31.7776],
+    		[-106.7538, 32.3199]
+    	]; // San Salvador, El Salvador
+    	// Guatemala City, Guatemala
+    	// San Cristóbal de las Casas, Chiapas, Mexico
+    	// Oaxaca de Juárez, Mexico
+    	// Mexico City, Mexico
+    	// Durango, Mexico
+    	// Ciudad Juárez, Mexico
+    	// El Paso, Texas
+    	// Las Cruces, New Mexico
+
+    	var migration_path2 = [
+    		[-89.2090, 13.6929],
+    		[-90.5349, 14.6349],
+    		[-92.6443, 16.7370],
+    		[-96.7203, 17.0732],
+    		[-99.1332, 19.4326],
+    		//   [-100.3161, 25.6866], // Monterrey, Mexico
+    		[-89.2090, 13.6929]
+    	]; // San Salvador, El Salvador
+    	// Guatemala City, Guatemala
+    	// San Cristóbal de las Casas, Chiapas, Mexico
+    	// Oaxaca de Juárez, Mexico
+    	// Mexico City, Mexico
+    	// San Salvador, El Salvador
+
+    	// create a D3 line generator
+    	var line = d3.line().curve(d3.curveCatmullRom.alpha(0.5)).x(function (d) {
+    		return map.project([d[0], d[1]]).x; // set the curve type
+    	}).y(function (d) {
+    		return map.project([d[0], d[1]]).y; // convert longitude to x position
+    	}); // convert latitude to y position
+
+    	// add the path element to the map
+    	var path = marker_container.attr('class', 'curved-path').append('path').datum(migration_path).attr('d', line).style('fill', 'none').style('stroke', '#000').style('stroke-width', 4); // set the path coordinates using the line generator
+
+    	function position_line() {
+    		path.attr('d', line);
+    	}
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -418,20 +500,33 @@ var app = (function () {
     	});
 
     	$$self.$capture_state = () => ({
-    		map,
-    		create_arrows,
-    		position_arrow_markers,
+    		create_station_markers,
+    		create_curve,
+    		position_station_markers,
     		project,
-    		arrowsFile,
-    		arrow_data,
+    		map,
+    		stationsFile,
+    		station_data,
     		station_markers,
-    		marker_container
+    		curve,
+    		lines,
+    		marker_container,
+    		migration_path,
+    		migration_path2,
+    		line,
+    		path,
+    		position_line
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('arrowsFile' in $$props) arrowsFile = $$props.arrowsFile;
-    		if ('arrow_data' in $$props) arrow_data = $$props.arrow_data;
+    		if ('stationsFile' in $$props) stationsFile = $$props.stationsFile;
+    		if ('station_data' in $$props) station_data = $$props.station_data;
     		if ('station_markers' in $$props) station_markers = $$props.station_markers;
+    		if ('curve' in $$props) curve = $$props.curve;
+    		if ('migration_path' in $$props) migration_path = $$props.migration_path;
+    		if ('migration_path2' in $$props) migration_path2 = $$props.migration_path2;
+    		if ('line' in $$props) line = $$props.line;
+    		if ('path' in $$props) path = $$props.path;
     	};
 
     	if ($$props && "$$inject" in $$props) {
