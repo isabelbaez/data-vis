@@ -146,11 +146,11 @@
         const nxtBtn = document.getElementById("nxtBtn");
         const prevBtn = document.getElementById("prevBtn");
 
-        const frame = document.getElementById("iFrame1");
+        const map = document.getElementById("map");
         const nxtFrame = document.getElementById("iFrame2");
 
         console.log(nxtFrame);
-        frame.style.display="none";
+        map.style.display="none";
         nxtFrame.style.display="block";
 
         nxtBtn.style.display="none";
@@ -162,10 +162,10 @@
         const prevBtn = document.getElementById("prevBtn");
 
         const frame = document.getElementById("iFrame2");
-        const nxtFrame = document.getElementById("iFrame1");
+        const map = document.getElementById("map");
 
         frame.style.display = "none";
-        nxtFrame.style.display="block";
+        map.style.display="block";
 
         nxtBtn.style.display="block";
         prevBtn.style.display="none";
@@ -180,7 +180,7 @@
 
     <main>
         <section id="back">
-            <a href="second.html"> <-- Back </a>
+            <a href="./public/second.html"> <-- Back </a>
          </section> 
 
         <section id="content">
@@ -194,10 +194,10 @@
                     <div id="aca">
 						<!-- <div id = "map" ></div> -->
 					</div>
-					<div id = "map" ></div>
+					<div id="map" ></div>
                     <button class="nxtBtn" id="nxtBtn" onclick="next()">Next</button>
                     <button class="prevBtn" id="prevBtn" onclick="before()" style="display:none">Previous</button>
-                    <iframe class="iFrame" id="iFrame2" src="attempts_charts.html" style="display:none"></iframe>
+                    <iframe class="iFrame" id="iFrame2" src="./public/attempts_charts.html" style="display:none"></iframe>
                 </div>
             </article>
         </section>
