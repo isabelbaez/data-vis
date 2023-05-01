@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migrants VS Non-migrants</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        iframe {
+            display: "block";
+            width: 1200px; /* Adjust this value to change the iframe width */
+            height: 600px; /* Adjust this value to change the iframe height */
+            border: none;
+            margin-bottom: 50px; /* Add some space between iframes */
+        }
+    </style>
+    <script>
+    
+    // salvBttn = document.getElementById("GT");
+    // element.addEventListener("click", b1);
+
+
+    function b5() {
+        const iframes = document.getElementsByClassName("iFrame");
+        // console.log('here');
+        // iframe.src = "1-GT.html";
+        // console.log(iframe);
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame5" || frame.id === "iFrame6") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
+    }
+    function b6() {
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-HND.html";
+        // console.log(iframe);
+        const iframes = document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame7" || frame.id === "iFrame8") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
+    }
+    function b7() {
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-SLV.html";
+        // console.log(iframe);
+
+        const iframes =document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame9" || frame.id === "iFrame10") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
+    }
+    function b8() {
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-all-three.html";
+        // console.log(iframe);
+
+        const iframes =document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame11" || frame.id === "iFrame12") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
+    }
+     </script>
+</head>
+<body>
+    
+    <button id="GTHist" onClick="b5()">Guatemala</button>
+    <button id="HNDHist" onClick="b6()">Honduras</button>
+    <button id="SLVHist" onClick="b7()">El Salvador</button>
+    <button id="All-Three-Hist" onClick="b8()">All Three Countries</button>
+
+    <iframe class="iFrame" id="iFrame5" src="histograms_categorical_GT.html" style="display:none"></iframe>
+    <iframe class="iFrame" id="iFrame6" src="histograms_numerical_GT.html" style="display:none"></iframe>
+    <iframe class="iFrame" id="iFrame7" src="histograms_categorical_HND.html" style="display:none"></iframe>
+    <iframe class="iFrame" id="iFrame8" src="histograms_numerical_HND.html" style="display:none"></iframe>
+    <iframe class="iFrame" id="iFrame9" src="histograms_categorical_SLV.html" style="display:none"></iframe>
+    <iframe class="iFrame" id="iFrame10" src="histograms_numerical_SLV.html" style="display:none"></iframe>
+    <iframe class="iFrame" id="iFrame11" src="histograms_categorical_all.html"></iframe>
+    <iframe class="iFrame" id="iFrame12" src="histograms_numerical_all.html"></iframe>
+
+</body>
+</html>
+
+

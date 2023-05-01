@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Iframes</title>
+    <style>
+        
+        body,html {
+            margin:0;
+            padding:0;
+        }
+
+        body {
+            /* display: flex;
+            flex-direction: column;
+            align-items: center; */
+            background-color: #FFF4E2;
+            background-size: cover;
+            position: relative;
+            height:  100vh;
+            padding-top: 10%;
+        }
+
+        iframe {
+            display: "block";
+            width: 60vw; /* Adjust this value to change the iframe width */
+            height: 500px; /* Adjust this value to change the iframe height */
+            border: none;
+            margin-bottom: 20px; /* Add some space between iframes */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #content {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        header {
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            background-color: #07393C;
+            height:  10%;
+            width: 100%;
+            
+        }
+
+        #forward {
+            position: absolute;
+            bottom: 0;
+            background-color: #FFF5E5;
+            height:  10%;
+            width: 100%;
+        }
+
+        #forwardBtn {
+            margin-left: 48%;
+        }
+
+        a {
+            margin: 1rem 1rem 0 0;
+            background-color: rgb(202, 202, 202);
+            border-radius: 5px;
+            color: rgb(66, 66, 66) !important;
+            display: inline-block;
+            padding: 0.1rem 1rem;
+            text-decoration: none;
+            transition: 0.4s;
+        }
+
+        section {
+            padding-left: 5vw;
+        }
+
+        /* .compactNavBtn {
+            cursor: pointer;
+            height: fit-content;
+            font-size: 5vw;
+        } */
+
+        a:hover {
+            color: white !important;
+            background-color: rgb(66, 66, 66);
+            box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .question {
+            font-size: 5vw;
+        }
+    </style>
+    <script>
+    
+    // salvBttn = document.getElementById("GT");
+    // element.addEventListener("click", b1);
+
+
+    function b1(id) {
+        const iframes =document.getElementsByClassName("iFrame");
+        // console.log('here');
+        // iframe.src = "1-GT.html";
+        // console.log(iframe);
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame1") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
+    }
+    function b2() {
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-HND.html";
+        // console.log(iframe);
+        const iframes =document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame2") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
+    }
+    function b3() {
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-SLV.html";
+        // console.log(iframe);
+
+        const iframes =document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame3") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
+    }
+    function b4() {
+        // const iframe=document.getElementById("iFrame");
+        // iframe.src = "1-all-three.html";
+        // console.log(iframe);
+
+        const iframes =document.getElementsByClassName("iFrame");
+
+        for (const frame of iframes) {
+            if (frame.id === "iFrame4") {
+                frame.style.display="block";
+            } else {
+                frame.style.display="none";
+            }
+        }
+    }
+     </script>
+</head>
+<body>
+
+    <header>
+        bet
+    </header>
+
+    <main>
+        <section id="back">
+            <a href="landing.html"> <-- Back </a>
+         </section> 
+
+        <section id="content">
+            
+            <article>
+                <p class="question"> What income thresholds enable and dissuade migration? </p>
+            </article>
+
+            <article>
+                <button id="GT" onClick="b1()">Guatemala</button>
+                <button id="HND" onClick="b2()">Honduras</button>
+                <button id="SLV" onClick="b3()">El Salvador</button>
+                <button id="All-Three" onClick="b4()">All Three Countries</button>
+                <!-- <div>
+                    <input type="radio" id="GT" name="GT" value="GT" onchange="displaySelectedCountryIframe()">
+                    <label for="GT">GT</label>
+                </div>
+                <div>
+                    <input type="radio" id="HND" name="HND" value="HND" onchange="displaySelectedCountryIframe()">
+                    <label for="HND">HND</label>
+                </div>
+                <div>
+                    <input type="radio" id="SLV" name="SLV" value="SLV" onchange="displaySelectedCountryIframe()">
+                    <label for="SLV">SLV</label>
+                </div> -->
+                <iframe class="iFrame" id="iFrame1" src="1-GT.html" style="display:none"></iframe>
+                <iframe class="iFrame" id="iFrame2" src="1-HND.html" style="display:none">></iframe>
+                <iframe class="iFrame" id="iFrame3" src="1-SLV.html" style="display:none"> ></iframe>
+                <iframe class="iFrame" id="iFrame4" src="1-all-three.html"></iframe>
+                <!-- <iframe id="GT" src="1-GT.html"></iframe>
+                <iframe id="HND" src="1-HND.html"></iframe>
+                <iframe id="SLV" src="1-SLV.html"></iframe> -->
+                <!-- Add more iframes as needed, referencing your other HTML files -->
+
+            </article>
+        </section>
+
+        <a href="second.html"> ---> </a>
+    </main>
+
+</body>
+</html>
+
+
