@@ -345,7 +345,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			main = element("main");
-    			add_location(main, file, 192, 0, 5237);
+    			add_location(main, file, 233, 0, 6854);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -465,19 +465,44 @@ var app = (function () {
     	// Las Cruces, New Mexico
 
     	var migration_path2 = [
-    		[-89.2090, 13.6929],
-    		[-90.5349, 14.6349],
-    		[-92.6443, 16.7370],
+    		[-87.2068, 14.0818],
+    		[-88.0256, 15.5047],
+    		[-89.0336, 15.4752],
+    		[-91.1353, 16.9299],
+    		[-92.9293, 16.7451],
+    		[-94.9689, 16.6915],
+    		[-98.7624, 20.1011],
+    		[-101.8381, 21.1231],
+    		[-98.1077, 29.5410],
+    		[-98.4936, 29.4241]
+    	]; // Tegucigalpa, Honduras
+    	// San Pedro Sula, Honduras
+    	// Flores, Guatemala
+    	// Palenque, Mexico
+    	// San Cristobal de las Casas, Mexico
+    	// Tapachula, Mexico
+    	// Pachuca de Soto, Hidalgo, Mexico
+    	// León, Guanajuato, Mexico
+    	// Laredo, Texas, USA
+    	// San Antonio, Texas, USA
+
+    	var migration_path3 = [
+    		[-90.5069, 14.6349],
+    		[-92.1219, 14.8972],
+    		[-93.9058, 16.2387],
     		[-96.7203, 17.0732],
     		[-99.1332, 19.4326],
-    		//   [-100.3161, 25.6866], // Monterrey, Mexico
-    		[-89.2090, 13.6929]
-    	]; // San Salvador, El Salvador
-    	// Guatemala City, Guatemala
-    	// San Cristóbal de las Casas, Chiapas, Mexico
+    		[-100.3161, 25.6866],
+    		[-99.5075, 27.5064],
+    		[-95.3698, 29.7604]
+    	]; // Guatemala City, Guatemala
+    	// Tapachula, Mexico
+    	// Arriaga, Mexico
     	// Oaxaca de Juárez, Mexico
     	// Mexico City, Mexico
-    	// San Salvador, El Salvador
+    	// Monterrey, Mexico
+    	// Laredo, Texas, USA
+    	// Houston, Texas, USA
 
     	// create a D3 line generator
     	var line = d3.line().curve(d3.curveCatmullRom.alpha(0.5)).x(function (d) {
@@ -486,11 +511,28 @@ var app = (function () {
     		return map.project([d[0], d[1]]).y; // convert longitude to x position
     	}); // convert latitude to y position
 
+    	var line2 = d3.line().curve(d3.curveCatmullRom.alpha(0.5)).x(function (d) {
+    		return map.project([d[0], d[1]]).x; // set the curve type
+    	}).y(function (d) {
+    		return map.project([d[0], d[1]]).y; // convert longitude to x position
+    	}); // convert latitude to y position
+
+    	var line3 = d3.line().curve(d3.curveCatmullRom.alpha(0.5)).x(function (d) {
+    		return map.project([d[0], d[1]]).x; // set the curve type
+    	}).y(function (d) {
+    		return map.project([d[0], d[1]]).y; // convert longitude to x position
+    	}); // convert latitude to y position
+
     	// add the path element to the map
     	var path = marker_container.attr('class', 'curved-path').append('path').datum(migration_path).attr('d', line).style('fill', 'none').style('stroke', '#000').style('stroke-width', 4); // set the path coordinates using the line generator
 
+    	var path2 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path2).attr('d', line2).style('fill', 'none').style('stroke', 'red').style('stroke-width', 4); // set the path coordinates using the line generator
+    	var path3 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path3).attr('d', line3).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 4); // set the path coordinates using the line generator
+
     	function position_line() {
     		path.attr('d', line);
+    		path2.attr('d', line2);
+    		path3.attr('d', line3);
     	}
 
     	const writable_props = [];
@@ -513,8 +555,13 @@ var app = (function () {
     		marker_container,
     		migration_path,
     		migration_path2,
+    		migration_path3,
     		line,
+    		line2,
+    		line3,
     		path,
+    		path2,
+    		path3,
     		position_line
     	});
 
@@ -525,8 +572,13 @@ var app = (function () {
     		if ('curve' in $$props) curve = $$props.curve;
     		if ('migration_path' in $$props) migration_path = $$props.migration_path;
     		if ('migration_path2' in $$props) migration_path2 = $$props.migration_path2;
+    		if ('migration_path3' in $$props) migration_path3 = $$props.migration_path3;
     		if ('line' in $$props) line = $$props.line;
+    		if ('line2' in $$props) line2 = $$props.line2;
+    		if ('line3' in $$props) line3 = $$props.line3;
     		if ('path' in $$props) path = $$props.path;
+    		if ('path2' in $$props) path2 = $$props.path2;
+    		if ('path3' in $$props) path3 = $$props.path3;
     	};
 
     	if ($$props && "$$inject" in $$props) {

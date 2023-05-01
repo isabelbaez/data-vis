@@ -143,7 +143,7 @@
 		.then((d) => lines());
 
 
-		var migration_path = [  [-89.2090, 13.6929], // San Salvador, El Salvador
+var migration_path = [  [-89.2090, 13.6929], // San Salvador, El Salvador
   [-90.5349, 14.6349], // Guatemala City, Guatemala
   [-92.6443, 16.7370], // San Cristóbal de las Casas, Chiapas, Mexico
   [-96.7203, 17.0732], // Oaxaca de Juárez, Mexico
@@ -155,20 +155,41 @@
   [-106.7538, 32.3199], // Las Cruces, New Mexico
 ];
 
-var migration_path2 = [  [-89.2090, 13.6929], // San Salvador, El Salvador
-  [-90.5349, 14.6349], // Guatemala City, Guatemala
-  [-92.6443, 16.7370], // San Cristóbal de las Casas, Chiapas, Mexico
-  [-96.7203, 17.0732], // Oaxaca de Juárez, Mexico
-  [-99.1332, 19.4326], // Mexico City, Mexico
-//   [-100.3161, 25.6866], // Monterrey, Mexico
-
-  [-89.2090, 13.6929], // San Salvador, El Salvador
+var migration_path2 = [  [-87.2068, 14.0818], // Tegucigalpa, Honduras
+  [-88.0256, 15.5047], // San Pedro Sula, Honduras
+  [-89.0336, 15.4752], // Flores, Guatemala
+  [-91.1353, 16.9299], // Palenque, Mexico
+  [-92.9293, 16.7451], // San Cristobal de las Casas, Mexico
+  [-94.9689, 16.6915], // Tapachula, Mexico
+  [-98.7624, 20.1011], // Pachuca de Soto, Hidalgo, Mexico
+  [-101.8381, 21.1231], // León, Guanajuato, Mexico
+  [-98.1077, 29.5410], // Laredo, Texas, USA
+  [-98.4936, 29.4241], // San Antonio, Texas, USA
 ];
 
+var migration_path3 = [  [-90.5069, 14.6349], // Guatemala City, Guatemala
+  [-92.1219, 14.8972], // Tapachula, Mexico
+  [-93.9058, 16.2387], // Arriaga, Mexico
+  [-96.7203, 17.0732], // Oaxaca de Juárez, Mexico
+  [-99.1332, 19.4326], // Mexico City, Mexico
+  [-100.3161, 25.6866], // Monterrey, Mexico
+  [-99.5075, 27.5064], // Laredo, Texas, USA
+  [-95.3698, 29.7604], // Houston, Texas, USA
+];
 
 
 	// create a D3 line generator
 	var line = d3.line()
+	.curve(d3.curveCatmullRom.alpha(0.5)) // set the curve type
+	.x(function(d) { return map.project([d[0], d[1]]).x; }) // convert longitude to x position
+	.y(function(d) { return map.project([d[0], d[1]]).y; }); // convert latitude to y position
+
+	var line2 = d3.line()
+	.curve(d3.curveCatmullRom.alpha(0.5)) // set the curve type
+	.x(function(d) { return map.project([d[0], d[1]]).x; }) // convert longitude to x position
+	.y(function(d) { return map.project([d[0], d[1]]).y; }); // convert latitude to y position
+
+	var line3 = d3.line()
 	.curve(d3.curveCatmullRom.alpha(0.5)) // set the curve type
 	.x(function(d) { return map.project([d[0], d[1]]).x; }) // convert longitude to x position
 	.y(function(d) { return map.project([d[0], d[1]]).y; }); // convert latitude to y position
@@ -183,8 +204,28 @@ var migration_path2 = [  [-89.2090, 13.6929], // San Salvador, El Salvador
 	.style('stroke', '#000')
 	.style('stroke-width', 4);
 
+	var path2 = marker_container
+	.attr('class', 'curved-path')
+	.append('path')
+	.datum(migration_path2)
+	.attr('d', line2) // set the path coordinates using the line generator
+	.style('fill', 'none')
+	.style('stroke', 'red')
+	.style('stroke-width', 4);
+
+	var path3 = marker_container
+	.attr('class', 'curved-path')
+	.append('path')
+	.datum(migration_path3)
+	.attr('d', line3) // set the path coordinates using the line generator
+	.style('fill', 'none')
+	.style('stroke', 'blue')
+	.style('stroke-width', 4);
+
 	function position_line() {
 		path.attr('d', line);
+		path2.attr('d', line2);
+		path3.attr('d', line3);
 	}
 
 
