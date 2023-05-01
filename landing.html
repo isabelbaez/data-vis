@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Iframes</title>
+    <style>
+
+        body,html {
+            margin:0;
+            padding:0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #2C666E;
+            background-size: cover;
+            position: relative;
+            height:  100vh;
+
+        }
+        header {
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            background-color: #07393C;
+            height:  10%;
+            width: 100%;
+            
+        }
+
+        #forward {
+            position: absolute;
+            bottom: 0;
+            background-color: #FFF5E5;
+            height:  10%;
+            width: 100%;           
+            transition: height 2s;
+            
+        }
+
+        #forwardBtn {
+            margin-left: 48%;
+        }
+/* 
+        #forward:active {
+            height: 90vh;
+        } */
+
+        a {
+            margin: 1rem 1rem 0 0;
+            background-color: rgb(202, 202, 202);
+            border-radius: 5px;
+            color: rgb(66, 66, 66) !important;
+            display: inline-block;
+            padding: 0.1rem 1rem;
+            text-decoration: none;
+            transition: 0.4s;
+        }
+
+        /* .compactNavBtn {
+            cursor: pointer;
+            height: fit-content;
+            font-size: 5vw;
+        } */
+
+        a:hover {
+            color: white !important;
+            background-color: rgb(66, 66, 66);
+            box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+    <script>
+
+        function delay (URL) {
+            setTimeout( function() { window.location = URL }, 2010 );
+        }
+
+        function upwards() {
+            const transform = document.getElementById("forward");
+            transform.style.height = "90vh";
+
+            //transition: margin-left 2s;
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        bet
+
+    </header>
+
+
+    <main>
+        <section>
+
+            ok
+        </section>  
+
+        <section id="forward" onclick="upwards()">
+           <a id="forwardBtn" href="javascript:delay('./public/first.html')"> Up Arrow </a>
+        </section>  
+    </main>
+
+</body>
+</html>

@@ -1,27 +1,66 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<title>Project.</title>
+
+	<link rel='stylesheet' href='/style.css'>
+	<link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+	<script defer src='/build/bundle.js'></script>
+	<script src="https://d3js.org/d3.v6.js" charset="utf-8"></script>
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+</head>
+
+<body>
+	<div id = "map" ></div>
+	<div id="aca"></div>
+</body>
+</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+	<meta charset='utf-8'>
+	<title>Project.</title>
+
+	<link rel='stylesheet' href='./public/style.css'>
+	<link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+	<script defer src='./public/build/bundle.js'></script>
+	<script src="https://d3js.org/d3.v6.js" charset="utf-8"></script>
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Country Iframes</title>
     <style>
 
         body,html {
             margin:0;
             padding:0;
+        }   
+
+        body {
+            /* display: flex;
+            flex-direction: column;
+            align-items: center; */
+            background-color: #FFF4E2;
+            background-size: cover;
+            position: relative;
+            height:  100vh;
+            padding-top: 10%;
+        }
+
+        iframe {
+            display: "block";
+            width: 1000px; /* Adjust this value to change the iframe width */
+            height: 500px; /* Adjust this value to change the iframe height */
+            border: none;
+            margin-bottom: 20px; /* Add some space between iframes */
         }
 
         * {
             box-sizing: border-box;
         }
 
-        body {
-            background-color: #2C666E;
-            background-size: cover;
-            position: relative;
-            height:  100vh;
 
-        }
         header {
             background-size: cover;
             position: absolute;
@@ -32,24 +71,7 @@
             
         }
 
-        #forward {
-            position: absolute;
-            bottom: 0;
-            background-color: #FFF5E5;
-            height:  10%;
-            width: 100%;           
-            transition: height 2s;
-            
-        }
-
-        #forwardBtn {
-            margin-left: 48%;
-        }
-/* 
-        #forward:active {
-            height: 90vh;
-        } */
-
+    
         a {
             margin: 1rem 1rem 0 0;
             background-color: rgb(202, 202, 202);
@@ -61,51 +83,125 @@
             transition: 0.4s;
         }
 
-        /* .compactNavBtn {
-            cursor: pointer;
-            height: fit-content;
-            font-size: 5vw;
-        } */
-
         a:hover {
             color: white !important;
             background-color: rgb(66, 66, 66);
             box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
         }
 
+        .question {
+            font-size: 2vw;
+        }
+
+        #frameSec {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+
+        .nxtBtn {
+            margin-right: 3vw;
+            height: fit-content;
+        }
+
+        .prevBtn {
+            margin-left: 3vw;
+            height: fit-content;
+        }
+
+		#map {
+			height: 50vh;
+			margin-top: 40vh;
+			margin-right: 50vw;
+			width: 50vw;
+		}
+
     </style>
     <script>
+    
+    // salvBttn = document.getElementById("GT");
+    // element.addEventListener("click", b1);
 
-        function delay (URL) {
-            setTimeout( function() { window.location = URL }, 2010 );
-        }
 
-        function upwards() {
-            const transform = document.getElementById("forward");
-            transform.style.height = "90vh";
+    // function upwards() {
+    //     const transform = document.getElementById("forward");
+    //     const content = document.getElementById("hiddenTab");
 
-            //transition: margin-left 2s;
-        }
-    </script>
+    //     console.log(transform.style.height);
+
+    //     if (transform.style.height === "10%") {
+    //         console.log('here');
+    //         transform.style.height = "50vh";
+    //         content.style.display = "flex"
+    //     } else {
+    //         transform.style.height = "10%";
+    //         content.style.display = "none";
+    //     }
+        
+
+    //     //transition: margin-left 2s;
+    // }
+
+    function next() {
+        const nxtBtn = document.getElementById("nxtBtn");
+        const prevBtn = document.getElementById("prevBtn");
+
+        const frame = document.getElementById("iFrame1");
+        const nxtFrame = document.getElementById("iFrame2");
+
+        console.log(nxtFrame);
+        frame.style.display="none";
+        nxtFrame.style.display="block";
+
+        nxtBtn.style.display="none";
+        prevBtn.style.display="block";
+    }
+
+    function before() {
+        const nxtBtn = document.getElementById("nxtBtn");
+        const prevBtn = document.getElementById("prevBtn");
+
+        const frame = document.getElementById("iFrame2");
+        const nxtFrame = document.getElementById("iFrame1");
+
+        frame.style.display = "none";
+        nxtFrame.style.display="block";
+
+        nxtBtn.style.display="block";
+        prevBtn.style.display="none";
+    }
+     </script>
 </head>
 <body>
 
     <header>
-        bet
-
+        
     </header>
 
-
     <main>
-        <section>
+        <section id="back">
+            <a href="second.html"> <-- Back </a>
+         </section> 
 
-            ok
-        </section>  
+        <section id="content">
+            
+            <article>
+                <p class="question"> How do migrants' finances compare accross their number of migraton attempts? </p>
+            </article>
 
-        <section id="forward" onclick="upwards()">
-           <a id="forwardBtn" href="javascript:delay('./public/first.html')"> Up Arrow </a>
-        </section>  
+            <article>
+                <div id="frameSec">
+                    <div id="aca">
+						<!-- <div id = "map" ></div> -->
+					</div>
+					<div id = "map" ></div>
+                    <button class="nxtBtn" id="nxtBtn" onclick="next()">Next</button>
+                    <button class="prevBtn" id="prevBtn" onclick="before()" style="display:none">Previous</button>
+                    <iframe class="iFrame" id="iFrame2" src="attempts_charts.html" style="display:none"></iframe>
+                </div>
+            </article>
+        </section>
+
     </main>
-
 </body>
 </html>
