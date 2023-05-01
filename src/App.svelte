@@ -221,7 +221,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
 	.style('stroke', 'orange')
-	.style('stroke-width', 8);
+	.style('stroke-width', 5.6);
 
 	var path2 = marker_container
 	.attr('class', 'curved-path')
@@ -239,7 +239,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
 	.style('stroke', 'orange')
-	.style('stroke-width', 8);
+	.style('stroke-width', 7);
 
 	var path3 = marker_container
 	.attr('class', 'curved-path')
@@ -257,7 +257,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
 	.style('stroke', 'orange')
-	.style('stroke-width', 8);
+	.style('stroke-width', 4);
 
 	function position_line() {
 		path.attr('d', line);

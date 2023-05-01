@@ -1,22 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset='utf-8'>
-	<title>Project.</title>
-
-	<link rel='stylesheet' href='/style.css'>
-	<link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
-	<script defer src='/build/bundle.js'></script>
-	<script src="https://d3js.org/d3.v6.js" charset="utf-8"></script>
-	<script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
-</head>
-
-<body>
-	<div id = "map" ></div>
-	<div id="aca"></div>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,41 +93,29 @@
 		#map {
 			height: 50vh;
 			margin-top: 40vh;
-			margin-right: 50vw;
+			/* margin-right: 50vw; */
 			width: 50vw;
 		}
 
+        #map {
+			height: 50vh;
+			margin-top: 40vh;
+			margin-left: 15vw;
+			width: 50vw;
+		}
+
+        #mapContainer {
+            margin-right: 70vw;
+        }
+
     </style>
     <script>
-    
-    // salvBttn = document.getElementById("GT");
-    // element.addEventListener("click", b1);
-
-
-    // function upwards() {
-    //     const transform = document.getElementById("forward");
-    //     const content = document.getElementById("hiddenTab");
-
-    //     console.log(transform.style.height);
-
-    //     if (transform.style.height === "10%") {
-    //         console.log('here');
-    //         transform.style.height = "50vh";
-    //         content.style.display = "flex"
-    //     } else {
-    //         transform.style.height = "10%";
-    //         content.style.display = "none";
-    //     }
-        
-
-    //     //transition: margin-left 2s;
-    // }
 
     function next() {
         const nxtBtn = document.getElementById("nxtBtn");
         const prevBtn = document.getElementById("prevBtn");
 
-        const map = document.getElementById("map");
+        const map = document.getElementById("mapContainer");
         const nxtFrame = document.getElementById("iFrame2");
 
         console.log(nxtFrame);
@@ -162,7 +131,7 @@
         const prevBtn = document.getElementById("prevBtn");
 
         const frame = document.getElementById("iFrame2");
-        const map = document.getElementById("map");
+        const map = document.getElementById("mapContainer");
 
         frame.style.display = "none";
         map.style.display="block";
@@ -186,12 +155,25 @@
         <section id="content">
             
             <article>
-                <p class="question"> How do migrants' finances compare accross their number of migraton attempts? </p>
+                <p class="question"> How do migrants' finances compare accross their number of migration attempts? </p>
             </article>
 
             <article>
                 <div id="frameSec">
-					<div id="map" ></div>
+                    <div id="mapContainer">
+                        <div id="map" ></div>
+                        <div id="mapInfo">
+                            <p>Honduras</p>
+                            <article style="background-color: orange"> 1.88 non-reachable attempts</article>
+                            <article style="background-color: blue; color: white">  1.40 reachable attempts </article>
+                            <p>El Salvador</p>
+                            <article style="background-color: orange"> 1.79 non-reachable attempts</article>
+                            <article style="background-color: blue; color: white">  1.53 reachable attempts </article>
+                            <p>Guatemala</p>
+                            <article style="background-color: orange"> 1.68 non-reachable attempts</article>
+                            <article style="background-color: blue; color: white">  1.67 reachable attempts </article>
+                        </div>
+                    </div>
                     <button class="nxtBtn" id="nxtBtn" onclick="next()">Next</button>
                     <button class="prevBtn" id="prevBtn" onclick="before()" style="display:none">Previous</button>
                     <iframe class="iFrame" id="iFrame2" src="./public/attempts_charts.html" style="display:none"></iframe>
