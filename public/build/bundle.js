@@ -345,7 +345,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			main = element("main");
-    			add_location(main, file, 233, 0, 6854);
+    			add_location(main, file, 271, 0, 7852);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -410,8 +410,8 @@ var app = (function () {
     			container: "map",
     			style: "mapbox://styles/mapbox/light-v11",
     			center: [-91.0942, 20.3601],
-    			zoom: 4.5, // starting zoom level
-    			minZoom: 4.5,
+    			zoom: 3, // starting zoom level
+    			minZoom: 3,
     			maxZoom: 6
     		});
 
@@ -423,11 +423,8 @@ var app = (function () {
     	// 	minZoom: 12,
     	// 	maxZoom: 15,
     	// });
-    	map.on("viewreset", position_station_markers);
-
-    	map.on("move", position_station_markers);
-    	map.on("moveend", position_station_markers);
     	map.on("viewreset", position_line);
+
     	map.on("move", position_line);
     	map.on("moveend", position_line);
     	let stationsFile = "https://raw.githubusercontent.com/isabelbaez/data-vis/main/src/data.json";
@@ -441,68 +438,105 @@ var app = (function () {
     	}
 
     	const marker_container = d3.select(map.getCanvasContainer()).append("svg").attr("width", "100%").attr("height", "100%").style("position", "absolute").style("z-index", 2);
-    	fetch(stationsFile).then(response => response.json()).then(d => station_data = d.data.stations).then(d => create_station_markers(d)).then(d => lines());
 
     	var migration_path = [
     		[-89.2090, 13.6929],
     		[-90.5349, 14.6349],
     		[-92.6443, 16.7370],
-    		[-96.7203, 17.0732],
+    		[-97.6833, 18.3584],
     		[-99.1332, 19.4326],
     		//   [-100.3161, 25.6866], // Monterrey, Mexico
-    		[-104.6663, 24.0277],
+    		[-103.4068, 25.5428],
     		[-106.4847, 31.7392],
     		[-106.4425, 31.7776],
     		[-106.7538, 32.3199]
     	]; // San Salvador, El Salvador
     	// Guatemala City, Guatemala
     	// San Cristóbal de las Casas, Chiapas, Mexico
-    	// Oaxaca de Juárez, Mexico
+    	// tehuacan
     	// Mexico City, Mexico
-    	// Durango, Mexico
+    	//torreon
     	// Ciudad Juárez, Mexico
     	// El Paso, Texas
     	// Las Cruces, New Mexico
+
+    	var migration_path12 = [
+    		[-89.2090, 13.6929],
+    		[-90.5349, 14.6349],
+    		[-92.6443, 16.7370],
+    		[-97.6833, 18.3584],
+    		[-99.1332, 19.4326]
+    	]; // San Salvador, El Salvador
+    	// Guatemala City, Guatemala
+    	// San Cristóbal de las Casas, Chiapas, Mexico
+    	// tehuacan
+    	// Mexico City, Mexico
+    	//   [-100.3161, 25.6866], // Monterrey, Mexico
 
     	var migration_path2 = [
     		[-87.2068, 14.0818],
     		[-88.0256, 15.5047],
     		[-89.0336, 15.4752],
     		[-91.1353, 16.9299],
-    		[-92.9293, 16.7451],
-    		[-94.9689, 16.6915],
+    		[-93.0327, 18.0042],
+    		[-94.5336, 17.9970],
     		[-98.7624, 20.1011],
-    		[-101.8381, 21.1231],
+    		[-99.0108, 21.9843],
     		[-98.1077, 29.5410],
     		[-98.4936, 29.4241]
     	]; // Tegucigalpa, Honduras
     	// San Pedro Sula, Honduras
     	// Flores, Guatemala
     	// Palenque, Mexico
-    	// San Cristobal de las Casas, Mexico
-    	// Tapachula, Mexico
+    	// 
+    	// coatzacoalcos
     	// Pachuca de Soto, Hidalgo, Mexico
-    	// León, Guanajuato, Mexico
+    	// ciudad valles
     	// Laredo, Texas, USA
     	// San Antonio, Texas, USA
 
+    	var migration_path22 = [
+    		[-87.2068, 14.0818],
+    		[-88.0256, 15.5047],
+    		[-89.0336, 15.4752],
+    		[-91.1353, 16.9299],
+    		[-93.0327, 18.0042]
+    	]; // Tegucigalpa, Honduras
+    	// San Pedro Sula, Honduras
+    	// Flores, Guatemala
+    	// Palenque, Mexico
+    	//
+
     	var migration_path3 = [
-    		[-90.5069, 14.6349],
-    		[-92.1219, 14.8972],
-    		[-93.9058, 16.2387],
-    		[-96.7203, 17.0732],
-    		[-99.1332, 19.4326],
-    		[-100.3161, 25.6866],
-    		[-99.5075, 27.5064],
-    		[-95.3698, 29.7604]
+    		[-90.5328, 14.6248],
+    		[-96.7216, 17.0594],
+    		[-99.9089, 16.8531],
+    		[-104.8214, 21.1524],
+    		[-104.3674, 22.1565],
+    		// Mazatlán, Mexico
+    		[-106.4207, 23.2494],
+    		[-107.9181, 25.4788],
+    		[-109.9347, 27.4856],
+    		[-110.9778, 29.0729],
+    		[-110.9265, 32.2217]
     	]; // Guatemala City, Guatemala
-    	// Tapachula, Mexico
-    	// Arriaga, Mexico
-    	// Oaxaca de Juárez, Mexico
-    	// Mexico City, Mexico
-    	// Monterrey, Mexico
-    	// Laredo, Texas, USA
-    	// Houston, Texas, USA
+    	// oaxaca
+    	// Acapulco, Mexico
+    	// Guadalajara, Mexico
+    	// Aguascalientes, Mexico
+    	//Mocorito
+    	//Ciudad Obregon
+    	//Hermosillo
+    	// Tucson
+    	//   [ -101.6850, 21.1218 ], // León, Mexico
+    	//   [ -101.9942, 20.9176 ], // San Miguel de Allende, Mexico
+    	//   [ -100.9783, 22.1566 ], // San Luis Potosí, Mexico
+
+    	//   [ -100.8213, 23.7333 ], // Zacatecas, Mexico
+    	//   [ -110.3108, 24.1390 ] // Hermosillo, Mexico
+    	var migration_path32 = [[-90.5328, 14.6248], [-96.7216, 17.0594], [-99.9089, 16.8531]]; // Guatemala City, Guatemala
+    	// oaxaca
+    	// Acapulco, Mexico
 
     	// create a D3 line generator
     	var line = d3.line().curve(d3.curveCatmullRom.alpha(0.5)).x(function (d) {
@@ -511,28 +545,22 @@ var app = (function () {
     		return map.project([d[0], d[1]]).y; // convert longitude to x position
     	}); // convert latitude to y position
 
-    	var line2 = d3.line().curve(d3.curveCatmullRom.alpha(0.5)).x(function (d) {
-    		return map.project([d[0], d[1]]).x; // set the curve type
-    	}).y(function (d) {
-    		return map.project([d[0], d[1]]).y; // convert longitude to x position
-    	}); // convert latitude to y position
-
-    	var line3 = d3.line().curve(d3.curveCatmullRom.alpha(0.5)).x(function (d) {
-    		return map.project([d[0], d[1]]).x; // set the curve type
-    	}).y(function (d) {
-    		return map.project([d[0], d[1]]).y; // convert longitude to x position
-    	}); // convert latitude to y position
-
     	// add the path element to the map
-    	var path = marker_container.attr('class', 'curved-path').append('path').datum(migration_path).attr('d', line).style('fill', 'none').style('stroke', '#000').style('stroke-width', 4); // set the path coordinates using the line generator
+    	var path = marker_container.attr('class', 'curved-path').append('path').datum(migration_path).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 4); // set the path coordinates using the line generator
 
-    	var path2 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path2).attr('d', line2).style('fill', 'none').style('stroke', 'red').style('stroke-width', 4); // set the path coordinates using the line generator
-    	var path3 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path3).attr('d', line3).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 4); // set the path coordinates using the line generator
+    	var path1 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path12).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 8); // set the path coordinates using the line generator
+    	var path2 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path2).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 4); // set the path coordinates using the line generator
+    	var path22 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path22).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 8); // set the path coordinates using the line generator
+    	var path3 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path3).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 4); // set the path coordinates using the line generator
+    	var path32 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path32).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 8); // set the path coordinates using the line generator
 
     	function position_line() {
     		path.attr('d', line);
-    		path2.attr('d', line2);
-    		path3.attr('d', line3);
+    		path1.attr('d', line);
+    		path2.attr('d', line);
+    		path3.attr('d', line);
+    		path22.attr('d', line);
+    		path32.attr('d', line);
     	}
 
     	const writable_props = [];
@@ -554,14 +582,18 @@ var app = (function () {
     		lines,
     		marker_container,
     		migration_path,
+    		migration_path12,
     		migration_path2,
+    		migration_path22,
     		migration_path3,
+    		migration_path32,
     		line,
-    		line2,
-    		line3,
     		path,
+    		path1,
     		path2,
+    		path22,
     		path3,
+    		path32,
     		position_line
     	});
 
@@ -571,14 +603,18 @@ var app = (function () {
     		if ('station_markers' in $$props) station_markers = $$props.station_markers;
     		if ('curve' in $$props) curve = $$props.curve;
     		if ('migration_path' in $$props) migration_path = $$props.migration_path;
+    		if ('migration_path12' in $$props) migration_path12 = $$props.migration_path12;
     		if ('migration_path2' in $$props) migration_path2 = $$props.migration_path2;
+    		if ('migration_path22' in $$props) migration_path22 = $$props.migration_path22;
     		if ('migration_path3' in $$props) migration_path3 = $$props.migration_path3;
+    		if ('migration_path32' in $$props) migration_path32 = $$props.migration_path32;
     		if ('line' in $$props) line = $$props.line;
-    		if ('line2' in $$props) line2 = $$props.line2;
-    		if ('line3' in $$props) line3 = $$props.line3;
     		if ('path' in $$props) path = $$props.path;
+    		if ('path1' in $$props) path1 = $$props.path1;
     		if ('path2' in $$props) path2 = $$props.path2;
+    		if ('path22' in $$props) path22 = $$props.path22;
     		if ('path3' in $$props) path3 = $$props.path3;
+    		if ('path32' in $$props) path32 = $$props.path32;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -603,7 +639,7 @@ var app = (function () {
     }
 
     var app = new App({
-    	target: document.querySelector('#aca') 
+    	target: document.body
     });
 
     return app;
