@@ -32,7 +32,6 @@ declare module '$env/static/private' {
 	export const GEM_HOME: string;
 	export const TERM: string;
 	export const SHELL: string;
-	export const npm_config_open: string;
 	export const npm_config_metrics_registry: string;
 	export const TMPDIR: string;
 	export const npm_config_global_prefix: string;
@@ -112,7 +111,6 @@ declare module '$env/dynamic/private' {
 		GEM_HOME: string;
 		TERM: string;
 		SHELL: string;
-		npm_config_open: string;
 		npm_config_metrics_registry: string;
 		TMPDIR: string;
 		npm_config_global_prefix: string;
