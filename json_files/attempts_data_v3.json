@@ -1,0 +1,47 @@
+[
+  {
+    "mig_ext_attempts": 1,
+    "avg_log_income": 4.171784677215027,
+    "income_per_capita": 98.13816316774675,
+    "mig_ext_cost_total_usd": 2887.0355405671908,
+    "debt_amount": 1218.6931702996753,
+    "sucess_yn": 0.5753676470588235,
+    "institutional_loan_yn": 0.24007220216606498
+  },
+  {
+    "mig_ext_attempts": 2,
+    "avg_log_income": 3.664138013100532,
+    "income_per_capita": 54.82687389755555,
+    "mig_ext_cost_total_usd": 3581.570818572727,
+    "debt_amount": 1304.6390687916667,
+    "sucess_yn": 0.6938775510204082,
+    "institutional_loan_yn": 0.2828282828282828
+  },
+  {
+    "mig_ext_attempts": 3,
+    "avg_log_income": 4.490240094515215,
+    "income_per_capita": 68.6266577864923,
+    "mig_ext_cost_total_usd": 4851.185687015548,
+    "debt_amount": 1643.9087509401538,
+    "sucess_yn": 0.6763285024154589,
+    "institutional_loan_yn": 0.39069767441860465
+  },
+  {
+    "mig_ext_attempts": 4,
+    "avg_log_income": 3.3820312754490036,
+    "income_per_capita": 41.311111110000006,
+    "mig_ext_cost_total_usd": 3413.3410833333332,
+    "debt_amount": 453.547835,
+    "sucess_yn": 0.875,
+    "institutional_loan_yn": 0.25
+  },
+  {
+    "mig_ext_attempts": 5,
+    "avg_log_income": "",
+    "income_per_capita": "",
+    "mig_ext_cost_total_usd": 2022.0232966666665,
+    "debt_amount": "",
+    "sucess_yn": 1,
+    "institutional_loan_yn": 1
+  }
+]
