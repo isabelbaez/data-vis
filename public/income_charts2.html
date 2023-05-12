@@ -86,7 +86,6 @@
                 .attr("fill", "black");
 
             // Create the bars
-// Create the bars
 function update(column) {
     // Filter out empty strings and NaN values
     const filteredData = data.filter(d => d[column] !== "" && !isNaN(+d[column]));
@@ -96,8 +95,9 @@ function update(column) {
     yAxis.transition().duration(1000).call(d3.axisLeft(y));
     yAxis.select(".y-axis-label").text(legends[column]);
 
-    // Update the x-axis domain
+    // Update the x-axis domain and redraw the x-axis
     x.domain(filteredData.map(d => d.mig_ext_attempts));
+    xAxis.transition().duration(1000).call(d3.axisBottom(x)); // Add this line
 
     // Update the bars
     const bars = svg.selectAll("rect")
@@ -131,6 +131,7 @@ function update(column) {
         .attr("y", d => y(+d[column]))
         .attr("height", d => height - y(+d[column]));
 }
+
 
 
 
