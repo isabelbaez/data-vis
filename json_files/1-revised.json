@@ -1,0 +1,218 @@
+[
+  {
+    "": 0,
+    "avg_log_income": "(-0.00841, 0.701]",
+    "country": "HND",
+    "migrated_yn_0": 4,
+    "migrated_yn_1": 1,
+    "total_count": 5
+  },
+  {
+    "": 1,
+    "avg_log_income": "(-0.00841, 0.701]",
+    "country": "SLV",
+    "migrated_yn_0": 1,
+    "migrated_yn_1": 0,
+    "total_count": 1
+  },
+  {
+    "": 2,
+    "avg_log_income": "(0.701, 1.402]",
+    "country": "GT",
+    "migrated_yn_0": 2,
+    "migrated_yn_1": 0,
+    "total_count": 2
+  },
+  {
+    "": 3,
+    "avg_log_income": "(0.701, 1.402]",
+    "country": "HND",
+    "migrated_yn_0": 16,
+    "migrated_yn_1": 13,
+    "total_count": 29
+  },
+  {
+    "": 4,
+    "avg_log_income": "(1.402, 2.103]",
+    "country": "GT",
+    "migrated_yn_0": 7,
+    "migrated_yn_1": 5,
+    "total_count": 12
+  },
+  {
+    "": 5,
+    "avg_log_income": "(1.402, 2.103]",
+    "country": "HND",
+    "migrated_yn_0": 44,
+    "migrated_yn_1": 27,
+    "total_count": 71
+  },
+  {
+    "": 6,
+    "avg_log_income": "(2.103, 2.804]",
+    "country": "GT",
+    "migrated_yn_0": 39,
+    "migrated_yn_1": 9,
+    "total_count": 48
+  },
+  {
+    "": 7,
+    "avg_log_income": "(2.103, 2.804]",
+    "country": "HND",
+    "migrated_yn_0": 38,
+    "migrated_yn_1": 40,
+    "total_count": 78
+  },
+  {
+    "": 8,
+    "avg_log_income": "(2.804, 3.505]",
+    "country": "GT",
+    "migrated_yn_0": 83,
+    "migrated_yn_1": 36,
+    "total_count": 119
+  },
+  {
+    "": 9,
+    "avg_log_income": "(2.804, 3.505]",
+    "country": "HND",
+    "migrated_yn_0": 15,
+    "migrated_yn_1": 18,
+    "total_count": 33
+  },
+  {
+    "": 10,
+    "avg_log_income": "(2.804, 3.505]",
+    "country": "SLV",
+    "migrated_yn_0": 2,
+    "migrated_yn_1": 0,
+    "total_count": 2
+  },
+  {
+    "": 11,
+    "avg_log_income": "(3.505, 4.206]",
+    "country": "GT",
+    "migrated_yn_0": 71,
+    "migrated_yn_1": 39,
+    "total_count": 110
+  },
+  {
+    "": 12,
+    "avg_log_income": "(3.505, 4.206]",
+    "country": "HND",
+    "migrated_yn_0": 3,
+    "migrated_yn_1": 5,
+    "total_count": 8
+  },
+  {
+    "": 13,
+    "avg_log_income": "(3.505, 4.206]",
+    "country": "SLV",
+    "migrated_yn_0": 12,
+    "migrated_yn_1": 2,
+    "total_count": 14
+  },
+  {
+    "": 14,
+    "avg_log_income": "(4.206, 4.907]",
+    "country": "GT",
+    "migrated_yn_0": 19,
+    "migrated_yn_1": 20,
+    "total_count": 39
+  },
+  {
+    "": 15,
+    "avg_log_income": "(4.206, 4.907]",
+    "country": "HND",
+    "migrated_yn_0": 0,
+    "migrated_yn_1": 2,
+    "total_count": 2
+  },
+  {
+    "": 16,
+    "avg_log_income": "(4.206, 4.907]",
+    "country": "SLV",
+    "migrated_yn_0": 35,
+    "migrated_yn_1": 20,
+    "total_count": 55
+  },
+  {
+    "": 17,
+    "avg_log_income": "(4.907, 5.608]",
+    "country": "GT",
+    "migrated_yn_0": 5,
+    "migrated_yn_1": 5,
+    "total_count": 10
+  },
+  {
+    "": 18,
+    "avg_log_income": "(4.907, 5.608]",
+    "country": "HND",
+    "migrated_yn_0": 0,
+    "migrated_yn_1": 2,
+    "total_count": 2
+  },
+  {
+    "": 19,
+    "avg_log_income": "(4.907, 5.608]",
+    "country": "SLV",
+    "migrated_yn_0": 50,
+    "migrated_yn_1": 38,
+    "total_count": 88
+  },
+  {
+    "": 20,
+    "avg_log_income": "(5.608, 6.309]",
+    "country": "GT",
+    "migrated_yn_0": 0,
+    "migrated_yn_1": 1,
+    "total_count": 1
+  },
+  {
+    "": 21,
+    "avg_log_income": "(5.608, 6.309]",
+    "country": "HND",
+    "migrated_yn_0": 1,
+    "migrated_yn_1": 1,
+    "total_count": 2
+  },
+  {
+    "": 22,
+    "avg_log_income": "(5.608, 6.309]",
+    "country": "SLV",
+    "migrated_yn_0": 42,
+    "migrated_yn_1": 42,
+    "total_count": 84
+  },
+  {
+    "": 23,
+    "avg_log_income": "(6.309, 7.01]",
+    "country": "GT",
+    "migrated_yn_0": 0,
+    "migrated_yn_1": 1,
+    "total_count": 1
+  },
+  {
+    "": 24,
+    "avg_log_income": "(6.309, 7.01]",
+    "country": "SLV",
+    "migrated_yn_0": 15,
+    "migrated_yn_1": 15,
+    "total_count": 30
+  },
+  {
+    "": 25,
+    "avg_log_income": "(7.01, 7.711]",
+    "country": "SLV",
+    "migrated_yn_0": 2,
+    "migrated_yn_1": 1,
+    "total_count": 3
+  },
+  {
+    "": 26,
+    "avg_log_income": "(7.711, 8.412]",
+    "country": "SLV",
+    "migrated_yn_0": 2,
+    "migrated_yn_1": 0,
+    "total_count": 2
+  }
+]

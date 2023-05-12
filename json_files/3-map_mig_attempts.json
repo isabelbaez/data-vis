@@ -1,0 +1,38 @@
+[
+  {
+    "sucess_yn": 0,
+    "country": "GT",
+    "mig_ext_attempts": 1.68,
+    "sucess_yn__1": 125
+  },
+  {
+    "sucess_yn": 0,
+    "country": "HND",
+    "mig_ext_attempts": 1.3953488372093024,
+    "sucess_yn__1": 86
+  },
+  {
+    "sucess_yn": 0,
+    "country": "SLV",
+    "mig_ext_attempts": 1.527027027027027,
+    "sucess_yn__1": 148
+  },
+  {
+    "sucess_yn": 1,
+    "country": "GT",
+    "mig_ext_attempts": 1.6735395189003437,
+    "sucess_yn__1": 291
+  },
+  {
+    "sucess_yn": 1,
+    "country": "HND",
+    "mig_ext_attempts": 1.8807339449541285,
+    "sucess_yn__1": 109
+  },
+  {
+    "sucess_yn": 1,
+    "country": "SLV",
+    "mig_ext_attempts": 1.7889447236180904,
+    "sucess_yn__1": 199
+  }
+]
