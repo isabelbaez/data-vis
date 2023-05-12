@@ -56,14 +56,14 @@
 
             // Create the x-axis
             const x = d3.scaleBand()
-                .domain(data.map(d => d.mig_ext_attempts))
                 .range([0, width])
                 .padding(0.2);
 
-            svg.append("g")
+            const xAxis = svg.append("g")
                 .attr("transform", `translate(0, ${height})`)
-                .call(d3.axisBottom(x))
-                .append("text")
+                .call(d3.axisBottom(x));
+
+            xAxis.append("text")
                 .attr("x", width / 2)
                 .attr("y", 35)
                 .attr("text-anchor", "middle")
@@ -86,57 +86,70 @@
                 .attr("fill", "black");
 
             // Create the bars
-            function update(column) {
-                // Update the y-axis domain and label
-                y.domain([0, d3.max(data, d => isNaN(+d[column]) ? 0 : +d[column])]);
-                yAxis.transition().duration(1000).call(d3.axisLeft(y));
-                yAxis.select(".y-axis-label").text(legends[column]);
+// Create the bars
+function update(column) {
+    // Filter out empty strings and NaN values
+    const filteredData = data.filter(d => d[column] !== "" && !isNaN(+d[column]));
 
-                // Update the bars
-                const bars = svg.selectAll("rect").data(data);
+    // Update the y-axis domain and label
+    y.domain([0, d3.max(filteredData, d => +d[column])]);
+    yAxis.transition().duration(1000).call(d3.axisLeft(y));
+    yAxis.select(".y-axis-label").text(legends[column]);
 
-                // Remove old bars
-                bars.exit()
-                    .transition()
-                    .duration(1000)
-                    .attr("y", height)
-                    .attr("height", 0)
-                    .remove();
+    // Update the x-axis domain
+    x.domain(filteredData.map(d => d.mig_ext_attempts));
 
-                // Add new bars
-                bars.enter()
-                    .append("rect")
-                    .attr("x", d => x(d.mig_ext_attempts))
-                    .attr("width", x.bandwidth())
-                    .attr("y", height)
-                    .attr("height", 0)
-                    .transition()
-                    .duration(1000)
-                    .attr("y", d => y(+d[column]))
-                    .attr("height", d => isNaN(+d[column]) ? 0 : y(0) - y(+d[column]));
+    // Update the bars
+    const bars = svg.selectAll("rect")
+        .data(filteredData, d => d.mig_ext_attempts);
 
-                // Update existing bars
-                bars.transition()
-                    .duration(1000)
-                    .attr("x", d => x(d.mig_ext_attempts))
-                    .attr("width", x.bandwidth())
-                    .attr("y", d => y(+d[column]))
-                    .attr("height", d => isNaN(+d[column]) ? 0 : y(0) - y(+d[column]));
-            }
+    // Exit bars
+    bars.exit()
+        .transition()
+        .duration(1000)
+        .attr("y", height)
+        .attr("height", 0)
+        .remove();
+
+    // Update existing bars
+    bars.attr("x", d => x(d.mig_ext_attempts))
+        .attr("width", x.bandwidth())
+        .transition()
+        .duration(1000)
+        .attr("y", d => y(+d[column]))
+        .attr("height", d => height - y(+d[column]));
+
+    // Enter new bars
+    bars.enter()
+        .append("rect")
+        .attr("x", d => x(d.mig_ext_attempts))
+        .attr("width", x.bandwidth())
+        .attr("y", height)
+        .attr("height", 0)
+        .transition()
+        .duration(1000)
+        .attr("y", d => y(+d[column]))
+        .attr("height", d => height - y(+d[column]));
+}
 
 
-            // Create the buttons
-            const buttons = d3.select("#buttons").selectAll("button")
-                .data(columnList)
-                .enter()
-                .append("button")
-                .attr("class", "button")
-                .text(d => legends[d])
-                .on("click", update);
 
-            // Initialize the chart with the first column
-            update(columnList[0]);
-        });
+
+// Create the buttons
+const buttons = d3.select("#buttons").selectAll("button")
+    .data(columnList)
+    .enter()
+    .append("button")
+    .attr("class", "button")
+    .text(d => legends[d])
+    .on("click", (event, d) => update(d)); // Change this line
+
+
+    // Initialize the chart with the first column
+    update(columnList[0]);
+
+});
     </script>
 </body>
 </html>
+
