@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-  </head>
-<script>
-    // Load the data from the JSON file
+// Load the data from the JSON file
 d3.json("1-revised.json").then(function(data) {
   // Filter the data to include only "TOT" country
-  const filteredData = data.filter(d => d.country === "SLV");
+  const filteredData = data.filter(d => d.country === "GT");
 
   // Define the dimensions of the chart
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
@@ -15,7 +9,7 @@ d3.json("1-revised.json").then(function(data) {
   const height = 300 - margin.top - margin.bottom;
 
   // Create an SVG element and set its dimensions and margins
-  const svg = d3.select("#iFrame3")
+  const svg = d3.select("#chart")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -54,5 +48,3 @@ d3.json("1-revised.json").then(function(data) {
   svg.append("g")
     .call(d3.axisLeft(yScale));
 });
-</script>
-</html>
