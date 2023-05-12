@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js Bar Chart</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .button {
+            background-color: #2C666E;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="buttons"></div>
+    <div id="chart"></div>
+
+    <script>
+        // Load data from CSV
+        d3.csv("attempts_data_v3.csv").then(data => {
+            console.log(data);
+            // Replace this with your actual list of columns
+            const columnList = ["avg_log_income", "income_per_capita", "mig_ext_cost_total_usd",
+                                "debt_amount", "sucess_yn", "institutional_loan_yn"];
+
+            // Define dictionary with y-axis titles
+            const legends = {
+                "avg_log_income": "Average Log Income",
+                "income_per_capita": "Income per Capita",
+                "mig_ext_cost_total_usd":"Total Cost of Migration",
+                "debt_amount": "Amount of Debt",
+                "sucess_yn": "Percentage of Migrants reaching the U.S.",
+                "institutional_loan_yn": "Percentage of Migrants w/ Personal Loans"
+            };
+
+            const margin = {top: 50, right: 20, bottom: 50, left: 60},
+                width = 800 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+            // Create the SVG
+            const svg = d3.select("#chart")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+            // Create the x-axis
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.mig_ext_attempts))
+                .range([0, width])
+                .padding(0.2);
+
+            svg.append("g")
+                .attr("transform", `translate(0, ${height})`)
+                .call(d3.axisBottom(x))
+                .append("text")
+                .attr("x", width / 2)
+                .attr("y", 35)
+                .attr("text-anchor", "middle")
+                .attr("fill", "black")
+                .text("Number of Migration Attempts");
+
+            // Create the y-axis
+            const y = d3.scaleLinear()
+                .range([height, 0]);
+
+            const yAxis = svg.append("g")
+                .attr("class", "y-axis");
+
+            yAxis.append("text")
+                .attr("class", "y-axis-label")
+                .attr("x", -height / 2)
+                .attr("y", -50)
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)")
+                .attr("fill", "black");
+
+            // Create the bars
+            function update(column) {
+                // Update the y-axis domain and label
+                y.domain([0, d3.max(data, d => isNaN(+d[column]) ? 0 : +d[column])]);
+                yAxis.transition().duration(1000).call(d3.axisLeft(y));
+                yAxis.select(".y-axis-label").text(legends[column]);
+
+                // Update the bars
+                const bars = svg.selectAll("rect").data(data);
+
+                // Remove old bars
+                bars.exit()
+                    .transition()
+                    .duration(1000)
+                    .attr("y", height)
+                    .attr("height", 0)
+                    .remove();
+
+                // Add new bars
+                bars.enter()
+                    .append("rect")
+                    .attr("x", d => x(d.mig_ext_attempts))
+                    .attr("width", x.bandwidth())
+                    .attr("y", height)
+                    .attr("height", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("y", d => y(+d[column]))
+                    .attr("height", d => isNaN(+d[column]) ? 0 : y(0) - y(+d[column]));
+
+                // Update existing bars
+                bars.transition()
+                    .duration(1000)
+                    .attr("x", d => x(d.mig_ext_attempts))
+                    .attr("width", x.bandwidth())
+                    .attr("y", d => y(+d[column]))
+                    .attr("height", d => isNaN(+d[column]) ? 0 : y(0) - y(+d[column]));
+            }
+
+
+            // Create the buttons
+            const buttons = d3.select("#buttons").selectAll("button")
+                .data(columnList)
+                .enter()
+                .append("button")
+                .attr("class", "button")
+                .text(d => legends[d])
+                .on("click", update);
+
+            // Initialize the chart with the first column
+            update(columnList[0]);
+        });
+    </script>
+</body>
+</html>
