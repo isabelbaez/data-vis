@@ -1,7 +1,7 @@
 [
   {
     "": 0,
-    "avg_log_income": "(-0.00841, 0.701]",
+    "avg_log_income": "lowest",
     "country": "HND",
     "migrated_yn_0": 4,
     "migrated_yn_1": 1,
@@ -9,7 +9,7 @@
   },
   {
     "": 1,
-    "avg_log_income": "(-0.00841, 0.701]",
+    "avg_log_income": "lowest",
     "country": "SLV",
     "migrated_yn_0": 1,
     "migrated_yn_1": 0,
@@ -17,7 +17,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(-0.00841, 0.701]",
+    "avg_log_income": "lowest",
     "country": "TOT",
     "migrated_yn_0": 5,
     "migrated_yn_1": 1,
@@ -25,7 +25,7 @@
   },
   {
     "": 2,
-    "avg_log_income": "(0.701, 1.402]",
+    "avg_log_income": "2",
     "country": "GT",
     "migrated_yn_0": 2,
     "migrated_yn_1": 0,
@@ -33,7 +33,7 @@
   },
   {
     "": 3,
-    "avg_log_income": "(0.701, 1.402]",
+    "avg_log_income": "2",
     "country": "HND",
     "migrated_yn_0": 16,
     "migrated_yn_1": 13,
@@ -41,7 +41,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(0.701, 1.402]",
+    "avg_log_income": "2",
     "country": "TOT",
     "migrated_yn_0": 18,
     "migrated_yn_1": 13,
@@ -49,7 +49,7 @@
   },
   {
     "": 4,
-    "avg_log_income": "(1.402, 2.103]",
+    "avg_log_income": "3",
     "country": "GT",
     "migrated_yn_0": 7,
     "migrated_yn_1": 5,
@@ -57,7 +57,7 @@
   },
   {
     "": 5,
-    "avg_log_income": "(1.402, 2.103]",
+    "avg_log_income": "3",
     "country": "HND",
     "migrated_yn_0": 44,
     "migrated_yn_1": 27,
@@ -65,7 +65,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(1.402, 2.103]",
+    "avg_log_income": "3",
     "country": "TOT",
     "migrated_yn_0": 51,
     "migrated_yn_1": 32,
@@ -73,7 +73,7 @@
   },
   {
     "": 6,
-    "avg_log_income": "(2.103, 2.804]",
+    "avg_log_income": "4",
     "country": "GT",
     "migrated_yn_0": 39,
     "migrated_yn_1": 9,
@@ -81,7 +81,7 @@
   },
   {
     "": 7,
-    "avg_log_income": "(2.103, 2.804]",
+    "avg_log_income": "4",
     "country": "HND",
     "migrated_yn_0": 38,
     "migrated_yn_1": 40,
@@ -89,7 +89,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(2.103, 2.804]",
+    "avg_log_income": "4",
     "country": "TOT",
     "migrated_yn_0": 77,
     "migrated_yn_1": 49,
@@ -97,7 +97,7 @@
   },
   {
     "": 8,
-    "avg_log_income": "(2.804, 3.505]",
+    "avg_log_income": "5",
     "country": "GT",
     "migrated_yn_0": 83,
     "migrated_yn_1": 36,
@@ -105,7 +105,7 @@
   },
   {
     "": 9,
-    "avg_log_income": "(2.804, 3.505]",
+    "avg_log_income": "5",
     "country": "HND",
     "migrated_yn_0": 15,
     "migrated_yn_1": 18,
@@ -113,7 +113,7 @@
   },
   {
     "": 10,
-    "avg_log_income": "(2.804, 3.505]",
+    "avg_log_income": "5",
     "country": "SLV",
     "migrated_yn_0": 2,
     "migrated_yn_1": 0,
@@ -121,7 +121,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(2.804, 3.505]",
+    "avg_log_income": "5",
     "country": "TOT",
     "migrated_yn_0": 100,
     "migrated_yn_1": 54,
@@ -129,7 +129,7 @@
   },
   {
     "": 11,
-    "avg_log_income": "(3.505, 4.206]",
+    "avg_log_income": "6",
     "country": "GT",
     "migrated_yn_0": 71,
     "migrated_yn_1": 39,
@@ -137,7 +137,7 @@
   },
   {
     "": 12,
-    "avg_log_income": "(3.505, 4.206]",
+    "avg_log_income": "6",
     "country": "HND",
     "migrated_yn_0": 3,
     "migrated_yn_1": 5,
@@ -145,7 +145,7 @@
   },
   {
     "": 13,
-    "avg_log_income": "(3.505, 4.206]",
+    "avg_log_income": "6",
     "country": "SLV",
     "migrated_yn_0": 12,
     "migrated_yn_1": 2,
@@ -153,7 +153,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(3.505, 4.206]",
+    "avg_log_income": "6",
     "country": "TOT",
     "migrated_yn_0": 86,
     "migrated_yn_1": 46,
@@ -161,7 +161,7 @@
   },
   {
     "": 14,
-    "avg_log_income": "(4.206, 4.907]",
+    "avg_log_income": "7",
     "country": "GT",
     "migrated_yn_0": 19,
     "migrated_yn_1": 20,
@@ -169,7 +169,7 @@
   },
   {
     "": 15,
-    "avg_log_income": "(4.206, 4.907]",
+    "avg_log_income": "7",
     "country": "HND",
     "migrated_yn_0": 0,
     "migrated_yn_1": 2,
@@ -177,7 +177,7 @@
   },
   {
     "": 16,
-    "avg_log_income": "(4.206, 4.907]",
+    "avg_log_income": "7",
     "country": "SLV",
     "migrated_yn_0": 35,
     "migrated_yn_1": 20,
@@ -185,7 +185,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(4.206, 4.907]",
+    "avg_log_income": "7",
     "country": "TOT",
     "migrated_yn_0": 54,
     "migrated_yn_1": 42,
@@ -193,7 +193,7 @@
   },
   {
     "": 17,
-    "avg_log_income": "(4.907, 5.608]",
+    "avg_log_income": "8",
     "country": "GT",
     "migrated_yn_0": 5,
     "migrated_yn_1": 5,
@@ -201,7 +201,7 @@
   },
   {
     "": 18,
-    "avg_log_income": "(4.907, 5.608]",
+    "avg_log_income": "8",
     "country": "HND",
     "migrated_yn_0": 0,
     "migrated_yn_1": 2,
@@ -209,7 +209,7 @@
   },
   {
     "": 19,
-    "avg_log_income": "(4.907, 5.608]",
+    "avg_log_income": "8",
     "country": "SLV",
     "migrated_yn_0": 50,
     "migrated_yn_1": 38,
@@ -217,7 +217,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(4.907, 5.608]",
+    "avg_log_income": "8",
     "country": "TOT",
     "migrated_yn_0": 55,
     "migrated_yn_1": 45,
@@ -225,7 +225,7 @@
   },
   {
     "": 20,
-    "avg_log_income": "(5.608, 6.309]",
+    "avg_log_income": "9",
     "country": "GT",
     "migrated_yn_0": 0,
     "migrated_yn_1": 1,
@@ -233,7 +233,7 @@
   },
   {
     "": 21,
-    "avg_log_income": "(5.608, 6.309]",
+    "avg_log_income": "9",
     "country": "HND",
     "migrated_yn_0": 1,
     "migrated_yn_1": 1,
@@ -241,7 +241,7 @@
   },
   {
     "": 22,
-    "avg_log_income": "(5.608, 6.309]",
+    "avg_log_income": "9",
     "country": "SLV",
     "migrated_yn_0": 42,
     "migrated_yn_1": 42,
@@ -249,7 +249,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(5.608, 6.309]",
+    "avg_log_income": "9",
     "country": "TOT",
     "migrated_yn_0": 43,
     "migrated_yn_1": 44,
@@ -257,7 +257,7 @@
   },
   {
     "": 23,
-    "avg_log_income": "(6.309, 7.01]",
+    "avg_log_income": "10",
     "country": "GT",
     "migrated_yn_0": 0,
     "migrated_yn_1": 1,
@@ -265,7 +265,7 @@
   },
   {
     "": 24,
-    "avg_log_income": "(6.309, 7.01]",
+    "avg_log_income": "10",
     "country": "SLV",
     "migrated_yn_0": 15,
     "migrated_yn_1": 15,
@@ -273,7 +273,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(6.309, 7.01]",
+    "avg_log_income": "10",
     "country": "TOT",
     "migrated_yn_0": 15,
     "migrated_yn_1": 16,
@@ -281,7 +281,7 @@
   },
   {
     "": 25,
-    "avg_log_income": "(7.01, 7.711]",
+    "avg_log_income": "11",
     "country": "SLV",
     "migrated_yn_0": 2,
     "migrated_yn_1": 1,
@@ -289,7 +289,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(7.01, 7.711]",
+    "avg_log_income": "11",
     "country": "TOT",
     "migrated_yn_0": 2,
     "migrated_yn_1": 1,
@@ -297,7 +297,7 @@
   },
   {
     "": 26,
-    "avg_log_income": "(7.711, 8.412]",
+    "avg_log_income": "highest",
     "country": "SLV",
     "migrated_yn_0": 2,
     "migrated_yn_1": 0,
@@ -305,7 +305,7 @@
   },
   {
     "": "",
-    "avg_log_income": "(7.711, 8.412]",
+    "avg_log_income": "highest",
     "country": "TOT",
     "migrated_yn_0": 2,
     "migrated_yn_1": 0,
