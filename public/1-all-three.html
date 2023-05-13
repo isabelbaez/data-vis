@@ -54,7 +54,6 @@ d3.json("1-revised.json").then(function(data) {
   // Add the y-axis to the chart
   svg.append("g")
     .call(d3.axisLeft(yScale));
-});
 
 svg.append("text")
     .attr("x", width / 2)
@@ -79,6 +78,7 @@ svg.append("text")
   .attr("text-anchor", "middle")
   .style("font-size", "13px")
   .text(`Number of Households Surveyed: ${totalCountSum}`);
+});
 </script>
 </body>
 </html>
