@@ -55,11 +55,11 @@ d3.json("1-revised.json").then(function(data) {
     .call(d3.axisLeft(yScale));
 
 
-svg.append("text")
+    svg.append("text")
     .attr("x", width / 2)
-    .attr("y", height + margin.bottom-10)
+    .attr("y", height + margin.bottom - 2)
     .attr("text-anchor", "middle")
-    .text("Income Group (from lowest to highest)");
+    .text("Income Bins");
 
   svg.append("text")
    .attr("x", -height / 2)
