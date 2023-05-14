@@ -24,31 +24,50 @@
         padding-left: 20px;
         font-size: 14px;
         }
+        .tooltip {
+        position: absolute;
+        background-color: white;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        pointer-events: none;
+        font-size: 14px;
+        line-height: 1.4;
+    }
 
     </style>
 </head>
 <body>
     <div id="buttons"></div>
     <div id="chart"></div>
-    <div id="info"></div>
 
     <script>
         // Load data from CSV
         d3.csv("attempts_data_v3.csv").then(data => {
             console.log(data);
             // Replace this with your actual list of columns
-            const columnList = ["avg_log_income", "income_per_capita", "mig_ext_cost_total_usd",
+            const columnList = ["income_per_capita", "mig_ext_cost_total_usd",
                                 "debt_amount", "sucess_yn", "institutional_loan_yn"];
+            
+            const messages = {
+                "income_per_capita": ['messageSmall', 'messageTall'],
+                "mig_ext_cost_total_usd": ['messageSmall1', 'messageTall1'],
+                "debt_amount": ['messageSmall2', 'messageTall2'],
+                "sucess_yn": ['messageSmall3', 'messageTall3'],
+                "institutional_loan_yn": ['messageSmall4', 'messageTall4'],
+            }
 
             // Define dictionary with y-axis titles
             const legends = {
-                "avg_log_income": "Average Log Income",
                 "income_per_capita": "Income per Capita",
-                "mig_ext_cost_total_usd":"Total Cost of Migration",
-                "debt_amount": "Amount of Debt",
+                "mig_ext_cost_total_usd":"Total Cost of Migration (in Dollars)",
+                "debt_amount": "Amount of Debt (in Dollars)",
                 "sucess_yn": "Percentage of Migrants reaching the U.S.",
                 "institutional_loan_yn": "Percentage of Migrants w/ Personal Loans"
             };
+            const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
             const margin = {top: 50, right: 20, bottom: 50, left: 60},
                 width = 800 - margin.left - margin.right,
@@ -93,22 +112,18 @@
                 .attr("transform", "rotate(-90)")
                 .attr("fill", "black");
 
-            let smallestBar, tallestBar;
+    let smallestBar, tallestBar;
 
-            // Create the bars
-            function update(column) {
+    function update(column) {
     // Filter out empty strings and NaN values
     const filteredData = data.filter(d => d[column] !== "" && !isNaN(+d[column]));
 
-    // Calculate min and max values
-    const minValue = d3.min(filteredData, d => +d[column]);
-    const maxValue = d3.max(filteredData, d => +d[column]);
-
-    smallestBar = filteredData.find(d => +d[column] === minValue);
-    tallestBar = filteredData.find(d => +d[column] === maxValue);
+    // Find the smallest and tallest bars
+    smallestBar = d3.min(filteredData, d => +d[column]);
+    tallestBar = d3.max(filteredData, d => +d[column]);
 
     // Update the y-axis domain and label
-    y.domain([0, maxValue]);
+    y.domain([0, tallestBar]);
     yAxis.transition().duration(1000).call(d3.axisLeft(y));
     yAxis.select(".y-axis-label").text(legends[column]);
 
@@ -120,6 +135,37 @@
     const bars = svg.selectAll("rect")
         .data(filteredData, d => d.mig_ext_attempts);
 
+    // Merge the selections
+    const mergedBars = bars.enter()
+        .append("rect")
+        .merge(bars);
+
+    // Update existing and new bars
+    mergedBars.attr("x", d => x(d.mig_ext_attempts))
+        .attr("width", x.bandwidth())
+        .attr("fill", d => {
+            if (+d[column] === smallestBar) return "red";
+            else if (+d[column] === tallestBar) return "green";
+            else return "steelblue";
+        })
+        .on("mouseover", (event, d) => {
+            const customMessage = getCustomMessage(d, column);
+            tooltip.html(`${legends[column]}: ${d[column]}<br>Migration Attempts: ${d.mig_ext_attempts}${customMessage}`)
+                .style("opacity", 1);
+        })
+        .on("mousemove", (event, d) => {
+            tooltip.style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", (event, d) => {
+            tooltip.style("opacity", 0);
+        })
+
+        .transition()
+        .duration(1000)
+        .attr("y", d => y(+d[column]))
+        .attr("height", d => height - y(+d[column]));
+
     // Exit bars
     bars.exit()
         .transition()
@@ -127,68 +173,22 @@
         .attr("y", height)
         .attr("height", 0)
         .remove();
-
-    // Update existing bars
-    bars.attr("x", d => x(d.mig_ext_attempts))
-        .attr("width", x.bandwidth())
-        .transition()
-        .duration(1000)
-        .attr("y", d => y(+d[column]))
-        .attr("height", d => height - y(+d[column]))
-        .attr("fill", d => {
-            if (+d[column] === minValue) return "red";
-            else if (+d[column] === maxValue) return "green";
-            else return "black";
-        });
-
-    // Enter new bars
-// Enter new bars
-bars.enter()
-    .append("rect")
-    .attr("x", d => x(d.mig_ext_attempts))
-    .attr("width", x.bandwidth())
-    .attr("y", height)
-    .attr("height", 0)
-    .attr("class", d => {
-        if (d === smallestBar || d === tallestBar) {
-            return "clickable";
-        }
-    })
-    .on("click", (event, d) => {
-        if (d === smallestBar || d === tallestBar) {
-            displayInfo(d);
-        }
-    })
-    .transition()
-    .duration(1000)
-    .attr("y", d => y(+d[column]))
-    .attr("height", d => height - y(+d[column]));
-
 }
 
-function displayInfo(d) {
-    const infoDiv = d3.select("#info");
-    infoDiv.html(""); // Clear previous content
 
-    const isMin = d === smallestBar;
-    const isMax = d === tallestBar;
-    if (isMin) {
-        infoDiv.append("h3")
-            .text("Smallest Bar");
-        infoDiv.append("p")
-            .html(`<b>Custom message for the smallest bar in ${legends[column]}</b>`);
-    } else if (isMax) {
-        infoDiv.append("h3")
-            .text("Tallest Bar");
-        infoDiv.append("p")
-            .html(`<b>Custom message for the tallest bar in ${legends[column]}</b>`);
+function getCustomMessage(d, column) {
+    if (+d[column] === smallestBar) {
+        // Add your custom message for the smallest bar depending on the column
+        return `<br><span style="color: red;">Insight: ${messages[column][0]}</span>`;
+    } else if (+d[column] === tallestBar) {
+        // Add your custom message for the tallest bar depending on the column
+        return `<br><span style="color: green;">Insight: ${messages[column][1]}</span>`;
+    } else {
+        return "";
     }
-
-    infoDiv.append("p")
-        .html(`<b>Migration Attempts:</b> ${d.mig_ext_attempts}`);
-    infoDiv.append("p")
-        .html(`<b>${legends[column]}:</b> ${d[column]}`);
 }
+
+
 
 // Create the buttons
 const buttons = d3.select("#buttons").selectAll("button")
