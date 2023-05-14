@@ -140,7 +140,7 @@ function update(column) {
         })
         .on("mouseover", (event, d) => {
             const customMessage = getCustomMessage(d, column);
-            tooltip.html(`${legends[column]}: ${d[column]}<br>Migration Attempts: ${d.avg_log_income}${customMessage}`)
+            tooltip.html(`${legends[column]}: ${d[column]}${customMessage}`)
                 .style("opacity", 1);
         })
         .on("mousemove", (event, d) => {
@@ -170,7 +170,7 @@ function update(column) {
 function getCustomMessage(d, column) {
     if (+d[column] === tallestBar) {
         // Add your custom message for the tallest bar depending on the column
-        return `<br><span style="color: #3e919d;">Insight: ${messages[column]}</span>`;
+        return `<br><span style="color: #3e919d;"> ${messages[column]}</span>`;
     } else {
         return "";
     }

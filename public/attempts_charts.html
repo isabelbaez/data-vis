@@ -153,7 +153,7 @@
         })
         .on("mouseover", (event, d) => {
             const customMessage = getCustomMessage(d, column);
-            tooltip.html(`${legends[column]}: ${d[column]}<br>Migration Attempts: ${d.mig_ext_attempts}${customMessage}`)
+            tooltip.html(`${legends[column]}: ${d[column]}${customMessage}`)
                 .style("opacity", 1);
         })
         .on("mousemove", (event, d) => {
@@ -182,10 +182,10 @@
 function getCustomMessage(d, column) {
     if (+d[column] === smallestBar) {
         // Add your custom message for the smallest bar depending on the column
-        return `<br><span style="color: #122b2e;">Insight: ${messages[column][0]}</span>`;
+        return `<br><span style="color: #3e919d;"> ${messages[column][0]}</span>`;
     } else if (+d[column] === tallestBar) {
         // Add your custom message for the tallest bar depending on the column
-        return `<br><span style="color: #3e919d;">Insight: ${messages[column][1]}</span>`;
+        return `<br><span style="color: #3e919d;"> ${messages[column][1]}</span>`;
     } else {
         return "";
     }
