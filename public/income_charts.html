@@ -50,13 +50,13 @@
                 "institutional_loan_yn": "Percentage of Migrants w/ Personal Loans",
             };
             const messages = {"mig_ext_cost_total_usd" : [
-                "Households with the lowest income per capita have the most attempts"],
+                "Individuals with the highest income are willing to spend the most on migration to the US"],
                             "debt_amount": [
-                "Individuals with lowest income have the most attempts, as they are not able to spend as much per attempt"],
+                "High income individuals also have higher amounts of debt"],
                             "sucess_yn": [
-                "Individuals with the most attempts spend less on migration and have less debt"],
+                "Higher income individuals migrating are more likely to reach the US"],
                             "institutional_loan_yn": [
-                "Not that many individuals are able to reach the U.S on their first attempt"],
+                "The likelihood of taking out loans for migration follows a normal distribution, and then shoots up for higher income individuals"],
             };
             const tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip")
@@ -135,8 +135,8 @@ function update(column) {
     mergedBars.attr("x", d => x(d.avg_log_income))
         .attr("width", x.bandwidth())
         .attr("fill", d => {
-            if (+d[column] === tallestBar) return "green";
-            else return "steelblue";
+            if (+d[column] === tallestBar) return "#3e919d";
+            else return "#2C666E";
         })
         .on("mouseover", (event, d) => {
             const customMessage = getCustomMessage(d, column);
@@ -170,7 +170,7 @@ function update(column) {
 function getCustomMessage(d, column) {
     if (+d[column] === tallestBar) {
         // Add your custom message for the tallest bar depending on the column
-        return `<br><span style="color: green;">Insight: ${messages[column][0]}</span>`;
+        return `<br><span style="color: #3e919d;">Insight: ${messages[column]}</span>`;
     } else {
         return "";
     }

@@ -147,9 +147,9 @@
     mergedBars.attr("x", d => x(d.mig_ext_attempts))
         .attr("width", x.bandwidth())
         .attr("fill", d => {
-            if (+d[column] === smallestBar) return "red";
-            else if (+d[column] === tallestBar) return "green";
-            else return "steelblue";
+            if (+d[column] === smallestBar) return "#122b2e";
+            else if (+d[column] === tallestBar) return "#3e919d";
+            else return "#2C666E";
         })
         .on("mouseover", (event, d) => {
             const customMessage = getCustomMessage(d, column);
@@ -182,10 +182,10 @@
 function getCustomMessage(d, column) {
     if (+d[column] === smallestBar) {
         // Add your custom message for the smallest bar depending on the column
-        return `<br><span style="color: red;">Insight: ${messages[column][0]}</span>`;
+        return `<br><span style="color: #122b2e;">Insight: ${messages[column][0]}</span>`;
     } else if (+d[column] === tallestBar) {
         // Add your custom message for the tallest bar depending on the column
-        return `<br><span style="color: green;">Insight: ${messages[column][1]}</span>`;
+        return `<br><span style="color: #3e919d;">Insight: ${messages[column][1]}</span>`;
     } else {
         return "";
     }
