@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js Bar Chart</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .button {
+            background-color: #2C666E;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="buttons"></div>
+    <div id="chart"></div>
+
+<script>
+    // Load data from CSV
+    // Load the data from the CSV file
+    
+    // Assuming you have already imported D3.js and created an SVG container
+
+    d3.csv("2-distributions_by_migration_status.csv").then(function(data) {
+
+        var svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", 2000)
+            .attr("height", 700);
+
+// Replace this with your actual data
+
+// Replace this with your actual list of columns
+var column_list = [
+  { name: "avg_log_income", type: "numerical" },
+  { name: "log_income_per_capita", type: "numerical" }
+];
+
+var barPadding = 2;
+
+var legends = {
+  avg_log_income: "Average Monthly Log Income",
+  log_income_per_capita: "Log Income Per Capita"
+};
+
+// Filter the data based on migrated_yn
+var migrated_0 = data.filter(function(d) {
+  return d.migrated_yn === "0";
+});
+
+var migrated_1 = data.filter(function(d) {
+  return d.migrated_yn === "1";
+});
+
+var subplot_margin = 20;
+
+// Set the number of bins
+var margin = { top: 30, right: 30, bottom: 70, left: 70 };
+
+var subplot_width = (2000 - subplot_margin * 3) / 2;
+
+// Create SVG groups for subplots
+var subplot1 = svg.append("g")
+  .attr("class", "subplot")
+  .attr("transform", "translate(0,0)");
+
+var subplot2 = svg.append("g")
+  .attr("class", "subplot")
+  .attr("transform", "translate(subplot_width + subplot_margin, 0)");
+
+var colors = ["#1C2541"];
+// ['#FFF5E5', '#2C666E', '#07393C', '#3A506B', '#1C2541', '#0B132B']
+
+var xScale = d3.scaleLinear()
+  .range([0, subplot_width - barPadding])
+  .domain([global_min, global_max]);
+
+
+// Loop through the columns and create histograms for each column
+column_list.forEach(function(columnObj, i) {
+  var column = columnObj.name;
+  var column_type = columnObj.type;
+  var legend_name = legends[column];
+
+  if (column_type === "numerical") {
+    // Calculate the global min and max for each column across both subplots
+    var global_min = Math.min(
+      d3.min(migrated_0, function(d) { return +d[column]; }),
+      d3.min(migrated_1, function(d) { return +d[column]; })
+    );
+
+    var global_max = Math.max(
+      d3.max(migrated_0, function(d) { return +d[column]; }),
+      d3.max(migrated_1, function(d) { return +d[column]; })
+    );
+
+    // Calculate the bin size using the global min and max
+    var bin_size = (global_max - global_min) / num_bins;
+
+    // Create histograms using D3.js
+    var histogram1 = d3.histogram()
+      .value(function(d) { return +d[column]; })
+      .domain([global_min, global_max])
+      .thresholds(d3.range(global_min, global_max, bin_size));
+
+    var bins1 = histogram1(migrated_0);
+
+    var histogram2 = d3.histogram()
+      .value(function(d) { return +d[column]; })
+      .domain([global_min, global_max])
+      .thresholds(d3.range(global_min, global_max, bin_size));
+
+    var bins2 = histogram2(migrated_1);
+
+    // Create bar rectangles for histogram bins
+    subplot1.selectAll(".bar")
+      .data(bins1)
+      .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return xScale(d.x0); })
+      .attr("y", function(d) { return yScale(d.length); })
+      .attr("width", function(d) { return xScale(d.x1) - xScale(d.x0) - barPadding; })
+
+      .attr("height", function(d) { return subplot_height - yScale(d.length); })
+        .attr("fill", colors[i])
+        .attr("opacity", 0.75);
+
+      subplot2.selectAll(".bar")
+        .data(bins2)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return xScale(d.x0); })
+        .attr("y", function(d) { return yScale(d.length); })
+        .attr("width", function(d) { return xScale(d.x1) - xScale(d.x0) - barPadding; })
+        .attr("height", function(d) { return subplot_height - yScale(d.length); })
+        .attr("fill", colors[i])
+        .attr("opacity", 0.75);
+    }
+    });
+
+    // Update the layout of the subplots
+    subplot1.attr("transform", "translate(" + subplot_margin + "," + subplot_margin + ")");
+    subplot2.attr("transform", "translate(" + (subplot_width + subplot_margin * 2) + "," + subplot_margin + ")");
+
+    // Add y-axis label
+    svg.append("text")
+        .attr("class", "y-axis-label")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2)
+        .attr("y", margin.left / 2)
+        .style("text-anchor", "middle")
+        .text("Number of Households");
+
+    // Add legend
+    var legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", "translate(" + (width / 2) + "," + (margin.top / 2) + ")")
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
+        .style("font-family", "sans-serif");
+
+    column_list.forEach(function(columnObj, i) {
+        var column = columnObj.name;
+        var legend_name = legends[column];
+
+        legend.append("rect")
+        .attr("x", -legendRectSize / 2)
+        .attr("y", (i * legendSpacing) - legendRectSize / 2)
+        .attr("width", legendRectSize)
+        .attr("height", legendRectSize)
+        .attr("fill", colors[i])
+        .attr("opacity", 0.75);
+
+        legend.append("text")
+        .attr("x", legendRectSize / 2 + legendTextPadding)
+        .attr("y", i * legendSpacing)
+        .text(legend_name);
+    });
+
+    // Save the plot as an SVG file
+    // Assuming you have a saveSVG() function
+    svg.attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+    // Save the plot as an SVG or HTML file
+    var svgString = svg.node().outerHTML;
+    });
+
+
+    // Function to get counts for each value in a column
+    function getCounts(data, columnName) {
+        var counts = {};
+        data.forEach(function(d) {
+            var value = d[columnName];
+            if (counts[value]) {
+            counts[value]++;
+            } else {
+            counts[value] = 1;
+            }
+        });
+        return Object.keys(counts).map(function(key) {
+            return { value: key, count: counts[key] };
+        });
+    }
+                
+</script>
+</body>
+</html>
