@@ -29,18 +29,15 @@
         d3.csv("income_data_V3.csv").then(data => {
             console.log(data);
             // Replace this with your actual list of columns
-            const columnList = ["income_per_capita", "mig_ext_cost_total_usd",
-               "debt_amount", "sucess_yn", "institutional_loan_yn", "mig_ext_attempts"];
+            const columnList = ["mig_ext_cost_total_usd",
+               "debt_amount", "sucess_yn", "institutional_loan_yn"];
 
             // Define dictionary with y-axis titles
             const legends = {
-                "avg_log_income": "Average Log Income",
-                "income_per_capita": "Income per Capita",
                 "mig_ext_cost_total_usd":"Total Cost of Migration",
                 "debt_amount": "Amount of Debt",
                 "sucess_yn": "Percentage of Migrants reaching the U.S.",
                 "institutional_loan_yn": "Percentage of Migrants w/ Personal Loans",
-                "mig_ext_attempts": "Average Number of Migration Attempts"
             };
 
             const margin = {top: 50, right: 20, bottom: 60, left: 60},
@@ -98,15 +95,16 @@ function update(column) {
     yAxis.select(".y-axis-label").text(legends[column]);
 
     // Update the x-axis domain and redraw the x-axis
-    x.domain(filteredData.map(d => d.mig_ext_attempts).sort((a, b) => a - b));
-    xAxis.transition().duration(1000).call(d3.axisBottom(x).tickFormat(d => (Math.round(d * 100) / 100).toFixed(2)));
+    x.domain(filteredData.map(d => d.avg_log_income).sort((a, b) => a - b));
+    xAxis.transition().duration(1000).call(d3.axisBottom(x));
 
     // Update the bars
     const bars = svg.selectAll("rect")
-        .data(filteredData, d => d.mig_ext_attempts);
+        .data(filteredData, d => d.avg_log_income);
 
     // Exit bars
     bars.exit()
+        .data(filteredData, d => d.avg_log_income)
         .transition()
         .duration(1000)
         .attr("y", height)
@@ -114,7 +112,7 @@ function update(column) {
         .remove();
 
     // Update existing bars
-    bars.attr("x", d => x(d.mig_ext_attempts))
+    bars.attr("x", d => x(d.avg_log_income))
         .attr("width", x.bandwidth())
         .transition()
         .duration(1000)
@@ -124,7 +122,7 @@ function update(column) {
     // Enter new bars
     bars.enter()
         .append("rect")
-        .attr("x", d => x(d.mig_ext_attempts))
+        .attr("x", d => x(d.avg_log_income))
         .attr("width", x.bandwidth())
         .attr("y", height)
         .attr("height", 0)
@@ -133,8 +131,6 @@ function update(column) {
         .attr("y", d => y(+d[column]))
         .attr("height", d => height - y(+d[column]));
 }
-
-
 
 
 
