@@ -43,7 +43,7 @@
                 "mig_ext_attempts": "Average Number of Migration Attempts"
             };
 
-            const margin = {top: 50, right: 20, bottom: 150, left: 60},
+            const margin = {top: 50, right: 20, bottom: 60, left: 60},
                 width = 800 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
@@ -66,7 +66,7 @@
 
             svg.append("text")
                 .attr("x", width / 2)
-                .attr("y", height + 140)
+                .attr("y", height + 45)
                 .attr("text-anchor", "middle")
                 .attr("fill", "black")
                 .text("Average Log Income Bins");
@@ -99,8 +99,7 @@ function update(column) {
 
     // Update the x-axis domain and redraw the x-axis
     x.domain(filteredData.map(d => d.mig_ext_attempts).sort((a, b) => a - b));
-    xAxis.transition().duration(1000).call(d3.axisBottom(x));
-    xAxis.selectAll("text").attr("transform", "rotate(-90)").attr("text-anchor", "end").attr("dx", "-0.8em").attr("dy", "-0.5em");
+    xAxis.transition().duration(1000).call(d3.axisBottom(x).tickFormat(d => (Math.round(d * 100) / 100).toFixed(2)));
 
     // Update the bars
     const bars = svg.selectAll("rect")
