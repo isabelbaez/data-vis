@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js Bar Chart</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .button {
+            background-color: #2C666E;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="buttons"></div>
+    <div id="chart"></div>
+
+<script>
+    // Load data from CSV
+    // Load the data from the CSV file
+    d3.csv("2-distributions_by_migration_status.csv").then(function(data) {
+    // Replace this with your data filtering logic
+        var df = data.filter(function(d) {
+            return d.country === "SLV";
+        });
+
+        var filteredData = df.filter(function(d) {
+            console.log(d.income_sufficiency_6m);
+
+            return (d.income_satisfaction >= 1 && d.income_satisfaction <= 4) && (d.income_sufficiency_6m >= 1 && d.income_sufficiency_6m <= 5) ;
+        });
+
+        var mapping = {
+            1: 'Comfortable',
+            2: 'Surviving',
+            3: 'Struggling',
+            4: 'Critical'
+        };
+
+        // Replace the values in the "income_satisfaction" column
+        filteredData.forEach(function(d) {
+            d.income_satisfaction = mapping[d.income_satisfaction];
+        });
+
+        mapping = {
+            1: 'Enough',
+            2: 'Almost enough',
+            3: 'Sometimes enough',
+            4: 'Rarely enough',
+            5: 'Insufficient'
+        };
+
+        // Replace the values in the "income_sufficiency_6m" column
+        filteredData.forEach(function(d) {
+            console.log(d.income_sufficiency_6m);
+            d.income_sufficiency_6m = mapping[d.income_sufficiency_6m];
+        });
+
+        var column_list = [
+            // { name: 'income_satisfaction', type: 'categorical' },
+            { name: 'income_sufficiency_6m', type: 'categorical' }
+        ];
+
+        var legends = {
+            'income_satisfaction': 'Income Satisfaction',
+            'income_sufficiency_6m': 'Income Sufficiency (6 months)'
+        };
+
+        // Filter the data based on migrated_yn
+        var migrated_0 = filteredData.filter(function(d) {
+            return d.migrated_yn === '0';
+        });
+
+        var migrated_1 = filteredData.filter(function(d) {
+            return d.migrated_yn === '1';
+        });
+        // Create subplots with 1 row and 2 columns
+        var svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", 2000)
+            .attr("height", 700);
+
+        var margin = { top: 30, right: 30, bottom: 70, left: 70 };
+        var width = +svg.attr("width") - margin.left - margin.right;
+        var height = +svg.attr("height") - margin.top - margin.bottom;
+
+        var g1 = svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var g2 = svg.append("g")
+            .attr("transform", "translate(" + (width / 2 + margin.left) + "," + margin.top + ")");
+
+        var colors = ['#2C666E', '#3A506B'];
+
+        // var xScale = d3.scalePoint()
+        // .range([0, width / 2])
+        // .padding(0.2);
+
+        // var yScale = d3.scaleLinear()
+        // .range([height, 0]);
+
+        // // Loop through the columns and create traces for each column
+        // var area = d3.area()
+        //     .x(function(d) { return xScale(d.value) + xScale.bandwidth() / 2; })
+        //     .y0(height)
+        //     .y1(function(d) { return yScale(d.count); })
+        //     .curve(d3.curveCatmullRom);
+
+        column_list.forEach(function(column, i) {
+            // var columnName = column.name;
+            // var columnType = column.type;
+            // var legendName = legends[columnName];
+
+            // if (columnType === 'categorical') {
+            // var counts_0 = getCounts(migrated_0, columnName);
+            // var counts_1 = getCounts(migrated_1, columnName);
+
+            // var xScale = d3.scaleBand()
+            //     .domain(counts_0.map(function(d) { return d.value; }))
+            //     .range([0, width / 2])
+            //     .padding(0.2);
+
+            // var yMax = Math.max(d3.max(counts_0, function(d) { return d.count; }), d3.max(counts_1, function(d) { return d.count; }));
+            // var yScale = d3.scaleLinear()
+            //     .domain([0, yMax])
+            //     .range([height, 0]);
+
+            // g1.append("path")
+            //     .datum(counts_0)
+            //     .attr("class", "area")
+            //     .attr("fill", colors[i])
+            //     .attr("opacity", 0.75)
+
+            // g2.append("path")
+            //     .datum(counts_1)
+            //     .attr("class", "area")
+            //     .attr("fill", colors[i])
+            //     .attr("opacity", 0.75)
+
+            // g1.append("g")
+            //     .attr("transform", "translate(0," + height + ")")
+            //     .call(d3.axisBottom(xScale));
+
+            // g2.append("g")
+            //     .attr("transform", "translate(0," + height + ")")
+            //     .call(d3.axisBottom(xScale));
+
+            // g1.append("g")
+            //     .call(d3.axisLeft(yScale));
+
+            // g2.append("g")
+            //     .call(d3.axisLeft(yScale));
+
+            // g1.append("text")
+            //     .attr("x", width / 4)
+            //     .attr("y", -10)
+            //     .attr("text-anchor", "middle")
+            //     .style("font-size", "16px")
+            //     .text("Households without migrants");
+
+            // g2.append("text")
+            //     .attr("x", width * 0.75)
+            //     .attr("y", -10)
+            //     .attr("text-anchor", "middle")
+            //     .style("font-size", "16px")
+            //     .text("Households with migrants");
+
+            // svg.append("text")
+            //     .attr("x", width / 4)
+            //     .attr("y", height + margin.top + 50)
+            //     .attr("text-anchor", "middle")
+            //     .style("font-size", "14px")
+            //     .text(legends.income_sufficiency_6m)
+            //     .attr("fill", colors[0]);
+
+            // svg.append("text")
+            //     .attr("x", width * 0.75)
+            //     .attr("y", height + margin.top + 50)
+            //     .attr("text-anchor", "middle")
+            //     .style("font-size", "14px")
+            //     .text(legends.income_sufficiency_6m)
+            //     .attr("fill", colors[1]);
+            // }
+
+
+            var columnName = column.name;
+            var columnType = column.type;
+            // var legendName = legends[columnName];
+
+            var counts = (i === 0) ? getCounts(migrated_0, columnName) : getCounts(migrated_1, columnName);
+
+            var xScale = d3.scaleBand()
+                .domain(counts.map(function(d) { return d.value; }))
+                .range([0, width / 2])
+                .padding(0.2);
+
+            var yMax = d3.max(counts, function(d) { return d.count; });
+            var yScale = d3.scaleLinear()
+                .domain([0, yMax])
+                .range([height, 0]);
+
+            var g = (i === 0) ? g1 : g2;
+
+
+            var area = d3.area()
+                .x(function(d) { return xScale(d.value) + xScale.bandwidth() / 2; }) // Set the x-coordinate based on the value
+                .y0(height) // Set the baseline of the area to the bottom of the chart
+                .y1(function(d) { return yScale(d.count); }) // Set the top line of the area based on the count
+                .curve(d3.curveCatmullRom); // Use the Catmull-Rom interpolation for a smooth curve
+
+            // Append a path element and set its d attribute using the area generator
+            g.append("path")
+                .datum(counts)
+                .attr("class", "area")
+                .attr("d", area)
+                .attr("fill", "steelblue")
+                .attr("opacity", 0.5);
+
+            // var line = d3.line()
+            //     .x(function(d) { return xScale(d.value) + xScale.bandwidth() / 2; }) // Set the x-coordinate based on the value
+            //     .y(function(d) { return yScale(d.count); }) // Set the y-coordinate based on the count
+            //     .curve(d3.curveCatmullRom); 
+
+            
+            // g.append("path")
+            //     .datum(counts)
+            //     .attr("class", "line")
+            //     .attr("d", line)
+            //     .attr("fill", "none")
+            //     .attr("stroke", "steelblue")
+            //     .attr("stroke-width", 2);
+
+            // g.selectAll(".circle")
+            //     .data(counts)
+            //     .enter()
+            //     .append("circle")
+            //     .attr("class", "circle")
+            //     .attr("cx", function(d) { return xScale(d.value) + xScale.bandwidth() / 2; }) // Center the circles on the x-axis
+            //     .attr("cy", function(d) { return yScale(d.count); }) // Set the y-position based on the count
+            //     .attr("r", function(d) { return xScale.bandwidth() / 2; }) // Set the radius based on the bandwidth of the xScale
+            //     .attr("fill", function(d, i) { return colors[i]; }) // Set the fill color based on the index
+            //     .attr("opacity", 0.75);
+            
+            
+            
+            // selectAll(".bar")
+            //     .data(counts)
+            //     .enter()
+            //     .append("rect")
+            //     .attr("class", "bar")
+            //     .attr("x", function(d) { return xScale(d.value); })
+            //     .attr("y", function(d) { return yScale(d.count); })
+            //     .attr("width", xScale.bandwidth())
+            //     .attr("height", function(d) { return height - yScale(d.count); })
+            //     .attr("fill", colors[i])
+            //     .attr("opacity", 0.75);
+
+            g.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(xScale));
+
+            g.append("g")
+            .call(d3.axisLeft(yScale));
+
+            g.append("text")
+            .attr("x", width / 4)
+            .attr("y", -10)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text(i === 0 ? "Households without migrants" : "Households with migrants");
+
+            svg.append("text")
+            .attr("x", (i === 0) ? width / 4 : width * 0.75)
+            .attr("y", height + margin.top + 50)
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .text(legends[columnName])
+            .attr("fill", colors[i]);
+
+        });
+
+        // Set the overall layout
+        svg.attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom);
+        // Save the plot as an SVG or HTML file
+
+        // Code to save the SVG or HTML file goes here
+    });
+
+    // Function to get counts for each value in a column
+    function getCounts(data, columnName) {
+        var counts = {};
+        data.forEach(function(d) {
+            var value = d[columnName];
+            if (counts[value]) {
+            counts[value]++;
+            } else {
+            counts[value] = 1;
+            }
+        });
+        return Object.keys(counts).map(function(key) {
+            return { value: key, count: counts[key] };
+        });
+    }
+                
+</script>
+</body>
+</html>
