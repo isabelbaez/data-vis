@@ -18,11 +18,19 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+        #info {
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 20px;
+        font-size: 14px;
+        }
+
     </style>
 </head>
 <body>
     <div id="buttons"></div>
     <div id="chart"></div>
+    <div id="info"></div>
 
     <script>
         // Load data from CSV
@@ -85,19 +93,28 @@
                 .attr("transform", "rotate(-90)")
                 .attr("fill", "black");
 
+            let smallestBar, tallestBar;
+
             // Create the bars
-function update(column) {
+            function update(column) {
     // Filter out empty strings and NaN values
     const filteredData = data.filter(d => d[column] !== "" && !isNaN(+d[column]));
 
+    // Calculate min and max values
+    const minValue = d3.min(filteredData, d => +d[column]);
+    const maxValue = d3.max(filteredData, d => +d[column]);
+
+    smallestBar = filteredData.find(d => +d[column] === minValue);
+    tallestBar = filteredData.find(d => +d[column] === maxValue);
+
     // Update the y-axis domain and label
-    y.domain([0, d3.max(filteredData, d => +d[column])]);
+    y.domain([0, maxValue]);
     yAxis.transition().duration(1000).call(d3.axisLeft(y));
     yAxis.select(".y-axis-label").text(legends[column]);
 
     // Update the x-axis domain and redraw the x-axis
     x.domain(filteredData.map(d => d.mig_ext_attempts));
-    xAxis.transition().duration(1000).call(d3.axisBottom(x)); // Add this line
+    xAxis.transition().duration(1000).call(d3.axisBottom(x));
 
     // Update the bars
     const bars = svg.selectAll("rect")
@@ -117,24 +134,61 @@ function update(column) {
         .transition()
         .duration(1000)
         .attr("y", d => y(+d[column]))
-        .attr("height", d => height - y(+d[column]));
+        .attr("height", d => height - y(+d[column]))
+        .attr("fill", d => {
+            if (+d[column] === minValue) return "red";
+            else if (+d[column] === maxValue) return "green";
+            else return "black";
+        });
 
     // Enter new bars
-    bars.enter()
-        .append("rect")
-        .attr("x", d => x(d.mig_ext_attempts))
-        .attr("width", x.bandwidth())
-        .attr("y", height)
-        .attr("height", 0)
-        .transition()
-        .duration(1000)
-        .attr("y", d => y(+d[column]))
-        .attr("height", d => height - y(+d[column]));
+// Enter new bars
+bars.enter()
+    .append("rect")
+    .attr("x", d => x(d.mig_ext_attempts))
+    .attr("width", x.bandwidth())
+    .attr("y", height)
+    .attr("height", 0)
+    .attr("class", d => {
+        if (d === smallestBar || d === tallestBar) {
+            return "clickable";
+        }
+    })
+    .on("click", (event, d) => {
+        if (d === smallestBar || d === tallestBar) {
+            displayInfo(d);
+        }
+    })
+    .transition()
+    .duration(1000)
+    .attr("y", d => y(+d[column]))
+    .attr("height", d => height - y(+d[column]));
+
 }
 
+function displayInfo(d) {
+    const infoDiv = d3.select("#info");
+    infoDiv.html(""); // Clear previous content
 
+    const isMin = d === smallestBar;
+    const isMax = d === tallestBar;
+    if (isMin) {
+        infoDiv.append("h3")
+            .text("Smallest Bar");
+        infoDiv.append("p")
+            .html(`<b>Custom message for the smallest bar in ${legends[column]}</b>`);
+    } else if (isMax) {
+        infoDiv.append("h3")
+            .text("Tallest Bar");
+        infoDiv.append("p")
+            .html(`<b>Custom message for the tallest bar in ${legends[column]}</b>`);
+    }
 
-
+    infoDiv.append("p")
+        .html(`<b>Migration Attempts:</b> ${d.mig_ext_attempts}`);
+    infoDiv.append("p")
+        .html(`<b>${legends[column]}:</b> ${d[column]}`);
+}
 
 // Create the buttons
 const buttons = d3.select("#buttons").selectAll("button")
