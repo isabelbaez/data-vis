@@ -3,6 +3,14 @@
   <head>
     <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
+  <style>
+    .area {
+      fill: #2C666E;
+      fill-opacity: 0.3;
+      stroke: #2C666E;
+      stroke-width: 1.5px;
+    }
+  </style>
 <script>
     // Load the data from the JSON file
 d3.json("1-revised.json").then(function(data) {
@@ -53,6 +61,31 @@ d3.json("1-revised.json").then(function(data) {
   // Add the y-axis to the chart
   svg.append("g")
     .call(d3.axisLeft(yScale));
+
+    svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height + margin.bottom - 2)
+    .attr("text-anchor", "middle")
+    .text("Income Bins");
+
+  svg.append("text")
+   .attr("x", -height / 2)
+   .attr("y", -margin.left + 12) // add some padding to the left of the y-axis
+   .attr("text-anchor", "middle")
+   .attr("transform", "rotate(-90)") // rotate the text to be vertical
+   .text("% of households with migrants");
+
+// Calculate the sum of total_count for the filtered data
+const totalCountSum = d3.sum(filteredData, d => d.total_count);
+
+// Add text element to display the total count sum in the middle of the chart
+svg.append("text")
+  .attr("x", width/2)
+  .attr("y", height/1.1)
+  .attr("text-anchor", "middle")
+  .style("font-size", "13px")
+  .text(`Number of Households Surveyed: ${totalCountSum}`);
+
 });
 </script>
 </html>
