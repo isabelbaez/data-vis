@@ -49,6 +49,18 @@
             color: white;
         }
 
+        #forward2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #FFF4E2;
+            height:  0%;
+            width: 100%;
+            transition: height 2s;
+            color: white;
+        }
+
+
         #content {
             display: flex;
             justify-content: space-be;
@@ -64,28 +76,9 @@
             
         }
 
-        #forward > p {
-            margin-left: 40%;
-        } 
-
         #hiddenTab {
             justify-content: space-evenly;            
             padding-top: 5vh;
-        }
-        
-        #forward > div > article {
-            background-color: white;
-            width: 20%;
-            height: 25vh;
-            border-radius: 10px;
-            color: black;
-            font-size: 20px;
-            padding: 10%;
-            padding-left: 5%;
-        }
-
-        #forward > div > article > p {
-            font-size: 30px;
         }
 
         a {
@@ -116,7 +109,9 @@
         }
 
         .question {
-            font-size: 4vw;
+            font-size: 3vw;
+            margin-top: 95px;
+            text-align: center;
         }
 
         .button {
@@ -177,18 +172,28 @@
 
     function upwards() {
         const transform = document.getElementById("forward");
-        const content = document.getElementById("hiddenTab");
+        // const content = document.getElementById("hiddenTab");
 
         console.log(transform.style.height);
 
         if (transform.style.height === "10%") {
             console.log('here');
-            transform.style.height = "50vh";
-            content.style.display = "flex"
+            transform.style.height = "90vh";
+
+
+            // content.style.display = "flex"
         } else {
             transform.style.height = "10%";
-            content.style.display = "none";
+            // content.style.display = "none";
         }
+
+        setTimeout(function() {
+            const transform2 = document.getElementById("forward2");
+            transform2.style.height = "90vh";
+            setTimeout(function() {
+                location.href = "../map.html";
+            }, 2000)
+        }, 8000)
         
 
         //transition: margin-left 2s;
@@ -343,29 +348,15 @@
             <p>
                 We saw that higher income households are more likely to have migrants, but what does this really mean? Is there any significant relationship between financial wellbeing and migration?
                 <br>
-Let’s explore! Click on different combinations for countries to see how households differ on the basis of having attempted migration. Notice the correlation between households with migrants and better financial outlooks. Note that the economic indicators might not necessarily be purely on income, but that remittances might also come into play
-
+                Let’s explore! Click on different combinations for countries to see how households differ on the basis of having attempted migration. Notice the correlation between households with migrants and better financial outlooks. Note that the economic indicators might not necessarily be purely on income, but that remittances might also come into play
             </p>
         </section>
     </main>
 
     <section id="forward" onclick="upwards()">
         <p> Deep Dive into Migrant Profiles </p>
-        <div id='hiddenTab' style="display:none">
-            <article>
-                <a href="../src/todomvc/src/app.html">
-                    Attempts
-                </a>
-            </article>
-
-            <article>
-                <a href="fourth.html">
-                    Income
-                </a>
-            </article>
-
-        </div>
-        <p>Now that we understand the differences between migrant and non-migrant households, let's take a deep dive into the financial profiles of migrants. Here, you can explore different factors regarding finances and migration based on two important factors: A migrants income, and a migrant number of attempts</p>
+        <p>Now that we understand the differences between migrant and non-migrant households, let's see how their different financial profiles impact aspects of their lifes and experiences. First, let's explore how income relates to migration attempts.</p>
+        <article id="forward2"></article>
      </section> 
 </body>
 </html>
