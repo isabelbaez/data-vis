@@ -94,6 +94,19 @@
         .question {
             font-size: 5vw;
         }
+
+        .button {
+            background-color: #2C666E;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
     </style>
     <script>
     
@@ -175,14 +188,13 @@
         <section id="content">
             
             <article>
-                <p class="question"> What income thresholds enable and dissuade migration? </p>
+                <p class="question"> What income thresholds enable migration? </p>
             </article>
-
             <article>
-                <button id="GT" onClick="b1()">Guatemala</button>
-                <button id="HND" onClick="b2()">Honduras</button>
-                <button id="SLV" onClick="b3()">El Salvador</button>
-                <button id="All-Three" onClick="b4()">All Three Countries</button>
+                <button class="button" id="GT" onClick="b1()">Guatemala</button>
+                <button class="button" id="HND" onClick="b2()">Honduras</button>
+                <button class="button" id="SLV" onClick="b3()">El Salvador</button>
+                <button class="button" id="All-Three" onClick="b4()">All Three Countries</button>
                 <!-- <div>
                     <input type="radio" id="GT" name="GT" value="GT" onchange="displaySelectedCountryIframe()">
                     <label for="GT">GT</label>
@@ -206,10 +218,15 @@
 
             </article>
         </section>
+        <p>
+            Income can be a strong determinant of migration. Higher income households have more resources and mobility to take on this challenge. They may have more savings to finance their relocation, the means to access safe and reliable migration routes, and better access to information about job opportunities and housing abroad. Individuals may be more likely to have specialized skills or education that make them attractive to employers in other regions.
+<br><br>Explore the chart to see how household income affects the probability of attempting migration for all different countries. Notice how higher income households often have a greater proportion of migrants 
+
+        </p>
 
         <a href="second.html"> ---> </a>
     </main>
-
+    
 </body>
 </html>
 

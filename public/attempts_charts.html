@@ -18,6 +18,17 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+        .tooltip {
+        position: absolute;
+        background-color: white;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        pointer-events: none;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
     </style>
 </head>
 <body>
@@ -29,18 +40,37 @@
         d3.csv("attempts_data_v3.csv").then(data => {
             console.log(data);
             // Replace this with your actual list of columns
-            const columnList = ["avg_log_income", "income_per_capita", "mig_ext_cost_total_usd",
+            const columnList = ["income_per_capita", "mig_ext_cost_total_usd",
                                 "debt_amount", "sucess_yn", "institutional_loan_yn"];
+            
+            const messages = {"income_per_capita" : [
+                "Households with the lowest income per capita have the most attempts",
+                "Households with the highest income per capita have the fewest attempts"],
+                            "mig_ext_cost_total_usd": [
+                "Individuals with lowest income have the most attempts, as they are not able to spend as much per attempt",
+                "Individuals are willing to spend more to migrate after their first few failed attempts"],
+                            "debt_amount": [
+                "Individuals with the most attempts spend less on migration and have less debt",
+                "Individuals are willing to spend more to migrate after their first few failed attempts, and they are more willing to go into debt"],
+                            "sucess_yn": [
+                "Not that many individuals are able to reach the U.S on their first attempt",
+                "The more attempts to reach the US, the more likely a migrant is to make it"],
+                            "institutional_loan_yn":
+                ["Migrants with only one migration attempt do not need to tale loans as often",
+                "The more attempts individuals make, the more likely they are to get loans"]
+}
 
             // Define dictionary with y-axis titles
             const legends = {
-                "avg_log_income": "Average Log Income",
                 "income_per_capita": "Income per Capita",
-                "mig_ext_cost_total_usd":"Total Cost of Migration",
-                "debt_amount": "Amount of Debt",
+                "mig_ext_cost_total_usd":"Total Cost of Migration (in Dollars)",
+                "debt_amount": "Amount of Debt (in Dollars)",
                 "sucess_yn": "Percentage of Migrants reaching the U.S.",
                 "institutional_loan_yn": "Percentage of Migrants w/ Personal Loans"
             };
+            const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
             const margin = {top: 50, right: 20, bottom: 50, left: 60},
                 width = 800 - margin.left - margin.right,
@@ -85,23 +115,59 @@
                 .attr("transform", "rotate(-90)")
                 .attr("fill", "black");
 
-            // Create the bars
-function update(column) {
+    let smallestBar, tallestBar;
+
+    function update(column) {
     // Filter out empty strings and NaN values
     const filteredData = data.filter(d => d[column] !== "" && !isNaN(+d[column]));
 
+    // Find the smallest and tallest bars
+    smallestBar = d3.min(filteredData, d => +d[column]);
+    tallestBar = d3.max(filteredData, d => +d[column]);
+
     // Update the y-axis domain and label
-    y.domain([0, d3.max(filteredData, d => +d[column])]);
+    y.domain([0, tallestBar]);
     yAxis.transition().duration(1000).call(d3.axisLeft(y));
     yAxis.select(".y-axis-label").text(legends[column]);
 
     // Update the x-axis domain and redraw the x-axis
     x.domain(filteredData.map(d => d.mig_ext_attempts));
-    xAxis.transition().duration(1000).call(d3.axisBottom(x)); // Add this line
+    xAxis.transition().duration(1000).call(d3.axisBottom(x));
 
     // Update the bars
     const bars = svg.selectAll("rect")
         .data(filteredData, d => d.mig_ext_attempts);
+
+    // Merge the selections
+    const mergedBars = bars.enter()
+        .append("rect")
+        .merge(bars);
+
+    // Update existing and new bars
+    mergedBars.attr("x", d => x(d.mig_ext_attempts))
+        .attr("width", x.bandwidth())
+        .attr("fill", d => {
+            if (+d[column] === smallestBar) return "#122b2e";
+            else if (+d[column] === tallestBar) return "#3e919d";
+            else return "#2C666E";
+        })
+        .on("mouseover", (event, d) => {
+            const customMessage = getCustomMessage(d, column);
+            tooltip.html(`${legends[column]}: ${d[column]}${customMessage}`)
+                .style("opacity", 1);
+        })
+        .on("mousemove", (event, d) => {
+            tooltip.style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", (event, d) => {
+            tooltip.style("opacity", 0);
+        })
+
+        .transition()
+        .duration(1000)
+        .attr("y", d => y(+d[column]))
+        .attr("height", d => height - y(+d[column]));
 
     // Exit bars
     bars.exit()
@@ -110,29 +176,20 @@ function update(column) {
         .attr("y", height)
         .attr("height", 0)
         .remove();
-
-    // Update existing bars
-    bars.attr("x", d => x(d.mig_ext_attempts))
-        .attr("width", x.bandwidth())
-        .transition()
-        .duration(1000)
-        .attr("y", d => y(+d[column]))
-        .attr("height", d => height - y(+d[column]));
-
-    // Enter new bars
-    bars.enter()
-        .append("rect")
-        .attr("x", d => x(d.mig_ext_attempts))
-        .attr("width", x.bandwidth())
-        .attr("y", height)
-        .attr("height", 0)
-        .transition()
-        .duration(1000)
-        .attr("y", d => y(+d[column]))
-        .attr("height", d => height - y(+d[column]));
 }
 
 
+function getCustomMessage(d, column) {
+    if (+d[column] === smallestBar) {
+        // Add your custom message for the smallest bar depending on the column
+        return `<br><span style="color: #3e919d;"> ${messages[column][0]}</span>`;
+    } else if (+d[column] === tallestBar) {
+        // Add your custom message for the tallest bar depending on the column
+        return `<br><span style="color: #3e919d;"> ${messages[column][1]}</span>`;
+    } else {
+        return "";
+    }
+}
 
 
 

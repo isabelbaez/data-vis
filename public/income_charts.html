@@ -18,6 +18,16 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+        .tooltip {
+        position: absolute;
+        background-color: white;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        pointer-events: none;
+        font-size: 14px;
+        line-height: 1.4;
+    }
     </style>
 </head>
 <body>
@@ -29,21 +39,30 @@
         d3.csv("income_data_V3.csv").then(data => {
             console.log(data);
             // Replace this with your actual list of columns
-            const columnList = ["income_per_capita", "mig_ext_cost_total_usd",
-               "debt_amount", "sucess_yn", "institutional_loan_yn", "mig_ext_attempts"];
+            const columnList = ["mig_ext_cost_total_usd",
+               "debt_amount", "sucess_yn", "institutional_loan_yn"];
 
             // Define dictionary with y-axis titles
             const legends = {
-                "avg_log_income": "Average Log Income",
-                "income_per_capita": "Income per Capita",
                 "mig_ext_cost_total_usd":"Total Cost of Migration",
                 "debt_amount": "Amount of Debt",
                 "sucess_yn": "Percentage of Migrants reaching the U.S.",
                 "institutional_loan_yn": "Percentage of Migrants w/ Personal Loans",
-                "mig_ext_attempts": "Average Number of Migration Attempts"
             };
+            const messages = {"mig_ext_cost_total_usd" : [
+                "Individuals with the highest income are willing to spend the most on migration to the US"],
+                            "debt_amount": [
+                "High income individuals also have higher amounts of debt"],
+                            "sucess_yn": [
+                "Higher income individuals migrating are more likely to reach the US"],
+                            "institutional_loan_yn": [
+                "The likelihood of taking out loans for migration follows a normal distribution, and then shoots up for higher income individuals"],
+            };
+            const tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
 
-            const margin = {top: 50, right: 20, bottom: 50, left: 60},
+            const margin = {top: 50, right: 20, bottom: 60, left: 60},
                 width = 800 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
@@ -64,12 +83,13 @@
                 .attr("transform", `translate(0, ${height})`)
                 .call(d3.axisBottom(x));
 
-            xAxis.append("text")
+            svg.append("text")
                 .attr("x", width / 2)
-                .attr("y", 35)
+                .attr("y", height + 45)
                 .attr("text-anchor", "middle")
                 .attr("fill", "black")
                 .text("Average Log Income Bins");
+
 
             // Create the y-axis
             const y = d3.scaleLinear()
@@ -85,24 +105,56 @@
                 .attr("text-anchor", "middle")
                 .attr("transform", "rotate(-90)")
                 .attr("fill", "black");
-
-            // Create the bars
+    let tallestBar;
+// Update function
 function update(column) {
     // Filter out empty strings and NaN values
     const filteredData = data.filter(d => d[column] !== "" && !isNaN(+d[column]));
 
+    tallestBar = d3.max(filteredData, d => +d[column]);
+
     // Update the y-axis domain and label
-    y.domain([0, d3.max(filteredData, d => +d[column])]);
+    y.domain([0, tallestBar]);
     yAxis.transition().duration(1000).call(d3.axisLeft(y));
     yAxis.select(".y-axis-label").text(legends[column]);
 
     // Update the x-axis domain and redraw the x-axis
-    x.domain(filteredData.map(d => d.mig_ext_attempts));
-    xAxis.transition().duration(1000).call(d3.axisBottom(x)); // Add this line
+    x.domain(filteredData.map(d => d.avg_log_income).sort((a, b) => a - b));
+    xAxis.transition().duration(1000).call(d3.axisBottom(x));
 
     // Update the bars
     const bars = svg.selectAll("rect")
-        .data(filteredData, d => d.mig_ext_attempts);
+        .data(filteredData, d => d.avg_log_income);
+
+    // Merge the selections
+    const mergedBars = bars.enter()
+        .append("rect")
+        .merge(bars);
+
+    // Update existing and new bars
+    mergedBars.attr("x", d => x(d.avg_log_income))
+        .attr("width", x.bandwidth())
+        .attr("fill", d => {
+            if (+d[column] === tallestBar) return "#3e919d";
+            else return "#2C666E";
+        })
+        .on("mouseover", (event, d) => {
+            const customMessage = getCustomMessage(d, column);
+            tooltip.html(`${legends[column]}: ${d[column]}${customMessage}`)
+                .style("opacity", 1);
+        })
+        .on("mousemove", (event, d) => {
+            tooltip.style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", (event, d) => {
+            tooltip.style("opacity", 0);
+        })
+
+        .transition()
+        .duration(1000)
+        .attr("y", d => y(+d[column]))
+        .attr("height", d => height - y(+d[column]));
 
     // Exit bars
     bars.exit()
@@ -111,32 +163,18 @@ function update(column) {
         .attr("y", height)
         .attr("height", 0)
         .remove();
-
-    // Update existing bars
-    bars.attr("x", d => x(d.mig_ext_attempts))
-        .attr("width", x.bandwidth())
-        .transition()
-        .duration(1000)
-        .attr("y", d => y(+d[column]))
-        .attr("height", d => height - y(+d[column]));
-
-    // Enter new bars
-    bars.enter()
-        .append("rect")
-        .attr("x", d => x(d.mig_ext_attempts))
-        .attr("width", x.bandwidth())
-        .attr("y", height)
-        .attr("height", 0)
-        .transition()
-        .duration(1000)
-        .attr("y", d => y(+d[column]))
-        .attr("height", d => height - y(+d[column]));
 }
 
 
 
-
-
+function getCustomMessage(d, column) {
+    if (+d[column] === tallestBar) {
+        // Add your custom message for the tallest bar depending on the column
+        return `<br><span style="color: #3e919d;"> ${messages[column]}</span>`;
+    } else {
+        return "";
+    }
+}
 // Create the buttons
 const buttons = d3.select("#buttons").selectAll("button")
     .data(columnList)

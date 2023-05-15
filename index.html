@@ -14,7 +14,6 @@
         * {
             box-sizing: border-box;
         }
-
         body {
             background-color: #2C666E;
             background-size: cover;
@@ -78,6 +77,11 @@
             box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
         }
 
+        #content {
+        margin-top: 10% !important;
+        align-items: center;
+        color: white;
+        }
     </style>
     <script>
 
@@ -101,8 +105,17 @@
 
 
     <main>
-        <section>
-        </section>  
+        <section id="content">
+            <h1>Central American Migration: Relationship Between Income and Migration to the US</h1>
+            <p>By: Isabel Baez, Laura Queipo and Roland Rocafort</p>
+            <p>The following data visualizations were made with data contributed by the United Nations World Food Programme (WFP).</p>
+          </section>
+
+
+          <section id="image">
+            <img src="central.png" width="500" height="300">
+          </section>
+
 
         <section id="forward" onclick="upwards()">
            <a id="forwardBtn" href="javascript:delay('./public/first.html')"> Up Arrow </a>

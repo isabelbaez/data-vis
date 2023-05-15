@@ -81,8 +81,9 @@
         }
 
         .nxtBtn {
-            margin-right: 3vw;
+            right: 25px;
             height: fit-content;
+            position: absolute;
         }
 
         .prevBtn {
@@ -99,13 +100,39 @@
 
         #map {
 			height: 50vh;
-			margin-top: 40vh;
-			margin-left: 15vw;
-			width: 50vw;
+			margin-top: 35vh;
+			margin-left: 20vw;
+			/* width: 50vw; */
+            left: 300px;
 		}
 
         #mapContainer {
             margin-right: 70vw;
+        }
+
+        #toolTip {
+            position: absolute;
+            top: 450px;
+            left: 650px; /* Adjust the value as needed */
+            width: 300px; /* Adjust the width as needed */
+            /* z-index: 999; */
+        }
+
+        /* Additional CSS styles for the appended divs in mapInfo */
+        #toolTip div {
+            margin-top: 10px; /* Add margin between the appended divs */
+        }
+
+        #mapInfo p {
+            /* background-color: #2C666E;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;*/
+            font-weight: bold;
+            width: 500px;
+            margin-top: 30px;
+            margin-left: 200px;
+            font-family: 'Courier New', monospace;
         }
 
     </style>
@@ -155,23 +182,26 @@
         <section id="content">
             
             <article>
-                <p class="question"> How do migrants' finances compare accross their number of migration attempts? </p>
+                <p class="question"> How many migration attempts does it take to reach the US? </p>
             </article>
 
             <article>
                 <div id="frameSec">
                     <div id="mapContainer">
                         <div id="map" ></div>
+                        <div id="toolTip"></div>
                         <div id="mapInfo">
-                            <p>Honduras</p>
-                            <article style="background-color: orange"> 1.88 non-reachable attempts</article>
-                            <article style="background-color: blue; color: white">  1.40 reachable attempts </article>
-                            <p>El Salvador</p>
-                            <article style="background-color: orange"> 1.79 non-reachable attempts</article>
-                            <article style="background-color: blue; color: white">  1.53 reachable attempts </article>
-                            <p>Guatemala</p>
-                            <article style="background-color: orange"> 1.68 non-reachable attempts</article>
-                            <article style="background-color: blue; color: white">  1.67 reachable attempts </article>
+                            <p>
+                                Migration from Central America to the US is often a complex and arduous process, 
+                                and individuals often attempt this emotionally and financially draining process 
+                                multiple times before succeeding.
+                                <br><br>
+                                The fact that so many are willing to take the risk and try multiple times 
+                                speaks to the desperation and determination of those seeking a better life.
+                                <br><br>
+                                Explore the map on the left to see how many times on average individuals from Central America 
+                                will attempt migration before either reaching the US, or stop trying. Hover over the paths to see.
+                            </p>
                         </div>
                     </div>
                     <button class="nxtBtn" id="nxtBtn" onclick="next()">Next</button>
