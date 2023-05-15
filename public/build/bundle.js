@@ -554,13 +554,13 @@ var app = (function () {
     	}); // convert latitude to y position
 
     	// add the path element to the map
-    	var path = marker_container.attr('class', 'curved-path').append('path').datum(migration_path).attr('d', line).style('fill', 'none').style('stroke', '#2C666E').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path = marker_container.attr('class', 'curved-path').append('path').datum(migration_path).attr('d', line).style('fill', 'none').style('stroke', '#E88B3C').style('stroke-width', 6); // set the path coordinates using the line generator
 
-    	var path1 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path12).attr('d', line).style('fill', 'none').style('stroke', '#E88B3C').style('stroke-width', 6); // set the path coordinates using the line generator
-    	var path2 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path2).attr('d', line).style('fill', 'none').style('stroke', '#2C666E').style('stroke-width', 6); // set the path coordinates using the line generator
-    	var path22 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path22).attr('d', line).style('fill', 'none').style('stroke', '#E88B3C').style('stroke-width', 6); // set the path coordinates using the line generator
-    	var path3 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path3).attr('d', line).style('fill', 'none').style('stroke', '#2C666E').style('stroke-width', 6); // set the path coordinates using the line generator
-    	var path32 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path32).attr('d', line).style('fill', 'none').style('stroke', '#E88B3C').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path1 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path12).attr('d', line).style('fill', 'none').style('stroke', '#2C666E').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path2 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path2).attr('d', line).style('fill', 'none').style('stroke', '#E88B3C').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path22 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path22).attr('d', line).style('fill', 'none').style('stroke', '#2C666E').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path3 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path3).attr('d', line).style('fill', 'none').style('stroke', '#E88B3C').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path32 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path32).attr('d', line).style('fill', 'none').style('stroke', '#2C666E').style('stroke-width', 6); // set the path coordinates using the line generator
 
     	function position_line() {
     		path.attr('d', line);
@@ -573,49 +573,49 @@ var app = (function () {
 
     	path.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(0, '#2C666E');
+    		showMessage(0, '#E88B3C');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', '#2C666E').style('stroke-width', 6);
+    		d3.select(this).style('stroke', '#E88B3C').style('stroke-width', 6);
     		hideMessage();
     	});
 
     	path1.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(1, '#E88B3C');
+    		showMessage(1, '#2C666E');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', '#E88B3C').style('stroke-width', 6);
+    		d3.select(this).style('stroke', '#2C666E').style('stroke-width', 6);
     		hideMessage();
     	});
 
     	path2.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(2, '#2C666E');
+    		showMessage(2, '#E88B3C');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', '#2C666E').style('stroke-width', 6);
+    		d3.select(this).style('stroke', '#E88B3C').style('stroke-width', 6);
     		hideMessage();
     	});
 
     	path22.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(3, '#E88B3C');
-    	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', '#E88B3C').style('stroke-width', 6);
-    		hideMessage();
-    	});
-
-    	path3.on('mouseover', function () {
-    		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(4, '#2C666E');
+    		showMessage(3, '#2C666E');
     	}).on('mouseout', function () {
     		d3.select(this).style('stroke', '#2C666E').style('stroke-width', 6);
     		hideMessage();
     	});
 
-    	path32.on('mouseover', function () {
+    	path3.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(5, '#E88B3C');
+    		showMessage(4, '#E88B3C');
     	}).on('mouseout', function () {
     		d3.select(this).style('stroke', '#E88B3C').style('stroke-width', 6);
+    		hideMessage();
+    	});
+
+    	path32.on('mouseover', function () {
+    		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
+    		showMessage(5, '#2C666E');
+    	}).on('mouseout', function () {
+    		d3.select(this).style('stroke', '#2C666E').style('stroke-width', 6);
     		hideMessage();
     	});
 
