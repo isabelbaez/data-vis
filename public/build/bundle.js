@@ -345,7 +345,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			main = element("main");
-    			add_location(main, file, 378, 0, 10608);
+    			add_location(main, file, 380, 0, 11048);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -444,12 +444,12 @@ var app = (function () {
     	const marker_container = d3.select(map.getCanvasContainer()).append("svg").attr("width", "100%").attr("height", "100%").style("position", "absolute").style("z-index", 2);
 
     	const pathMessages = [
-    		"El Salvador: 1.53 average reachable attempts",
-    		"El Salvador: 1.79 average non-reachable attempts",
-    		"Honduras: 1.40 average reachable attempts",
-    		"Honduras: 1.88 average non-reachable attempts",
-    		"Guatemala: 1.67 average reachable attempts",
-    		"Guatemala: 1.68 average non-reachable attempts"
+    		"El Salvador: On average, it takes individuals 1.53 attempts to complete their migration to the US",
+    		"El Salvador: On average, individuals that do not complete their journey to the US try 1.79 amount of times",
+    		"Honduras: On average, it takes individuals 1.40 attempts to complete their migration to the US",
+    		"Honduras: On average, individuals that do not complete their journey to the US try 1.88 amount of times",
+    		"Guatemala: On average, it takes individuals 1.67 attempts to complete their migration to the US",
+    		"Guatemala: On average, individuals that do not complete their journey to the US try 1.68 amount of times"
     	];
 
     	var migration_path = [
@@ -554,13 +554,13 @@ var app = (function () {
     	}); // convert latitude to y position
 
     	// add the path element to the map
-    	var path = marker_container.attr('class', 'curved-path').append('path').datum(migration_path).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 4); // set the path coordinates using the line generator
+    	var path = marker_container.attr('class', 'curved-path').append('path').datum(migration_path).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 6); // set the path coordinates using the line generator
 
-    	var path1 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path12).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 4); // set the path coordinates using the line generator
-    	var path2 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path2).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 4); // set the path coordinates using the line generator
-    	var path22 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path22).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 4); // set the path coordinates using the line generator
-    	var path3 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path3).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 4); // set the path coordinates using the line generator
-    	var path32 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path32).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 4); // set the path coordinates using the line generator
+    	var path1 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path12).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path2 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path2).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path22 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path22).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path3 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path3).attr('d', line).style('fill', 'none').style('stroke', 'blue').style('stroke-width', 6); // set the path coordinates using the line generator
+    	var path32 = marker_container.attr('class', 'curved-path').append('path').datum(migration_path32).attr('d', line).style('fill', 'none').style('stroke', 'orange').style('stroke-width', 6); // set the path coordinates using the line generator
 
     	function position_line() {
     		path.attr('d', line);
@@ -573,56 +573,56 @@ var app = (function () {
 
     	path.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(0);
+    		showMessage(0, 'blue');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', 'blue').style('stroke-width', 4);
+    		d3.select(this).style('stroke', 'blue').style('stroke-width', 6);
     		hideMessage();
     	});
 
     	path1.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(1);
+    		showMessage(1, 'orange');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', 'orange').style('stroke-width', 4);
+    		d3.select(this).style('stroke', 'orange').style('stroke-width', 6);
     		hideMessage();
     	});
 
     	path2.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(2);
+    		showMessage(2, 'blue');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', 'blue').style('stroke-width', 4);
+    		d3.select(this).style('stroke', 'blue').style('stroke-width', 6);
     		hideMessage();
     	});
 
     	path22.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(3);
+    		showMessage(3, 'orange');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', 'orange').style('stroke-width', 4);
+    		d3.select(this).style('stroke', 'orange').style('stroke-width', 6);
     		hideMessage();
     	});
 
     	path3.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(4);
+    		showMessage(4, 'blue');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', 'blue').style('stroke-width', 4);
+    		d3.select(this).style('stroke', 'blue').style('stroke-width', 6);
     		hideMessage();
     	});
 
     	path32.on('mouseover', function () {
     		d3.select(this).style('stroke', 'green').style('stroke-width', 4);
-    		showMessage(5);
+    		showMessage(5, 'orange');
     	}).on('mouseout', function () {
-    		d3.select(this).style('stroke', 'orange').style('stroke-width', 4);
+    		d3.select(this).style('stroke', 'orange').style('stroke-width', 6);
     		hideMessage();
     	});
 
-    	function showMessage(index) {
+    	function showMessage(index, color) {
     		const message = pathMessages[index];
     		const tooltipContainer = d3.select("#toolTip");
-    		const tooltip = tooltipContainer.append("div").attr("class", "tooltip").style("opacity", 0).style("background-color", "white").style("padding", "8px").style("border", "5px solid #2C666E").style("border-radius", "4px").style("position", "absolute").style("z-index", 3);
+    		const tooltip = tooltipContainer.append("div").attr("class", "tooltip").style("opacity", 0).style("background-color", "white").style("padding", "8px").style("border", "5px solid #2C666E").style("border-radius", "4px").style("position", "absolute").style("z-index", 3).style("color", color).style("font-weight", "bold");
     		tooltip.transition().duration(200).style("opacity", 1);
     		tooltip.html(message);
     		tooltip.node().offsetWidth;
