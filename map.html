@@ -81,8 +81,9 @@
         }
 
         .nxtBtn {
-            margin-right: 3vw;
+            right: 25px;
             height: fit-content;
+            position: absolute;
         }
 
         .prevBtn {
@@ -99,9 +100,10 @@
 
         #map {
 			height: 50vh;
-			margin-top: 40vh;
-			margin-left: 15vw;
-			width: 50vw;
+			margin-top: 35vh;
+			margin-left: 20vw;
+			/* width: 50vw; */
+            left: 300px;
 		}
 
         #mapContainer {
@@ -113,6 +115,7 @@
             top: 450px;
             left: 650px; /* Adjust the value as needed */
             width: 300px; /* Adjust the width as needed */
+            /* z-index: 999; */
         }
 
         /* Additional CSS styles for the appended divs in mapInfo */
@@ -120,13 +123,17 @@
             margin-top: 10px; /* Add margin between the appended divs */
         }
 
-        /* #mapInfo {
-            background-color: #2C666E;
+        #mapInfo p {
+            /* background-color: #2C666E;
             color: white;
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 5px;*/
             font-weight: bold;
-        } */
+            width: 500px;
+            margin-top: 30px;
+            margin-left: 200px;
+            font-family: 'Courier New', monospace;
+        }
 
     </style>
     <script>
@@ -184,27 +191,14 @@
                         <div id="map" ></div>
                         <div id="toolTip"></div>
                         <div id="mapInfo">
-                            <p>Honduras</p>
-                            <article style="background-color: #E88B3C"> 1.88 non-reachable attempts</article>
-                            <article style="background-color: #2C666E; color: white">  1.40 reachable attempts </article>
-                            <p>El Salvador</p>
-                            <article style="background-color: #E88B3C"> 1.79 non-reachable attempts</article>
-                            <article style="background-color: #2C666E; color: white">  1.53 reachable attempts </article>
-                            <p>Guatemala</p>
-                            <article style="background-color: #E88B3C"> 1.68 non-reachable attempts</article>
-                            <article style="background-color: #2C666E; color: white">  1.67 reachable attempts </article>
                             <p>
                                 Migration from Central America to the US is often a complex and arduous process, 
-                                and individuals often attempt it multiple times before succeeding.
-                                <br>
-                                the journey can be risky and expensive, and there are many obstacles that migrants must overcome along the way and even upon reaching their destination country
-                                <br>
-                                For those who do attempt migration multiple times, the process can be emotionally and financially draining.
-                                However, for some, the hope of a better life in the US is strong enough to keep them trying.
-                                <br>
-                                After several tries, Some may eventually give up and remain in their home countries. 
-                                Nonetheless, the fact that so many are willing to take the risk and try multiple times speaks to the desperation and determination of those seeking a better life.
-                                <br>
+                                and individuals often attempt this emotionally and financially draining process 
+                                multiple times before succeeding.
+                                <br><br>
+                                The fact that so many are willing to take the risk and try multiple times 
+                                speaks to the desperation and determination of those seeking a better life.
+                                <br><br>
                                 Explore the map on the left to see how many times on average individuals from Central America 
                                 will attempt migration before either reaching the US, or stop trying. Hover over the paths to see.
                             </p>
