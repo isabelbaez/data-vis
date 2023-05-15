@@ -64,17 +64,6 @@
             margin-left: 48%;
         }
 
-        a {
-            margin: 1rem 1rem 0 0;
-            background-color: rgb(202, 202, 202);
-            border-radius: 5px;
-            color: rgb(66, 66, 66) !important;
-            display: inline-block;
-            padding: 0.1rem 1rem;
-            text-decoration: none;
-            transition: 0.4s;
-        }
-
         section {
             padding-left: 5vw;
         }
@@ -85,10 +74,50 @@
             font-size: 5vw;
         } */
 
-        a:hover {
-            color: white !important;
-            background-color: rgb(66, 66, 66);
-            box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
+        #back {
+        left: 20px;
+        top: 110px;
+        height: fit-content;
+        position: absolute;
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: #2C666E;
+        color: white;
+        }
+
+        #back:hover {
+            background-color: #1E464D;
+        }
+
+        #next {
+        right: 20px;
+        top: 110px;
+        height: fit-content;
+        position: absolute;
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: #2C666E;
+        color: white;
+        }
+
+        #next:hover {
+            background-color: #1E464D;
         }
 
         .question {
@@ -181,9 +210,7 @@
     </header>
 
     <main>
-        <section id="back">
-            <a href="../index.html"> <-- Back </a>
-         </section> 
+        <a id="back" href="../index.html"> <-- Back </a>
 
         <section id="content">
             
@@ -223,8 +250,7 @@
 <br><br>Explore the chart to see how household income affects the probability of attempting migration for all different countries. Notice how higher income households often have a greater proportion of migrants 
 
         </p>
-
-        <a href="second.html"> ---> </a>
+        <a id="next" href="second.html"> Next ---> </a>
     </main>
     
 </body>

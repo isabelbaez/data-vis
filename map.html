@@ -54,6 +54,29 @@
 
     
         a {
+        left: 10px;
+        top: 110px;
+        height: fit-content;
+        position: absolute;
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: #2C666E;
+        color: white;
+        }
+
+        a:hover {
+            background-color: #1E464D;
+        }
+
+        /* #back a {
             margin: 1rem 1rem 0 0;
             background-color: rgb(202, 202, 202);
             border-radius: 5px;
@@ -64,14 +87,17 @@
             transition: 0.4s;
         }
 
-        a:hover {
+        #back a:hover {
             color: white !important;
             background-color: rgb(66, 66, 66);
             box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
-        }
+        } */
+
 
         .question {
             font-size: 2vw;
+            margin-top: 50px;
+            margin-left: 20px;
         }
 
         #frameSec {
@@ -80,11 +106,42 @@
             width: 100%;
         }
 
+        /* Base button styles */
         .nxtBtn {
-            right: 25px;
-            height: fit-content;
-            position: absolute;
+        right: 25px;
+        top: 110px;
+        height: fit-content;
+        position: absolute;
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
         }
+
+        /* Default button style */
+        .nxtBtn {
+        background-color: #2C666E;
+        color: white;
+        }
+
+        /* Hover effect */
+        .nxtBtn:hover{
+        background-color: #1E464D;
+        }
+
+        /* Disabled button style
+        button:disabled {
+        background-color: #CCCCCC;
+        color: #666666;
+        cursor: not-allowed;
+        } */
+
 
         .prevBtn {
             margin-left: 3vw;
@@ -130,8 +187,8 @@
             border-radius: 5px;*/
             font-weight: bold;
             width: 500px;
-            margin-top: 30px;
-            margin-left: 200px;
+            margin-top: 40px;
+            margin-left: 150px;
             font-family: 'Courier New', monospace;
         }
 
@@ -145,7 +202,6 @@
         const map = document.getElementById("mapContainer");
         const nxtFrame = document.getElementById("iFrame2");
 
-        console.log(nxtFrame);
         map.style.display="none";
         nxtFrame.style.display="block";
 
@@ -204,8 +260,8 @@
                             </p>
                         </div>
                     </div>
-                    <button class="nxtBtn" id="nxtBtn" onclick="next()">Next</button>
-                    <button class="prevBtn" id="prevBtn" onclick="before()" style="display:none">Previous</button>
+                    <button class="nxtBtn" id="nxtBtn" onclick="next()">Next --></button>
+                    <!-- <button class="prevBtn" id="prevBtn" onclick="before()">Previous</button> -->
                     <iframe class="iFrame" id="iFrame2" src="./public/attempts_charts.html" style="display:none"></iframe>
                 </div>
             </article>
