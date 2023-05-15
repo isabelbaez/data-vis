@@ -108,6 +108,18 @@
             margin-right: 70vw;
         }
 
+        #toolTip {
+            position: absolute;
+            top: 450px;
+            left: 650px; /* Adjust the value as needed */
+            width: 300px; /* Adjust the width as needed */
+        }
+
+        /* Additional CSS styles for the appended divs in mapInfo */
+        #toolTip div {
+            margin-top: 10px; /* Add margin between the appended divs */
+        }
+
     </style>
     <script>
 
@@ -162,6 +174,7 @@
                 <div id="frameSec">
                     <div id="mapContainer">
                         <div id="map" ></div>
+                        <div id="toolTip"></div>
                         <div id="mapInfo">
                             <p>Honduras</p>
                             <article style="background-color: orange"> 1.88 non-reachable attempts</article>
