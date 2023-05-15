@@ -113,7 +113,10 @@
         }
 
         .question {
-            font-size: 4vw;
+            font-size: 3vw;
+            padding: 0;
+            margin: 0;
+            text-align: center;
         }
 
         .button {
@@ -166,9 +169,21 @@
         }
 
         #texto {
-            margin-top: -80px;
+            /* margin-top: -70px; */
             text-align: center;
             font-size: 22px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .textoContainer {
+            /* margin: 0; */
+            margin-right: 70px;
+            margin-top: -68px;
+            padding: 0;
+            border-color:  #2C666E;
+            border-style: ridge;
+            border-width: medium;
         }
 
         #attempts {
@@ -217,6 +232,18 @@
         #income:hover {
             background-color: #1E464D;
             color: white;
+        }
+
+        #questionContainer {
+            margin-top: 40px;
+            margin-left: 30px;
+            border-color:  #2C666E;
+            border-style: ridge;
+            border-width: medium;
+            padding: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 360px;
         }
         
 
@@ -403,14 +430,13 @@
             </article>
         </section>
         <section>
-            <p id="texto">
-                We saw that higher income households are more likely to have migrants, but is there any significant relationship between financial wellbeing and migration?
-                <br>
-                Click on different countries to see how households differ on the basis of having attempted migration.
-                <br>
-Let’s explore! Click on different combinations for countries to see how households differ on the basis of having attempted migration. Notice the correlation between households with migrants and better financial outlooks. Note that the economic indicators might not necessarily be purely on income, but that remittances might also come into play
-
-            </p>
+            <div class="textoContainer">
+                <p id="texto">
+                    We saw that higher income households are more likely to have migrants, but is there any significant relationship between financial wellbeing and migration?
+                    <br>
+                    Notice the correlations of different countries between households with migrants and better financial outlooks. Note that the economic indicators might include remittances.
+                </p>
+            </div>
         </section>
     </main>
 
