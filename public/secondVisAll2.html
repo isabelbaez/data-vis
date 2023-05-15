@@ -317,14 +317,16 @@
             }
         });
 
-      // svg.append("g")
-      //   .attr("class", "y-axis")
-      //   .call(d3.axisLeft(yScale));
+      svg.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(yScale))
+        .attr("stroke-width", 2);
 
 
       svg.append("g")
         .attr("class", "y-axis")
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(yScale))
+        .attr("stroke-width", 2);
       // Add x-axis to both subplots
 
       svg.append("g")
