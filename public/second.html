@@ -92,6 +92,10 @@
             transition: 0.4s;
         }
 
+        #frames {
+            padding-left: 80px;
+        }
+
         section {
             padding-left: 5vw;
         }
@@ -109,9 +113,7 @@
         }
 
         .question {
-            font-size: 3vw;
-            margin-top: 95px;
-            text-align: center;
+            font-size: 4vw;
         }
 
         .button {
@@ -161,6 +163,12 @@
         #back:hover {
             background-color: #1E464D;
             color: white;
+        }
+
+        #texto {
+            margin-top: -80px;
+            text-align: center;
+            font-size: 22px;
         }
 
         #attempts {
@@ -348,7 +356,8 @@
         <section id="content">
             
             <article id="questionContainer">
-                <p class="question"> How do migrant and non-migrant households differ? </p>
+                <p class="question"> How do migrant and 
+                    <br>non migrant households differ? </p>
             </article>
 
             <article id="frames">
@@ -394,10 +403,13 @@
             </article>
         </section>
         <section>
-            <p>
-                We saw that higher income households are more likely to have migrants, but what does this really mean? Is there any significant relationship between financial wellbeing and migration?
+            <p id="texto">
+                We saw that higher income households are more likely to have migrants, but is there any significant relationship between financial wellbeing and migration?
                 <br>
-                Let’s explore! Click on different combinations for countries to see how households differ on the basis of having attempted migration. Notice the correlation between households with migrants and better financial outlooks. Note that the economic indicators might not necessarily be purely on income, but that remittances might also come into play
+                Click on different countries to see how households differ on the basis of having attempted migration.
+                <br>
+Let’s explore! Click on different combinations for countries to see how households differ on the basis of having attempted migration. Notice the correlation between households with migrants and better financial outlooks. Note that the economic indicators might not necessarily be purely on income, but that remittances might also come into play
+
             </p>
         </section>
     </main>

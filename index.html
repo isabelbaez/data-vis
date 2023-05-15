@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country Iframes</title>
     <style>
-
         body,html {
             margin:0;
             padding:0;
@@ -14,13 +13,14 @@
         * {
             box-sizing: border-box;
         }
+
         body {
             background-color: #2C666E;
             background-size: cover;
             position: relative;
             height:  100vh;
-
         }
+
         header {
             background-size: cover;
             position: absolute;
@@ -28,7 +28,6 @@
             background-color: #07393C;
             height:  10%;
             width: 100%;
-            
         }
 
         #forward {
@@ -38,7 +37,6 @@
             height:  10%;
             width: 100%;           
             transition: height 2s;
-            
         }
 
         #forwardBtn {
@@ -51,10 +49,6 @@
             font-size: 50px;
             color: white;
         }
-/* 
-        #forward:active {
-            height: 90vh;
-        } */
 
         a {
             margin: 1rem 1rem 0 0;
@@ -67,26 +61,45 @@
             transition: 0.4s;
         }
 
-        /* .compactNavBtn {
-            cursor: pointer;
-            height: fit-content;
-            font-size: 5vw;
-        } */
-
         a:hover {
             color: white !important;
             background-color: rgb(66, 66, 66);
             box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
         }
 
-        #content {
-        margin-top: 10% !important;
-        align-items: center;
-        color: white;
+        #main-content {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #content, #image-section {
+            flex: 1;
+            color: white;
+        }
+
+        #image {
+            margin-top: 150px;
+            margin-left: 90px;
+        }
+
+        #title {
+            font-size: 4.5vw;
+            margin-top: 200px;
+            margin-left: 20px;
+        }
+
+        #subtitle {
+            font-size: 2vw;
+            margin-top: -40px;
+            margin-left: 20px;
+        }
+
+        #sub2title {
+            margin-top: 50px;
+            margin-left: -11px;
         }
     </style>
     <script>
-
         function delay (URL) {
             setTimeout( function() { window.location = URL }, 2010 );
         }
@@ -94,37 +107,36 @@
         function upwards() {
             const transform = document.getElementById("forward");
             transform.style.height = "90vh";
-
-            //transition: margin-left 2s;
         }
     </script>
 </head>
 <body>
 
-    <header>
-
-    </header>
-
+    <header></header>
 
     <main>
+    <!-- This is the new structure of your #main-content div -->
+    <div id="main-content">
         <section id="content">
-            <h1>Central American Migration: Relationship Between Income and Migration to the US</h1>
-            <p>By: Isabel Baez, Laura Queipo and Roland Rocafort</p>
-            <p>The following data visualizations were made with data contributed by the United Nations World Food Programme (WFP).</p>
-          </section>
+            <h1 id="title">Central American Migration: 
+                <br>Relationship Between Income and Migration to the US</h1>
+            <p id="subtitle">By: Isabel Baez, Laura Queipo and Roland Rocafort</p>
+        </section>
 
-
-          <section id="image">
-            <img src="central.png" width="500" height="300">
-          </section>
-
-
-        <section id="forward" onclick="upwards()">
-            <a id="forwardBtn" href="javascript:delay('./public/first.html')">
-                &uarr;
-            </a>
-        </section>  
-    </main>
+        <div id="image-section">
+            <section id="image">
+                <img src="central.png" width="550" height="430">
+            </section>
+            <p id="sub2title">The following data visualizations were made with data contributed by the United Nations World Food Programme (WFP).</p>
+        </div>
+    </div>
+    <section id="forward" onclick="upwards()">
+        <a id="forwardBtn" href="javascript:delay('./public/first.html')">
+            &uarr;
+        </a>
+    </section>  
+</main>
 
 </body>
 </html>
+
