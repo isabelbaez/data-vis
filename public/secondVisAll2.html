@@ -185,7 +185,7 @@
           var path2 = svg.append("path")
             .datum(bins2)
             .attr("fill", "none")
-            .attr("stroke", "#122b2e")
+            .attr("stroke", "#E88B3C")
             .attr("stroke-opacity", 0.7)
             .attr("stroke-width", 2)
             .attr("d", d3.area()
@@ -204,7 +204,7 @@
             .attr("stroke-dashoffset", 0)
             .on("end", function() {
 
-                path2.attr("fill", "#122b2e") // Move fill attribute inside on("end")
+                path2.attr("fill", "#E88B3C") // Move fill attribute inside on("end")
 
                       setTimeout(function () {
 
@@ -220,14 +220,14 @@
                           .attr("y1", 20)
                           .attr("x2", xScale(average_mig))
                           .attr("y2", 300) // Adjust this value to match the height of your graph
-                          .style("stroke", "#122b2e")
+                          .style("stroke", "#E88B3C")
                           .style("stroke-width", 2);
 
                           var text = svg.append("text")
                           .attr("x", 115)
                           .attr("y", 30)
                           .attr("text-anchor", "left")
-                          .style("fill", "#122b2e")
+                          .style("fill", "#E88B3C")
                           .style("font-family", "Arial")
                           .style("font-size", "10pt");
                           var words = "Average: " + average_mig.toString().slice(0,4);
@@ -423,7 +423,7 @@
         .attr("y", 80)
         .attr("width", 15)
         .attr("height", 15)
-        .style("fill", "#122b2e")
+        .style("fill", "#E88B3C")
 
       legend.append("text")
         .attr("x", -100)
@@ -466,7 +466,7 @@
       //   .attr("y", 80)
       //   .attr("width", 15)
       //   .attr("height", 15)
-      //   .style("fill", "#122b2e")
+      //   .style("fill", "#E88B3C")
 
       // legend.append("text")
       //   .attr("x", 70)
