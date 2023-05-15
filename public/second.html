@@ -87,7 +87,7 @@
             margin: 1rem 1rem 0 0;
             background-color: rgb(202, 202, 202);
             border-radius: 5px;
-            color: rgb(66, 66, 66) !important;
+            color: rgb(66, 66, 66);
             display: inline-block;
             padding: 0.1rem 1rem;
             text-decoration: none;
@@ -114,6 +114,19 @@
             font-size: 4vw;
         }
 
+        .button {
+            background-color: #2C666E;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
         .frameSec {
             display: flex;
             justify-content: space-evenly;
@@ -128,6 +141,30 @@
         .prevBtn {
             margin-left: 3vw;
             height: fit-content;
+        }
+
+        #back {
+        left: 20px;
+        top: 110px;
+        height: fit-content;
+        position: absolute;
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: #2C666E;
+        color: white;
+        }
+
+        #back:hover {
+            background-color: #1E464D;
+            color: white;
         }
 
     </style>
@@ -251,9 +288,7 @@
     </header>
 
     <main>
-        <section id="back">
-            <a href="first.html"> <-- Back </a>
-         </section> 
+        <a id="back" href="first.html"> <-- Back </a>
 
         <section id="content">
             
@@ -262,10 +297,10 @@
             </article>
 
             <article>
-                <button id="All-Three-Hist" onClick="b8()">All Three Countries</button>
-                <button id="GTHist" onClick="b5()">Guatemala</button>
-                <button id="HNDHist" onClick="b6()">Honduras</button>
-                <button id="SLVHist" onClick="b7()">El Salvador</button>
+                <button class="button" id="All-Three-Hist" onClick="b8()">All Three Countries</button>
+                <button class="button" id="GTHist" onClick="b5()">Guatemala</button>
+                <button class="button" id="HNDHist" onClick="b6()">Honduras</button>
+                <button class="button" id="SLVHist" onClick="b7()">El Salvador</button>
 
 
                 <div class="frameSec" id="frameSec1">
