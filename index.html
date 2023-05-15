@@ -80,9 +80,33 @@
         }
 
         #content {
-        margin-top: 10% !important;
+        margin-top: 0%;
+        /* margin-left: 200px; */
+        /* top: 100px; */
         align-items: center;
         color: white;
+        position: relative;
+        }
+
+        #image {
+            margin-top: 125px;
+            margin-left: 450px;
+        }
+
+        #title {
+            /* margin-top: 200px; */
+            margin-left: 300px;
+        }
+        #subtitle {
+            /* margin-top: 200px; */
+            margin-left: 560px;
+        }
+        #sub2title {
+            margin-top: 50px;
+            margin-left: 350px;
+            align-items: center;
+            color: white;
+            position: relative;
         }
     </style>
     <script>
@@ -108,15 +132,16 @@
 
     <main>
         <section id="content">
-            <h1>Central American Migration: Relationship Between Income and Migration to the US</h1>
-            <p>By: Isabel Baez, Laura Queipo and Roland Rocafort</p>
-            <p>The following data visualizations were made with data contributed by the United Nations World Food Programme (WFP).</p>
-          </section>
+            <h1 id="title">Central American Migration: Relationship Between Income and Migration to the US</h1>
+            <p id="subtitle">By: Isabel Baez, Laura Queipo and Roland Rocafort</p>          
+        </section>
 
 
           <section id="image">
-            <img src="central.png" width="500" height="300">
+            <img src="central.png" width="550" height="430">
           </section>
+          <p id="sub2title">The following data visualizations were made with data contributed by the United Nations World Food Programme (WFP).</p>
+
 
 
         <section id="forward" onclick="upwards()">
