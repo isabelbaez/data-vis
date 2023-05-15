@@ -168,6 +168,55 @@
             color: white;
         }
 
+        #attempts {
+        left: 430px;
+        top: 200px;
+        height: fit-content;
+        position: absolute;
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: #2C666E;
+        color: white;
+        }
+
+        #attempts:hover {
+            background-color: #1E464D;
+            color: white;
+        }
+
+        #income {
+        right: 350px;
+        top: 200px;
+        height: fit-content;
+        position: absolute;
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: #2C666E;
+        color: white;
+        }
+
+        #income:hover {
+            background-color: #1E464D;
+            color: white;
+        }
+        
+
     </style>
     <script>
     
@@ -353,13 +402,13 @@ Let’s explore! Click on different combinations for countries to see how househ
         <p> Deep Dive into Migrant Profiles </p>
         <div id='hiddenTab' style="display:none">
             <article>
-                <a href="../src/todomvc/src/app.html">
+                <a id="attempts" href="../src/todomvc/src/app.html">
                     Attempts
                 </a>
             </article>
 
             <article>
-                <a href="fourth.html">
+                <a id="income" href="fourth.html">
                     Income
                 </a>
             </article>
