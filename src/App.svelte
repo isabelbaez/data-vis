@@ -211,7 +211,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.datum(migration_path)
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
-	.style('stroke', '#2C666E')
+	.style('stroke', '#E88B3C')
 	.style('stroke-width', 6);
 
 	var path1 = marker_container
@@ -220,7 +220,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.datum(migration_path12)
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
-	.style('stroke', '#E88B3C')
+	.style('stroke', '#2C666E')
 	.style('stroke-width', 6);
 
 	var path2 = marker_container
@@ -229,7 +229,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.datum(migration_path2)
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
-	.style('stroke', '#2C666E')
+	.style('stroke', '#E88B3C')
 	.style('stroke-width', 6);
 
 	var path22 = marker_container
@@ -238,7 +238,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.datum(migration_path22)
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
-	.style('stroke', '#E88B3C')
+	.style('stroke', '#2C666E')
 	.style('stroke-width', 6);
 
 	var path3 = marker_container
@@ -247,7 +247,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.datum(migration_path3)
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
-	.style('stroke', '#2C666E')
+	.style('stroke', '#E88B3C')
 	.style('stroke-width', 6);
 
 	var path32 = marker_container
@@ -256,7 +256,7 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 	.datum(migration_path32)
 	.attr('d', line) // set the path coordinates using the line generator
 	.style('fill', 'none')
-	.style('stroke', '#E88B3C')
+	.style('stroke', '#2C666E')
 	.style('stroke-width', 6);
 
 	function position_line() {
@@ -272,10 +272,10 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
             d3.select(this)
             .style('stroke', 'green')
             .style('stroke-width', 4);
-            showMessage(0, '#2C666E');
+            showMessage(0, '#E88B3C');
         }).on('mouseout', function() {
             d3.select(this)
-            .style('stroke', '#2C666E')
+            .style('stroke', '#E88B3C')
             .style('stroke-width', 6);
             hideMessage();
         });
@@ -284,10 +284,10 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
             d3.select(this)
             .style('stroke', 'green')
             .style('stroke-width', 4);
-            showMessage(1, '#E88B3C');
+            showMessage(1, '#2C666E');
         }).on('mouseout', function() {
             d3.select(this)
-            .style('stroke', '#E88B3C')
+            .style('stroke', '#2C666E')
             .style('stroke-width', 6);
             hideMessage();
         });
@@ -296,10 +296,10 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 		d3.select(this)
 		.style('stroke', 'green')
 		.style('stroke-width', 4);
-		showMessage(2, '#2C666E');
+		showMessage(2, '#E88B3C');
 	}).on('mouseout', function() {
 		d3.select(this)
-		.style('stroke', '#2C666E')
+		.style('stroke', '#E88B3C')
 		.style('stroke-width', 6);
 		hideMessage();
 	});
@@ -308,10 +308,10 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 		d3.select(this)
 		.style('stroke', 'green')
 		.style('stroke-width', 4);
-		showMessage(3, '#E88B3C');
+		showMessage(3, '#2C666E');
 	}).on('mouseout', function() {
 		d3.select(this)
-		.style('stroke', '#E88B3C')
+		.style('stroke', '#2C666E')
 		.style('stroke-width', 6);
 		hideMessage();
 	});
@@ -320,10 +320,10 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 		d3.select(this)
 		.style('stroke', 'green')
 		.style('stroke-width', 4);
-		showMessage(4, '#2C666E');
+		showMessage(4, '#E88B3C');
 	}).on('mouseout', function() {
 		d3.select(this)
-		.style('stroke', '#2C666E')
+		.style('stroke', '#E88B3C')
 		.style('stroke-width', 6);
 		hideMessage();
 	});
@@ -332,10 +332,10 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
 		d3.select(this)
 		.style('stroke', 'green')
 		.style('stroke-width', 4);
-		showMessage(5, '#E88B3C');
+		showMessage(5, '#2C666E');
 	}).on('mouseout', function() {
 		d3.select(this)
-		.style('stroke', '#E88B3C')
+		.style('stroke', '#2C666E')
 		.style('stroke-width', 6);
 		hideMessage();
 	});
