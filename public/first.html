@@ -153,7 +153,8 @@
         }
 
         .graphs {
-            margin-left: 100px;
+            /* margin-left: 100px; */
+            margin-top: 5%;
         }
 
         .texto {
@@ -162,6 +163,28 @@
             margin-top: -40px;
             font-weight: bold;
         }
+
+                /* Base button styles */
+        .nxtBtn {
+            border-radius: 4px;
+            cursor: pointer;
+            transform: rotate(90deg);
+            width: 200px;
+            height: 70px;
+            margin-top: 15%;
+        }
+        .questionContainer {
+            width: 100vw;
+             margin-right: 2%; 
+        }
+
+        /* Default button style */
+ 
+        /* Hover effect */
+        .nxtBtn:hover{
+        background-color: #938b7e;
+        }
+
     </style>
     <script>
     
@@ -227,6 +250,10 @@
             }
         }
     }
+
+    function next() {
+        location.href = "second.html";
+    }
      </script>
 </head>
 <body>
@@ -236,11 +263,11 @@
     </header>
 
     <main>
-        <a id="back" href="../index.html"> <-- Back </a>
+        <a id="back" href="../index.html" style="font-family: Arial, Helvetica, sans-serif;"> Back </a>
 
         <section id="content">
             
-            <article>
+            <article class="questionContainer">
                 <p class="question"> What income thresholds enable migration? </p>
                 <p class="subquestion">Higher income households have more resources and mobility to take on this challenge.
                     <br><br>
@@ -275,11 +302,11 @@
                 <!-- Add more iframes as needed, referencing your other HTML files -->
 
             </article>
+            <img class="nxtBtn" href="second.html" src="../src/media/swipeUpBlack.png" width="70" height="30" onclick="next()">
         </section>
         <!-- <p class="texto">
             Notice how higher income households often have a greater proportion of migrants.
         </p> -->
-        <a id="next" href="second.html"> Next ---> </a>
     </main>
     
 </body>

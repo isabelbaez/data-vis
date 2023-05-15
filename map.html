@@ -248,12 +248,53 @@
             color: white;
             padding: 20px;
             border-radius: 5px;*/
-            font-weight: bold;
-            width: 140%;
-            margin-top: 10%;
-            margin-left: 10%;
-            font-family: 'Courier New', monospace;
         }
+
+        #texto1, #texto2 {
+            /* margin-top: -70px; */
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12pt;
+            padding: 0;
+            margin: 0;
+            color: #1E464D;
+        }
+
+        .textoContainer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -75px;
+            margin-left: 25%;
+            padding: 0;
+            width: 50%;
+            /* border-color:  #2C666E;
+            border-style: ridge;
+            border-width: medium; */
+        }
+
+        #mapInfo {
+            background-color: #ffffff;
+            /* box-shadow: 0px 0px 10px 0px rgb(167, 167, 167); */
+            border-width: medium;
+            margin: 10px;
+            padding: 10px;
+            width: 140%;
+            margin-top: 12%;
+            margin-left: 10%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #b1 {
+            color: #E88B3C;
+            font-weight: 900;
+        }
+
+        #b2 {
+            color: #2C666E;
+            font-weight: 900;
+        }
+
+        
     </style>
     <script>
 
@@ -322,7 +363,7 @@
 
             <p class="question"> How many migration attempts does it take to reach the US? </p>
 
-            <a href="./public/second.html"> <-- Back </a>
+            <a href="./public/second.html" style="font-family: Arial, Helvetica, sans-serif;"> Back </a>
 
         </section> 
 
@@ -343,7 +384,7 @@
                                 speaks to the desperation and determination of those seeking a better life.
                                 <br><br>
                                 Explore the map on the left to see how many times on average individuals from Central America 
-                                will attempt migration before either reaching the US, or stop trying. Hover over the paths to see.
+                                will attempt migration before either <b id="b1">reaching the US</b>, or <b id="b2">stop trying</b>. Hover over the paths to see.
                             </p>
                         </div>
                     </div>
@@ -360,8 +401,8 @@
             <img id="swipeUp" src="../src/media/swipeUp.png" width="70" height="30">
     
             <div id="hiddenTab" style="display:none">
-                <p id="title"> Deep Dive into Migrant Profiles </p>
-                <p>Now that we understand the differences between migrant and non-migrant households, let's see how their different financial profiles impact aspects of their lifes and experiences. First, let's explore how income relates to migration attempts.</p>
+                <p id="title"> Let's keep digging... </p>
+                <p>So migrants with higher incomes tend to have fewer migration attempts. And, for the most part, a higher number of attempts means more debt. So how does this migration financing relate to their income?</p>
             </div>
             <article id="forward2"></article>
          </article> 
