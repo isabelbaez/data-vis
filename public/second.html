@@ -45,8 +45,10 @@
             background-color: #2C666E;
             height:  10%;
             width: 100%;
+            font-size: 24px;
             transition: height 2s;
             color: white;
+            /* padding-top: 5%; */
         }
 
         #forward2 {
@@ -79,6 +81,7 @@
         #hiddenTab {
             justify-content: space-evenly;            
             padding-top: 5vh;
+            padding: 10%;
         }
 
         a {
@@ -115,6 +118,16 @@
         .question {
             font-size: 4vw;
         }
+
+        #title {
+            font-size: 4.5vw;
+        }
+
+        img {
+            margin-left: 45%;
+            margin-top: 1%;
+        }
+
 
         .button {
             background-color: #2C666E;
@@ -229,20 +242,15 @@
 
     function upwards() {
         const transform = document.getElementById("forward");
-        // const content = document.getElementById("hiddenTab");
+        const content = document.getElementById("hiddenTab");
+        const swipe = document.getElementById("swipeUp");
+        
 
         console.log(transform.style.height);
 
-        if (transform.style.height === "10%") {
-            console.log('here');
-            transform.style.height = "90vh";
-
-
-            // content.style.display = "flex"
-        } else {
-            transform.style.height = "10%";
-            // content.style.display = "none";
-        }
+        transform.style.height = "90vh";
+        content.style.display = "block"
+        swipe.style.display = "none"
 
         setTimeout(function() {
             const transform2 = document.getElementById("forward2");
@@ -403,22 +411,27 @@
             </article>
         </section>
         <section>
-            <p id="texto">
+            <!-- <p id="texto">
                 We saw that higher income households are more likely to have migrants, but is there any significant relationship between financial wellbeing and migration?
                 <br>
                 Click on different countries to see how households differ on the basis of having attempted migration.
                 <br>
 Let’s explore! Click on different combinations for countries to see how households differ on the basis of having attempted migration. Notice the correlation between households with migrants and better financial outlooks. Note that the economic indicators might not necessarily be purely on income, but that remittances might also come into play
 
-            </p>
+            </p> -->
         </section>
     </main>
 
-    <section id="forward" onclick="upwards()">
-        <p> Deep Dive into Migrant Profiles </p>
-        <p>Now that we understand the differences between migrant and non-migrant households, let's see how their different financial profiles impact aspects of their lifes and experiences. First, let's explore how income relates to migration attempts.</p>
+    <article id="forward" onclick="upwards()">
+
+        <img id="swipeUp" src="../src/media/swipeUp.png" width="70" height="30">
+
+        <div id="hiddenTab" style="display:none">
+            <p id="title"> Deep Dive into Migrant Profiles </p>
+            <p>Now that we understand the differences between migrant and non-migrant households, let's see how their different financial profiles impact aspects of their lifes and experiences. First, let's explore how income relates to migration attempts.</p>
+        </div>
         <article id="forward2"></article>
-     </section> 
+     </article> 
 </body>
 </html>
 

@@ -67,6 +67,10 @@
             box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
         }
 
+        img {
+            margin-left: 45%;
+        }
+
         #main-content {
             display: flex;
             justify-content: space-around;
@@ -107,6 +111,9 @@
         function upwards() {
             const transform = document.getElementById("forward");
             transform.style.height = "90vh";
+            setTimeout(function() {
+                location.href = "./public/first.html";
+            }, 2000)
         }
     </script>
 </head>
@@ -125,15 +132,18 @@
 
         <div id="image-section">
             <section id="image">
-                <img src="central.png" width="550" height="430">
+                <img src="./src/media/central.png" width="550" height="430">
             </section>
             <p id="sub2title">The following data visualizations were made with data contributed by the United Nations World Food Programme (WFP).</p>
         </div>
     </div>
     <section id="forward" onclick="upwards()">
-        <a id="forwardBtn" href="javascript:delay('./public/first.html')">
+        <img src="./src/media/swipeUpBlack.png" width="90" height="70">
+
+        <!-- <a id="forwardBtn" href="javascript:delay('./public/first.html')">
             &uarr;
-        </a>
+            
+        </a> -->
     </section>  
 </main>
 

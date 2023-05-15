@@ -29,10 +29,16 @@
             padding-top: 10%;
         }
 
+        #back {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+
         iframe {
             display: "block";
-            width: 1000px; /* Adjust this value to change the iframe width */
-            height: 500px; /* Adjust this value to change the iframe height */
+            width: 1500px; /* Adjust this value to change the iframe width */
+            height: 520px; /* Adjust this value to change the iframe height */
             border: none;
             margin-bottom: 20px; /* Add some space between iframes */
         }
@@ -52,24 +58,36 @@
             
         }
 
+        #forward2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #FFF4E2;
+            height:  0%;
+            width: 100%;
+            transition: height 2s;
+            color: white;
+            z-index: 10;
+        }
+
     
         a {
-        left: 10px;
-        top: 110px;
-        height: fit-content;
-        position: absolute;
-        display: inline-block;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        background-color: #2C666E;
-        color: white;
+            left: 10px;
+            top: 110px;
+            height: fit-content;
+            position: absolute;
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: #2C666E;
+            color: white;
         }
 
         a:hover {
@@ -96,7 +114,6 @@
 
         .question {
             font-size: 2vw;
-            margin-top: 50px;
             margin-left: 20px;
         }
 
@@ -106,33 +123,43 @@
             width: 100%;
         }
 
+        #frameSec {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+
+
         /* Base button styles */
         .nxtBtn {
-        right: 25px;
-        top: 110px;
-        height: fit-content;
-        position: absolute;
-        display: inline-block;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+            border-radius: 4px;
+            cursor: pointer;
+            transform: rotate(90deg);
+            width: 200px;
+            height: 70px;
+            margin-top: 10%;
         }
 
         /* Default button style */
-        .nxtBtn {
-        background-color: #2C666E;
-        color: white;
-        }
-
+ 
         /* Hover effect */
         .nxtBtn:hover{
-        background-color: #1E464D;
+        background-color: #938b7e;
+        }
+
+        .prevBtn {
+            border-radius: 4px;
+            cursor: pointer;
+            transform: rotate(270deg);
+            width: 90px;
+            height: 70px;
+            margin-top: 10%;
+            display: none;
+            margin-right: 10%;
+        }
+
+        .prevBtn:hover{
+        background-color: #938b7e;
         }
 
         /* Disabled button style
@@ -143,10 +170,6 @@
         } */
 
 
-        .prevBtn {
-            margin-left: 3vw;
-            height: fit-content;
-        }
 
 		#map {
 			height: 50vh;
@@ -165,6 +188,46 @@
 
         #mapContainer {
             margin-right: 70vw;
+        }
+        
+        #forward {
+            position: absolute;
+            bottom: 0;
+            background-color: #2C666E;
+            height:  9%;
+            width: 100%;
+            font-size: 24px;
+            transition: height 2s;
+            color: white;
+            /* padding-top: 5%; */
+            z-index: 2;
+        }
+
+        #swipeUp {
+            margin-left: 45%;
+            margin-top: 1%;
+        }
+
+        #title {
+            font-size: 4.5vw;
+        }
+
+        #forward2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #FFF4E2;
+            height:  0%;
+            width: 100%;
+            transition: height 2s;
+            color: white;
+        }
+
+
+        #hiddenTab {
+            justify-content: space-evenly;            
+            padding-top: 5vh;
+            padding: 10%;
         }
 
         #toolTip {
@@ -186,12 +249,11 @@
             padding: 20px;
             border-radius: 5px;*/
             font-weight: bold;
-            width: 500px;
-            margin-top: 40px;
-            margin-left: 150px;
+            width: 140%;
+            margin-top: 10%;
+            margin-left: 10%;
             font-family: 'Courier New', monospace;
         }
-
     </style>
     <script>
 
@@ -222,6 +284,31 @@
         nxtBtn.style.display="block";
         prevBtn.style.display="none";
     }
+
+
+    function upwards() {
+        const transform = document.getElementById("forward");
+        const content = document.getElementById("hiddenTab");
+        const swipe = document.getElementById("swipeUp");
+        
+
+        console.log(transform.style.height);
+
+        transform.style.height = "90vh";
+        content.style.display = "block"
+        swipe.style.display = "none"
+
+        setTimeout(function() {
+            const transform2 = document.getElementById("forward2");
+            transform2.style.height = "90vh";
+            setTimeout(function() {
+                location.href = "./public/fourth.html";
+            }, 2000)
+        }, 8000)
+    
+
+        //transition: margin-left 2s;
+    }
      </script>
 </head>
 <body>
@@ -232,14 +319,14 @@
 
     <main>
         <section id="back">
+
+            <p class="question"> How many migration attempts does it take to reach the US? </p>
+
             <a href="./public/second.html"> <-- Back </a>
-         </section> 
+
+        </section> 
 
         <section id="content">
-            
-            <article>
-                <p class="question"> How many migration attempts does it take to reach the US? </p>
-            </article>
 
             <article>
                 <div id="frameSec">
@@ -260,13 +347,24 @@
                             </p>
                         </div>
                     </div>
-                    <button class="nxtBtn" id="nxtBtn" onclick="next()">Next --></button>
+                    <!-- <img src="./src/media/swipeUpBlack.png" class="nxtBtn" id="nxtBtn" onclick="next()"> -->
                     <!-- <button class="prevBtn" id="prevBtn" onclick="before()">Previous</button> -->
+                    <img src="./src/media/swipeUpBlack.png" class="nxtBtn" id="nxtBtn" onclick="next()">
+                    <img src="./src/media/swipeUpBlack.png" class="prevBtn" id="prevBtn" onclick="before()">
                     <iframe class="iFrame" id="iFrame2" src="./public/attempts_charts.html" style="display:none"></iframe>
                 </div>
             </article>
         </section>
+        <article id="forward" onclick="upwards()">
 
+            <img id="swipeUp" src="../src/media/swipeUp.png" width="70" height="30">
+    
+            <div id="hiddenTab" style="display:none">
+                <p id="title"> Deep Dive into Migrant Profiles </p>
+                <p>Now that we understand the differences between migrant and non-migrant households, let's see how their different financial profiles impact aspects of their lifes and experiences. First, let's explore how income relates to migration attempts.</p>
+            </div>
+            <article id="forward2"></article>
+         </article> 
     </main>
 </body>
 </html>
