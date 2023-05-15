@@ -27,12 +27,17 @@
             width: 1000px; /* Adjust this value to change the iframe width */
             height: 500px; /* Adjust this value to change the iframe height */
             border: none;
-            margin-bottom: 20px; /* Add some space between iframes */
         }
 
         * {
             box-sizing: border-box;
         }
+
+        /* #frames {
+            position: relative;
+            float: 70%;
+            
+        } */
 
         #forward {
             position: absolute;
@@ -46,7 +51,7 @@
 
         #content {
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-be;
         }
 
         header {
@@ -117,13 +122,9 @@
         .frameSec {
             display: flex;
             justify-content: space-evenly;
-            width: 100%;
+            width: 52%;
         }
 
-        .nxtBtn {
-            margin-right: 3vw;
-            height: fit-content;
-        }
 
         .prevBtn {
             margin-left: 3vw;
@@ -257,11 +258,11 @@
 
         <section id="content">
             
-            <article>
+            <article id="questionContainer">
                 <p class="question"> How do migrant and non-migrant households differ? </p>
             </article>
 
-            <article>
+            <article id="frames">
                 <button id="All-Three-Hist" onClick="b8()">All Three Countries</button>
                 <button id="GTHist" onClick="b5()">Guatemala</button>
                 <button id="HNDHist" onClick="b6()">Honduras</button>
@@ -270,6 +271,7 @@
 
                 <div class="frameSec" id="frameSec1">
                     <iframe class="iFrame" id="iFrame11" src="secondVisAll.html" ></iframe>
+                    <iframe class="iFrame" id="iFrame11" src="secondVisAll2.html" ></iframe>
                     <!-- <button class="nxtBtn" id="nxtBtn1" onclick="next(1)">Next</button>
                     <button class="prevBtn" id="prevBtn1" onclick="before(1)" style="display:none">Previous</button>
                     <iframe class="iFrame" id="iFrame12" src="secondVis3.html" style="display:none"></iframe> -->
@@ -278,6 +280,7 @@
             
                 <div class="frameSec" id="frameSec4" style="display:none">
                     <iframe class="iFrame" id="iFrame41" src="secondVisGT.html" ></iframe>
+                    <iframe class="iFrame" id="iFrame41" src="secondVisGT2.html" ></iframe>
                     <!-- <button class="nxtBtn" id="nxtBtn4" onclick="next(4)">Next</button>
                     <button class="prevBtn" id="prevBtn4" onclick="before(4)" style="display:none">Previous</button>
                     <iframe class="iFrame" id="iFrame42" src="histograms_numerical_GT.html" style="display:none"></iframe> -->
@@ -285,6 +288,7 @@
 
                 <div class="frameSec" id="frameSec3" style="display:none">
                     <iframe class="iFrame" id="iFrame31" src="secondVisHND.html" ></iframe>
+                    <iframe class="iFrame" id="iFrame31" src="secondVisHND2.html" ></iframe>
                     <!-- <button class="nxtBtn" id="nxtBtn3" onclick="next(3)">Next</button>
                     <button class="prevBtn" id="prevBtn3" onclick="before(3)" style="display:none">Previous</button>
                     <iframe class="iFrame" id="iFrame32" src="histograms_numerical_HND.html" style="display:none"></iframe> -->
@@ -292,6 +296,7 @@
 
                 <div class="frameSec" id="frameSec2" style="display:none">
                     <iframe class="iFrame" id="iFrame21" src="secondVisSLV.html"></iframe>
+                    <iframe class="iFrame" id="iFrame21" src="secondVisSLV2.html"></iframe>
                     <!-- <button class="nxtBtn" id="nxtBtn2" onclick="next(2)">Next</button>
                     <button class="prevBtn" id="prevBtn2" onclick="before(2)" style="display:none">Previous</button>
                     <iframe class="iFrame" id="iFrame22" src="histograms_numerical_SLV.html" style="display:none"></iframe> -->

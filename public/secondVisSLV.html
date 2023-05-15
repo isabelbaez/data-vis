@@ -31,7 +31,7 @@
     // Assuming you have already imported D3.js and created an SVG container
 
     // Load the data from the CSV file
-    d3.csv("2-distributions_by_migration_status.csv").then(function(data) {
+    d3.json("../json_files/2-distributions_by_migration_status.json").then(function(data) {
       // Replace this with your actual list of columns
       var column_list = [
         { name: "avg_log_income", type: "numerical" },
@@ -43,25 +43,12 @@
       //   log_income_per_capita: "Log Income Per Capita"
       // };
 
-
       var df = data.filter(function(d) {
             return d.country === "SLV";
         });
 
-      // var filteredData = df.filter(function(d) {
-      //     console.log(d.income_sufficiency_6m);
+      // var kde = kernelDensityEstimator(kernelEpanechnikov(0.5), xScale.ticks(40));
 
-      //     return (d.income_satisfaction >= 1 && d.income_satisfaction <= 4) && (d.income_sufficiency_6m >= 1 && d.income_sufficiency_6m <= 5) ;
-      // });
-
-      // Filter the data based on migrated_yn
-      var migrated_0 = df.filter(function(d) {
-        return d.migrated_yn === "0";
-      });
-
-      var migrated_1 = df.filter(function(d) {
-        return d.migrated_yn === "1";
-      });
 
       // Set the number of bins
       var num_bins = 20;
@@ -74,8 +61,8 @@
 
       var svg = d3.select("body")
         .append("svg")
-        .attr("width", 2000)
-        .attr("height", 2000);
+        .attr("width", 500)
+        .attr("height", 400);
 
       // var svg2 = d3.select("body")
       //   .append("svg")
@@ -88,17 +75,57 @@
         .domain([0, num_bins])
         .range([0, 600]);
 
-      var yScale = d3.scaleLinear()
-        .domain([0, 200])
+      var yScale2 = d3.scaleLinear()
+        .domain([0, 150])
         .range([300, 0]);
 
-        var yScale2 = d3.scaleLinear()
-        .domain([0, 100])
+      var yScale = d3.scaleLinear()
+        .domain([0, 230])
         .range([300, 0]);
+
+      var kde = kernelDensityEstimator(kernelEpanechnikov(0.5), xScale.ticks(40));
+
+              // Filter the data based on migrated_yn
+      var migrated_0 = (df.filter(function(d) {
+        return d.avg_log_income !== "" && d.migrated_yn === 0;
+      }));
+
+      var migrated_1 = (df.filter(function(d) {
+        return d.avg_log_income !== "" && d.migrated_yn === 1;
+      }));
+
+      let total_non_mig = 0;
+      const non_mig_log_incomes =  df
+          .filter( function(d){return d.migrated_yn === 0} )
+          .map(function(d){  return d.avg_log_income; }) 
       
-        console.log(d3.max(migrated_0, function(d) { 
-          return +d.avg_log_income; 
-        }));
+      for (const income of non_mig_log_incomes) {
+        total_non_mig += Number(income);
+      }
+      const average_non_mig = total_non_mig/non_mig_log_incomes.length;
+
+
+      let total_mig = 0;
+      const mig_log_incomes =  df
+          .filter( function(d){return d.migrated_yn === 1} )
+          .map(function(d){  return d.avg_log_income; }) 
+      
+      for (const income of mig_log_incomes) {
+        total_mig += Number(income);;
+      }
+      const average_mig = total_mig/mig_log_incomes.length;
+
+
+      var density1 =  kde( data
+          .filter( function(d){return d.migrated_yn === 0} )
+          .map(function(d){  return d.avg_log_income; }) )
+
+
+      var density2 =  kde( data
+          .filter( function(d){return d.migrated_yn === 1} )
+          .map(function(d){  return d.avg_log_income; }) )
+
+      console.log(density1);
 
       // Create histograms for each column
       column_list.forEach(function(column, i) {
@@ -110,31 +137,41 @@
             d3.min(migrated_1, function(d) { return +d[column.name]; })
           );
 
-          console.log(global_min);
-
           var global_max = Math.max(
             d3.max(migrated_0, function(d) { return +d[column.name]; }),
             d3.max(migrated_1, function(d) { return +d[column.name]; })
           );
 
-          console.log(global_max);
-
           // Calculate the bin size using the global min and max
           var bin_size = (global_max - global_min) / num_bins;
 
           // Create histogram for migrated_0
-          var histogram1 = d3.histogram()
-            .value(function(d) { return +d[column.name]; })
-            .domain([global_min, global_max])
-            .thresholds(xScale.ticks(num_bins));
-
-          var bins1 = histogram1(migrated_0);
+          // var histogram1 = d3.histogram()
+          //   .value(function(d) { 
+          //     console.log(+d[column.name]);
+          //     return +d[column.name]; })
+          //   .domain([global_min, global_max])
+          //   .thresholds(xScale.ticks(num_bins));
 
           // Create histogram for migrated_1
           var histogram2 = d3.histogram()
             .value(function(d) { return +d[column.name]; })
             .domain([global_min, global_max])
             .thresholds(xScale.ticks(num_bins));
+
+          var bins1 = histogram2(migrated_0);
+          var dens = histogram2(density1);
+
+          console.log(bins1);
+          console.log(dens);
+
+          var bins2Data = histogram2(migrated_1)
+          .map(function(d) { d.density = d.length / (data.length * d.x1 - d.x0); 
+            console.log(d.density)
+            return d.density; });
+
+          var bins1Data = histogram2(migrated_0)
+          .map(function(d) { d.density = d.length / (data.length * d.x1 - d.x0); return d.density; });
 
           var bins2 = histogram2(migrated_1);
 
@@ -153,7 +190,7 @@
             .attr("d", d3.area()
               .x(function(d) { return xScale((d.x0 + d.x1) / 2); })
               .y0(300)
-              .y1(function(d) { return yScale2(d.length); })
+              .y1(function(d) { return yScale(d.length); })
               .curve(d3.curveBasis));
 
           var totalLength2 = path2.node().getTotalLength();
@@ -169,8 +206,8 @@
                 path2.attr("fill", "#013220") // Move fill attribute inside on("end")
 
                 var text = svg.append("text")
-                .attr("x", 200)
-                .attr("y", 70)
+                .attr("x", 230)
+                .attr("y", 180)
                 .attr("text-anchor", "left")
                 .style("fill", "#013220")
                 .style("font-family", "Arial");
@@ -192,8 +229,8 @@
 
                 setTimeout(function () {
                   var text = svg.append("text")
-                  .attr("x", 200)
-                  .attr("y", 90)
+                  .attr("x", 230)
+                  .attr("y", 200)
                   .attr("text-anchor", "left")
                   .style("fill", "#013220")
                   .style("font-family", "Arial");
@@ -211,8 +248,8 @@
 
                   setTimeout(function () {
                       var text = svg.append("text")
-                      .attr("x", 200)
-                      .attr("y", 110)
+                      .attr("x", 230)
+                      .attr("y", 220)
                       .attr("text-anchor", "left")
                       .style("fill", "#013220")
                       .style("font-family", "Arial");
@@ -227,10 +264,40 @@
                         }
                       }
                       typeText();
+
+                      setTimeout(function () {
+                        svg.append("line")
+                          .attr("x1", xScale(average_mig))
+                          .attr("y1", 120)
+                          .attr("x2", xScale(average_mig))
+                          .attr("y2", 300) // Adjust this value to match the height of your graph
+                          .style("stroke", "#013220")
+                          .style("stroke-width", 2);
+
+                          var text = svg.append("text")
+                          .attr("x", xScale(average_mig) + 10)
+                          .attr("y", 133)
+                          .attr("text-anchor", "left")
+                          .style("fill", "#013220")
+                          .style("font-family", "Arial")
+                          .style("font-size", "10pt");
+                          var words = "Average: " + average_mig.toString().slice(0,4);
+                          var speed = 30; // adjust the speed of typing (milliseconds per character)
+                          var index = 0;
+                          function typeText() {
+                            if (index < words.length) {
+                              text.text(words.substring(0, index + 1));
+                              index++;
+                              setTimeout(typeText, speed);
+                            }
+                          }
+                          typeText();
+
+                      }, 2000);
+
                     }, 1200);
                 }, 1200);
               });
-
 
           svg.append("clipPath")
           .attr("id", "clip-path")
@@ -257,15 +324,16 @@
 
         path.transition()
           .duration(2000)
-          .delay(5500)
+          .delay(8000)
           .attr("stroke-dashoffset", 0)
           .on("end", function() {
 
               path.attr("fill", "#FF0000") // Move fill attribute inside on("end")
+              .attr("opacity", "0.75") 
 
               var text = svg.append("text")
-                  .attr("x", 230)
-                  .attr("y", 200)
+                  .attr("x", 200)
+                  .attr("y", 60)
                   .attr("text-anchor", "left")
                   .style("fill", "#FF0000")
                   .style("font-family", "Arial");
@@ -287,8 +355,8 @@
 
               setTimeout(function () {
                 var text = svg.append("text")
-                .attr("x", 230)
-                .attr("y", 220)
+                .attr("x", 200)
+                .attr("y", 80)
                 .attr("text-anchor", "left")
                 .style("font-family", "Arial")
                 .style("fill", "#FF0000");
@@ -303,32 +371,98 @@
                   }
                 }
                 typeText();
+
+                setTimeout(function () {
+                  svg.append("line")
+                    .attr("x1", xScale(average_non_mig))
+                    .attr("y1", 70)
+                    .attr("x2", xScale(average_non_mig))
+                    .attr("y2", 300) // Adjust this value to match the height of your graph
+                    .style("stroke", "#FF0000")
+                    .style("stroke-width", 2);
+
+                    var text = svg.append("text")
+                    .attr("x", 80)
+                    .attr("y", 60)
+                    .attr("text-anchor", "left")
+                    .style("fill", "#FF0000")
+                    .style("font-family", "Arial")
+                    .style("font-size", "10pt");
+                    var words = "Average: " + average_non_mig.toString().slice(0,4);
+                    var speed = 30; // adjust the speed of typing (milliseconds per character)
+                    var index = 0;
+                    function typeText() {
+                      if (index < words.length) {
+                        text.text(words.substring(0, index + 1));
+                        index++;
+                        setTimeout(typeText, speed);
+                      }
+                    }
+                    typeText();
+
+                }, 2000);
               }, 2000);
 
             });
-
-
-               }
+            }
         });
+
+      // svg.append("g")
+      //   .attr("class", "y-axis")
+      //   .call(d3.axisLeft(yScale));
+
 
       svg.append("g")
         .attr("class", "y-axis")
         .call(d3.axisLeft(yScale));
-
-      svg.append("g")
-        .attr("class", "y-axis")
-        .call(d3.axisLeft(yScale2));
-
       // Add x-axis to both subplots
-      svg.append("g")
-        .attr("class", "x-axis")
-        .attr("transform", "translate(0,300)")
-        .call(d3.axisBottom(xScale).ticks(num_bins));
 
       svg.append("g")
-        .attr("class", "x-axis")
-        .attr("transform", "translate(0,300)")
-        .call(d3.axisBottom(xScale).ticks(num_bins));
+      .attr("class", "x-axis")
+      .attr("transform", "translate(0,300)")
+      .call(
+        d3
+          .axisBottom(xScale)
+          .ticks(num_bins)
+          .tickFormat(function (d, i) {
+
+            // Modify this function to display the desired value for each bin
+            // For example, if your bins are an array of values, you can use:
+            // return bins[i];
+            return d; // Use the default tick value (bin number) as the label
+          })
+      );
+
+      //       svg.select(".x-axis")
+      //   .append("text")
+      //   .attr("class", "x-axis-label")
+      //   .attr("x", 500 / 2)
+      //   .attr("y", - 10)
+      //   .style("text-anchor", "middle")
+      //   .text("X-Axis Label");
+
+      // // Add label for the y-axis
+      // svg.select(".y-axis")
+      //   .append("text")
+      //   .attr("class", "y-axis-label")
+      //   .attr("transform", "rotate(-90)")
+      //   .attr("x", -400 / 2)
+      //   .attr("y",  20)
+      //   .style("text-anchor", "middle")
+      //   .text("Y-Axis Label");
+
+   
+      // svg.append("text")
+      //   .attr("class", "x-axis-label")
+      //   .attr("x", width / 2)
+      //   .attr("y", height + margin.top + 20)
+      //   .style("text-anchor", "middle")
+      //   .text("X-Axis Label");
+
+      // svg.append("g")
+      //   .attr("class", "x-axis")
+      //   .attr("transform", "translate(0,300)")
+      //   .call(d3.axisBottom(xScale).ticks(num_bins));
 
       // Add titles to both subplots
       // svg.append("text")
@@ -356,35 +490,39 @@
         // .attr("class", "legend")
         // .attr("transform", "translate(400,10)");
 
+        var label = svg.append("g")
+        .attr("class", "label")
+        .attr("transform", "translate(0,0)");
 
-      legend.append("rect")
-        .attr("x", 40)
-        .attr("y", 40)
-        .attr("width", 15)
-        .attr("height", 15)
-        .style("fill", "#FF0000")
 
-      legend.append("text")
-        .attr("x", 70)
-        .attr("y", 51)
+      // legend.append("rect")
+      //   .attr("x", 40)
+      //   .attr("y", 40)
+      //   .attr("width", 15)
+      //   .attr("height", 15)
+      //   .style("fill", "#FF0000")
+
+      label.append("text")
+        .attr("x", 195)
+        .attr("y", 350)
         .style('font-family', "Arial")
         .style('font-size', "12px")
-        .text("Households without migrants");
+        .text("Average Log Income");
 
 
-      legend.append("rect")
-        .attr("x", 40)
-        .attr("y", 80)
-        .attr("width", 15)
-        .attr("height", 15)
-        .style("fill", "#013220")
+      // legend.append("rect")
+      //   .attr("x", 40)
+      //   .attr("y", 80)
+      //   .attr("width", 15)
+      //   .attr("height", 15)
+      //   .style("fill", "#013220")
 
-      legend.append("text")
-        .attr("x", 70)
-        .attr("y", 91)
-        .style('font-family', "Arial")
-        .style('font-size', "12px")
-        .text("Households with migrants");
+      // legend.append("text")
+      //   .attr("x", 70)
+      //   .attr("y", 91)
+      //   .style('font-family', "Arial")
+      //   .style('font-size', "12px")
+      //   .text("Households with migrants");
 
 
       // Add title
@@ -417,6 +555,21 @@
             return { value: key, count: counts[key] };
         });
     }
+
+    function kernelDensityEstimator(kernel, x) {
+  return function(sample) {
+    return x.map(function(x) {
+      return [x, d3.mean(sample, function(v) { return kernel(x - v); })];
+    });
+  };
+}
+
+// Epanechnikov kernel function
+function kernelEpanechnikov(scale) {
+  return function(u) {
+    return Math.abs(u /= scale) <= 1 ? 0.75 * (1 - u * u) / scale : 0;
+  };
+}
                 
 </script>
 </body>

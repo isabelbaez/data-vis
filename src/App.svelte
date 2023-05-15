@@ -197,7 +197,6 @@ var migration_path32 = [     [ -90.5328, 14.6248 ], // Guatemala City, Guatemala
   [ -99.9089, 16.8531 ], // Acapulco, Mexico
 ];
 
-
 	// create a D3 line generator
 	var line = d3.line()
 	.curve(d3.curveCatmullRom.alpha(0.5)) // set the curve type
